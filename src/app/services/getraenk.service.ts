@@ -1,9 +1,19 @@
-import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import { Getraenk} from '../model/getraenk.model';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+
+interface Getraenk {
+    id: number;
+    name: string;
+    beschreibung: string;
+    preis: number;
+    kategorie: string;
+    menge: number;
+    bildUrl: string;
+    lagerbestand: number;
+}
 
 @Injectable({
-    providedIn: 'root' 
+    providedIn: 'root'
 })
 
 export class GetraenkService{
@@ -16,13 +26,22 @@ export class GetraenkService{
         menge: 1000,
         bildUrl: 'public/images/alpro-barista-mandel.jpg',
         lagerbestand: 100
+    }, {
+        id: 2,
+        name: 'Alpro Barista Not Milk',
+        beschreibung: 'Shhh... This is Not Mlk. Pflanzlich, aufschäumbar, aus Hafer',
+        preis: 2.49,
+        kategorie: 'Milch',
+        menge: 1000,
+        bildUrl: 'public/images/Alpro-Barista-Not-MLK.jpg',
+        lagerbestand: 75
     }];
 
-getAllGetraenke(): Observable<Getraenk[]> {
+/*getAllGetraenke(): Observable<Getraenk[]> {
     return of(this.getraenke);
 }
 
 getGetraenkeByKategorie(kategorie: string): Observable<Getraenk[]> {
     return of(this.getraenke.filter(g => g.kategorie === kategorie));
-}
+}*/
 }
