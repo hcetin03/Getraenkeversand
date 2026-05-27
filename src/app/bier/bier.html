@@ -1,1 +1,1279 @@
+<<<<<<< HEAD
 <p>bier works!</p>
+=======
+<header class="main-header">
+  <div class="top-nav">
+    <div class="logo">Bier</div>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Was suchst du?">
+    </div>
+
+    <div class="user-nav">
+      <span>Lieferstatus</span>
+      <span>Favoriten</span>
+      <span>Konto</span>
+      <div class="cart-icon">🛒</div>
+    </div>
+  </div>
+
+<nav class="category-bar">
+  <a routerLink="/wasser" routerLinkActive="active" class="cat-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"/></svg> Wasser
+  </a>
+  <a routerLink="/limo-und-saft" routerLinkActive="active" class="cat-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8M5 8h14M7 15h10M12 8V2m0 0 2 2m-2-2-2 2"/></svg> Limo & Saft
+  </a>
+  <a routerLink="/bier" routerLinkActive="active" class="cat-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M17 11h1a3 3 0 1 1 0 6h-1M9 12v6M13 12v6M6 22h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2z"/></svg> Bier
+  </a>
+  <a routerLink="/milch" routerLinkActive="active" class="cat-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M15.2 22H8.8a2 2 0 0 1-2-1.79L5 3h14l-1.81 17.21A2 2 0 0 1 15.2 22zM6 12h12"/></svg> Milch
+  </a>
+  <a routerLink="/wein" routerLinkActive="active" class="cat-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M8 22h8M12 11v11M19 3a1 1 0 0 1 1 1v4c0 4.42-3.58 8-8 8s-8-3.58-8-8V4a1 1 0 0 1 1-1h14zM4 8h16"/></svg> Wein
+  </a>
+  <a routerLink="/kaffee" routerLinkActive="active" class="cat-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg> Kaffee
+  </a>
+</nav>
+ 
+</header>
+
+<main class="content-wrapper">
+  <nav class="breadcrumb">Startseite &gt; Bier &gt; <strong>Bier</strong></nav>
+  <h1 class="page-title">Bier</h1>
+
+  <div class="filter-bar">
+    <button class="filter-btn active">Alle Filter</button>
+    <button class="filter-btn">Pils</button>
+    <button class="filter-btn">Weizen</button>
+    <button class="filter-btn">Helles</button>
+    <button class="filter-btn">Alkoholfrei</button>
+  </div>
+
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/becksPils.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Pils 0,5l (MEHRWEG)</span>
+        <p class="name">Pilsener Bier</p>
+        <div class="card-footer">
+          <span class="price">1,29 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/becks.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Pils 0,33l (MEHRWEG)</span>
+        <p class="name">Pilsener Bier</p>
+        <div class="card-footer">
+          <span class="price">1,19 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-regional">Regional</div>
+      <img src="/images/becksGold.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Gold 0,33l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">1,19 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-regional">Regional</div>
+      <img src="/images/becksGreenLemon.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Green Lemon 0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 50% Bier und 50% Erfrischungsgetränk mit Lemon-Geschmack</p>
+        <div class="card-footer">
+          <span class="price">1,19 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/becksIce.png" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Ice 0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 50 % Bier und 50% Erfrischungsgetränk mit Lime-Mint-Geschmack</p>
+        <div class="card-footer">
+          <span class="price">1,19 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/becksBlue.png" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck´s Blue alkoholfrei 0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Biermischgetränk</p>
+        <div class="card-footer">
+          <span class="price">1,19 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/becksUnfiltered.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Unfiltered Pils 0,33l (MEHRWEG)</span>
+        <p class="name">Pilsener Bier</p>
+        <div class="card-footer">
+          <span class="price">1,19 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/becks6pilsener.png" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Becks Pilsner 6x0,5l (MEHRWEG)</span>
+        <p class="name">Pils</p>
+        <div class="card-footer">
+          <span class="price">6,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-regional">Regional</div>
+      <img src="/images/6becks0komma33.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Pils 6x0,33l(MEHRWEG)</span>
+        <p class="name">Pils</p>
+        <div class="card-footer">
+          <span class="price">4,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-regional">Regional</div>
+      <img src="/images/becksgold6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Gold 6x0,33l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">4,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-regional">Regional</div>
+      <img src="/images/becksLemongreen6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Green Lemon 6x0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 50% Bier und 50% Erfrischungsgetränk mit Lemon-Geschmack</p>
+        <div class="card-footer">
+          <span class="price">4,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/becksIce6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Ice Lime & Mint 6x0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 50 % Bier und 50% Erfrischungsgetränk mit Lime-Mint-Geschmack</p>
+        <div class="card-footer">
+          <span class="price">4,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/becksBlue6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Blue alkoholfrei 6x0,33l (MEHRWEG)</span>
+        <p class="name">Schankbier</p>
+        <div class="card-footer">
+          <span class="price">4,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/becksUnfiltered6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Unfiltered Pils 6x0,33l (MEHRWEG)</span>
+        <p class="name">Pils</p>
+        <div class="card-footer">
+          <span class="price">4,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/becksBlueLemon.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Blue Lemon alkoholfrei 6x0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Biermischgetränk</p>
+        <div class="card-footer">
+          <span class="price">4,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="product-card">
+      <div class="badge-regional">Regional</div>
+      <img src="/images/becksLemonBrew.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Lemon Brew Naturradler 6x0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 50 % Bier und 50 % gebrauter, naturtrüber Zitronenlimonade</p>
+        <div class="card-footer">
+          <span class="price">4,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/beckspilsDose.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Pils 0,5l (EINWEG)</span>
+        <p class="name">Pils</p>
+        <div class="card-footer">
+          <span class="price">0,79 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/becksGreenLemonDose.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Green Lemon 0,5l (EINWEG)</span>
+        <p class="name">Biermischgetränk aus 50% Bier und 50% Erfrischungsgetränk mit Lemon-Geschmack</p>
+        <div class="card-footer">
+          <span class="price">0,79 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/beckspilsKiste.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Pils 24x0,33l (MEHRWEG)</span>
+        <p class="name">Pils</p>
+        <div class="card-footer">
+          <span class="price">19,79 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/beckspilsGoldKiste.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Gold 24x0,33l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">19,79 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/becksGreenlemonKiste.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Green Lemon 24x0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 50% Bier und 50% Erfrischungsgetränk mit Lemon-Geschmack</p>
+        <div class="card-footer">
+          <span class="price">19,79 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/BecksIceKiste.webp" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Ice 24x0,33l(MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 50 % Bier und 50% Erfrischungsgetränk mit Lime-Mint-Geschmack</p>
+        <div class="card-footer">
+          <span class="price">19,79€</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/BecksBlueKiste.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Blue alkoholfrei 24x0,33l (MEHRWEG)</span>
+        <p class="name">alkoholfreies Schankbier</p>
+        <div class="card-footer">
+          <span class="price">19,79 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+   <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/BecksUnfilteredKiste.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Beck's Unfiltered 24x0,33l (MEHRWEG)</span>
+        <p class="name">Pils</p>
+        <div class="card-footer">
+          <span class="price">19,79 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/KrombacherPils.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Pils 0,5l (MEHRWEG)</span>
+        <p class="name">Pils</p>
+        <div class="card-footer">
+          <span class="price">1,19 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/KrombacherPils1.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Pils 0,33l (MEHRWEG)</span>
+        <p class="name">Pils</p>
+        <div class="card-footer">
+          <span class="price">1,05 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-regional">Regional</div>
+      <img src="/images/KrombacherPils2.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Pils alkoholfrei 0,33l (MEHRWEG)</span>
+        <p class="name">alkoholfreies Schankbier</p>
+        <div class="card-footer">
+          <span class="price">1,05 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/KrombacherRadler.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Radler 0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 50% Pils und 50% Zitronenlimonade</p>
+        <div class="card-footer">
+          <span class="price">1,05 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/KrombacherRadlerAlkFrei.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Radler alkoholfrei 0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Biermischgetränk aus 50% alkoholfreiem Pilsener und 50% Zitronenlimonade</p>
+        <div class="card-footer">
+          <span class="price">1,05 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+       <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/AlkFreiKrombacher.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Radler alkoholfrei 0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 60% Zitronenerfrischungsgetränk und 40% alkoholfreiem Pilsener.</p>
+        <div class="card-footer">
+          <span class="price">1,05 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+      <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/KrombacherNaturRadler.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Naturradler 0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 60% naturtrüber Zitronenlimonade und 40% Pils</p>
+        <div class="card-footer">
+          <span class="price">1,05 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/KrombacherDunkel.png" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Naturtrübes Dunkel 0,33l (MEHRWEG)</span>
+        <p class="name">Dunkles Schankbier</p>
+        <div class="card-footer">
+          <span class="price">1,05 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/KrombacherPils6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Pils 6x0,33l (MEHRWEG)</span>
+        <p class="name">Pilsener Bier</p>
+        <div class="card-footer">
+          <span class="price">5,49 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+    <div class="badge-regional">Regional</div>
+      <img src="/images/KrombacherPilsAlkFrei6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Pils alkoholfrei 0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Pilsener Bier</p>
+        <div class="card-footer">
+          <span class="price">5,29 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="badge-tiefpreis">Tiefpreis</div>
+      <img src="/images/KrombacherRadler6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Radler 6x0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 50% Pils und 50% Zitronenlimonade</p>
+        <div class="card-footer">
+          <span class="price">5,49 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img src="/images/Krombacher6RadlerAlcfrei.avif" alt="Produkt" class="p-img">
+      <div class="p-info"> 
+        <span class="brand">Krombacher Radler alkoholfrei 6x0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Biermischgetränk aus 50% alkoholfreiem Pilsener und 50% Zitronenlimonade</p>
+        <div class="card-footer">
+          <span class="price">5,49 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img src="/images/KrombacherRadlerzuckerfrei.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Radler zuckerfrei 6x0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 50% Pils und 50% zuckerfreier Zitronenlimonade mit Süßungsmitteln</p>
+        <div class="card-footer">
+          <span class="price">5,29 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="product-card">
+      <img src="/images/KrombacherWeizen6.png" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Weizen alkoholfrei 6x0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Weizenbier</p>
+        <div class="card-footer">
+          <span class="price">5,49 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img src="/images/Krombacher0komma0Alk.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Pils 0,0% alkoholfrei 6x0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Pilsener Bier</p>
+        <div class="card-footer">
+          <span class="price">5,49 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img src="/images/KrombacherRadlerAlkFrei6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Radler alkoholfrei 0,0% 6x0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 60% Zitronenerfrischungsgetränk und 40% alkoholfreiem Pilsener.</p>
+        <div class="card-footer">
+          <span class="price">5,49 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img src="/images/KrombacherNaturRadler6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Natur Radler 6x0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 60% naturtrüber Zitronenlimonade und 40% Pils</p>
+        <div class="card-footer">
+          <span class="price">5,49 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+       <div class="product-card">
+      <img src="/images/KrombacherAlmRadler.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Almradler 6x0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 60% Kräuterlimonade und 40% Pils</p>
+        <div class="card-footer">
+          <span class="price">5,49 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+       <div class="product-card">
+      <img src="/images/KrombacherDunkel6.png" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Naturtrübes Dunkel 6x0,33l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">5,29 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+       <div class="product-card">
+      <img src="/images/KormbacherKellerbier.png" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Krombacher Naturtrübes Kellerbier 6x0,33l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">5,29 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+        <div class="product-card">
+      <img src="/images/CoronaCero.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Corona Cero Bier alkoholfrei 0,335l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">1,65 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+        <div class="product-card">
+      <img src="/images/CoronaExtra.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Corona Mexican Beer 0,355l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">1,65 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+        <div class="product-card">
+      <img src="/images/CoronaCero6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Corona Cero 0,0% alkoholfrei 6x0,355l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">7,79 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+        <div class="product-card">
+      <img src="/images/CoronaExtra6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Corona Extra 6x0,35l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">7,79 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+         <div class="product-card">
+      <img src="/images/CoronaExtraDose.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Corona Extra 0,33l (EINWEG)</span>
+        <p class="name">Mexikanisches Maisbier</p>
+        <div class="card-footer">
+          <span class="price">1,19 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+         <div class="product-card">
+      <img src="/images/CoronaExtraKiste.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Corona Extra 20x0,35l (MEHRWEG)</span>
+        <p class="name">Mexikanisches Maisbier</p>
+        <div class="card-footer">
+          <span class="price">24,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+         <div class="product-card">
+      <img src="/images/Warsteiner.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Warsteiner 0,33l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">1,05 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+         <div class="product-card">
+      <img src="/images/WarSt.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Warsteiner Pilsener 0,5l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">1,15 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+         <div class="product-card">
+      <img src="/images/WarsteinerRadler.png" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Warsteiner Radler alkoholfrei 0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Biermischgetränk aus 60% Alkoholfreiem Bier und 40% Zitronen-Limonade (alkoholfreies Alster/Radler)</p>
+        <div class="card-footer">
+          <span class="price">1,05 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+          <div class="product-card">
+      <img src="/images/WarsteinerNaturRadlerZitrone.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Warsteiner Naturradler Zitrone 0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 60% Erfrischungsgetränk mit Zitronengeschmack und 40% Bier</p>
+        <div class="card-footer">
+          <span class="price">1,09 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+        <div class="product-card">
+      <img src="/images/WarsteinerNaturRadlerZitrone6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Warsteiner Radler naturtrüb 6x0,33l (MEHRWEG)</span>
+        <p class="name">Biermischgetränk aus 60% Erfrischungsgetränk mit Zitronengeschmack und 40% Bier</p>
+        <div class="card-footer">
+          <span class="price">3,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+
+          <div class="product-card">
+      <img src="/images/WarsteinerDose.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Warsteiner 0,5l (EINWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">0,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+      
+
+          <div class="product-card">
+      <img src="/images/WarsteinerAlkFrei.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Warsteiner alkoholfrei 6x0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Bier</p>
+        <div class="card-footer">
+          <span class="price">3,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+        <div class="product-card">
+      <img src="/images/WarsteinerBrewersGold.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Warsteiner Brewers Gold 6x0,33l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">3,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+
+        <div class="product-card">
+      <img src="/images/WarsteinerKiste.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Warsteiner 20x0,5l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">17,79 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+        <div class="product-card">
+      <img src="/images/WarsteinerK.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Warsteiner 24x0,33l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">17,79 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+    
+      <div class="product-card">
+      <img src="/images/VitaMalz.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Vitamalz Malztrunk 0,5l (MEHRWEG)</span>
+        <p class="name">Malztrunk</p>
+        <div class="card-footer">
+          <span class="price">0,95 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <img src="/images/VitaMalz1.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Vitamalz Malztrunk 0,75l (EINWEG)</span>
+        <p class="name">Malztrunk alkoholfrei</p>
+        <div class="card-footer">
+          <span class="price">1,29 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="product-card">
+      <img src="/images/VitaMalzDose.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Vitamalz alkoholfrei 0,33l (EINWEG)</span>
+        <p class="name">Malztrunk</p>
+        <div class="card-footer">
+          <span class="price">0,89 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+       <div class="product-card">
+      <img src="/images/VitaMalz6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Vitamalz Malztrunk 6x0,75l (EINWEG)</span>
+        <p class="name">Malztrunk alkoholfrei</p>
+        <div class="card-footer">
+          <span class="price">7,14 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <img src="/images/VitaMalzAlkFrei6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Vitamalz 6x0,33l (MEHRWEG)</span>
+        <p class="name">Malztrunk alkoholfrei</p>
+        <div class="card-footer">
+          <span class="price">4,49 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img src="/images/VitaMalzSport.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Vitamalz Sport Isotonisch 0,33l(MEHRWEG)</span>
+        <p class="name">Malztrunk</p>
+        <div class="card-footer">
+          <span class="price">0,85 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="product-card">
+      <img src="/images/VitaMalzSport6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Vitamalz Sport Isotonisch 6x0,33l (MEHRWEG)</span>
+        <p class="name">Malztrunk</p>
+        <div class="card-footer">
+          <span class="price">4,49 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+      <div class="product-card">
+      <img src="/images/Löwenbrau.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Löwenbräu Original 0,5l (MEHRWEG)</span>
+        <p class="name">Hell</p>
+        <div class="card-footer">
+          <span class="price">1,09 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+        <div class="product-card">
+      <img src="/images/BitburgerPremiumPils.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Bitburger Pils 0,33l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">0,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+       <div class="product-card">
+      <img src="/images/bitburger00.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Bitburger Pils 0,0% alkoholfrei 0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Bier</p>
+        <div class="card-footer">
+          <span class="price">0,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+       <div class="product-card">
+      <img src="/images/Bitburger.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Bitburger Pils 0,0% alkoholfrei 6x0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Bier</p>
+        <div class="card-footer">
+          <span class="price">4,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+       <div class="product-card">
+      <img src="/images/BayreutherHell.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Bayreuther Brauhaus hell 0,5l (MEHRWEG)</span>
+        <p class="name">Vollbier</p>
+        <div class="card-footer">
+          <span class="price">1,09 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <img src="/images/PaulanerOriginal.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Paulaner Original Münchner Hell 0,33l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">1,15 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <img src="/images/PaulanerAlkFrei.png" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Paulaner Münchner Hell alkoholfrei 0,5l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Bier</p>
+        <div class="card-footer">
+          <span class="price">1,15 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <img src="/images/PaulanerHefeWeiss.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Paulaner Hefe-Weißbier Naturtrüb 0,5l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">1,35 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <img src="/images/PaulanerSalvator.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Paulaner Salvator 0,5l (MEHRWEG)</span>
+        <p class="name">Starkbier</p>
+        <div class="card-footer">
+          <span class="price">1,45 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+   
+     <div class="product-card">
+      <img src="/images/PaulanerDose.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Paulaner Münchner Hell 0,5l (EINWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">1,19 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <img src="/images/PHW.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Paulaner Hefe-Weißbier naturtrüb 6x0,33l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">4,79 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <img src="/images/p.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Paulaner Hefe-Weißbier alkoholfrei 6x0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Bier</p>
+        <div class="card-footer">
+          <span class="price">4,79 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+    
+     <div class="product-card">
+      <img src="/images/Pkiste.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Paulaner Hefe-Weißbier naturtrüb 20x0,5l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">20,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+
+     <div class="product-card">
+      <img src="/images/TurmbräuExport.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Turmbräu Export 0,5l (EINWEG)</span>
+        <p class="name">Bier, Export</p>
+        <div class="card-footer">
+          <span class="price">0,55 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <img src="/images/Turmbräu.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Original Turmbräu 0,5l (EINWEG)</span>
+        <p class="name">Bier, Pils</p>
+        <div class="card-footer">
+          <span class="price">0,55 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <img src="/images/PaderbornerPilsener.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Paderborner Pilsener 0,5l (EINWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">0,75 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <img src="/images/Paderborner.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Paderborner Export 20x0,5l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">9,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+
+     <div class="product-card">
+      <img src="/images/jever0.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Jever Pilsener 0,5l (EINWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">1,29 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+
+     <div class="product-card">
+      <img src="/images/jever1.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Jever Pilsener 0,33l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">1,29 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+
+      <div class="product-card">
+      <img src="/images/jeverfun.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Jever Fun Pilsener alkoholfrei 0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Bier</p>
+        <div class="card-footer">
+          <span class="price">1,19 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+        <div class="product-card">
+      <img src="/images/jeverLight.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Jever Light 0,33l (MEHRWEG)</span>
+        <p class="name">Schankbier</p>
+        <div class="card-footer">
+          <span class="price">1,29 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+        <div class="product-card">
+      <img src="/images/jeverfunzitrone.png" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Jever Fun alkoholfrei Biermix Zitrone 0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Biermischgetränk aus 50% alkoholfreiem Pilsener und 50% naturtrüber Zitronenlimonade.</p>
+        <div class="card-footer">
+          <span class="price">1,19 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+        <div class="product-card">
+      <img src="/images/jeverfunblutorange.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Jever Fun Biermix Blutorange alkoholfrei 0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Biermischgetränk aus 50% alkoholfreiem Pilsener und 50% naturtrüber Limonade mit Blutorangengeschmack.</p>
+        <div class="card-footer">
+          <span class="price">1,29 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+       <div class="product-card">
+      <img src="/images/jeverdose.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Jever Pilsener 0,5l (EINWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">0,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <img src="/images/jeverpilsener6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Jever Pilsener 6x0,33l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">4,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+      
+    <div class="product-card">
+      <img src="/images/jeverfun6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Jever Fun alkoholfrei 6x0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Bier</p>
+        <div class="card-footer">
+          <span class="price">4,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <img src="/images/jeverfunzitrone6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Jever Fun Biermix Zitrone alkoholfrei 6x0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Biermischgetränk aus 50% alkoholfreiem Pilsener und 50% naturtrüber Zitronenlimonade.</p>
+        <div class="card-footer">
+          <span class="price">4,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <img src="/images/jeverfunblutorange6.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Jever Fun Blutorange alkoholfrei 6x0,33l (MEHRWEG)</span>
+        <p class="name">Alkoholfreies Biermischgetränk aus 50% alkoholfreiem Pilsener und 50% naturtrüber Limonade mit Blutorangengeschmack.</p>
+        <div class="card-footer">
+          <span class="price">4,99 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     <div class="product-card">
+      <img src="/images/jeverkiste.avif" alt="Produkt" class="p-img">
+      <div class="p-info">
+        <span class="brand">Jever Pilsener 24x0,33l (MEHRWEG)</span>
+        <p class="name">Bier</p>
+        <div class="card-footer">
+          <span class="price">17,49 €</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+     
+
+  
+    
+   
+    
+   
+
+    
+
+      
+
+
+
+
+
+
+
+  
+ 
+>>>>>>> caa384637f35fc40decf2234f5875c663186d562

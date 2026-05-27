@@ -334,3 +334,28 @@ header {
 
 .margin-top { margin-top: 25px; }
 .legal-text { font-size: 11px; color: #aaa; margin-top: 15px; }
+<<<<<<< HEAD
+=======
+
+/* Richtet das Icon und den Text sauber in einer Reihe aus */
+.cat-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Abstand zwischen Icon und Text */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Stylt das Icon selbst */
+.material-symbols-outlined {
+  font-size: 22px; /* Größe des Icons */
+  vertical-align: middle;
+}
+
+/* Farbwechsel, wenn ein Menüpunkt aktiv ist oder überflogen wird */
+.cat-item.active .material-symbols-outlined,
+.cat-item:hover .material-symbols-outlined {
+  color: #07f0c5; /* Nutze hier das Grün oder Blau deiner Seite */
+}
+
+>>>>>>> caa384637f35fc40decf2234f5875c663186d562
