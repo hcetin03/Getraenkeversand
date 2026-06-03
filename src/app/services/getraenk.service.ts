@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/*import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 interface Getraenk {
@@ -24,7 +24,7 @@ export class GetraenkService{
         preis: 2.49,
         kategorie: 'Milch',
         menge: 1000,
-        bildUrl: 'public/images/alpro-barista-mandel.jpg',
+        bildUrl: 'public/images/Alpro-Barista-Mandel.png',
         lagerbestand: 100
     }, {
         id: 2,
@@ -33,7 +33,7 @@ export class GetraenkService{
         preis: 2.49,
         kategorie: 'Milch',
         menge: 1000,
-        bildUrl: 'public/images/Alpro-Barista-Not-MLK.jpg',
+        bildUrl: 'public/images/Alpro_Barista_Not_MLK.png',
         lagerbestand: 75
     }];
 
@@ -44,4 +44,3 @@ export class GetraenkService{
 getGetraenkeByKategorie(kategorie: string): Observable<Getraenk[]> {
     return of(this.getraenke.filter(g => g.kategorie === kategorie));
 }*/
-}

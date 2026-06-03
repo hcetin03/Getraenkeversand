@@ -3,9 +3,8 @@ export interface Getraenk {
     name: string;
     beschreibung: string;
     preis: number;
-    kategorie: 'Bier' | 'Kaffee' | 'Milch' | 'Wasser';
+    kategorie: string;
     alkoholgehalt?: number;
-    menge: number;
-    bildUrl: string;
-    lagerbestand: number;
+    bestand: number;
+    bildUrl?: string;
 }
