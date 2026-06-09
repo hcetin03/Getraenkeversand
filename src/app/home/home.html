@@ -86,35 +86,27 @@
   <h2>Beliebte Marken</h2>
   
   <div class="brands-wrapper">
-    <button class="slider-arrow left-arrow" aria-label="Vorherige Marken">
+    <button class="slider-arrow left-arrow" (click)="scrollSlider(-200)" aria-label="Vorherige Marken">
       <span class="arrow-icon">‹</span>
     </button>
 
-    <div class="brands-container">
-      <div class="brand-card">
-        <div class="brand-logo-placeholder p-blue">Vilsa</div>
-      </div>
-      <div class="brand-card">
-        <div class="brand-logo-placeholder p-italic">Freixenet</div>
-      </div>
-      <div class="brand-card">
-        <div class="brand-logo-placeholder p-green">hohes C</div>
-      </div>
-      <div class="brand-card">
-        <div class="brand-logo-placeholder p-red">Tanqueray</div>
-      </div>
-      <div class="brand-card">
-        <div class="brand-logo-placeholder p-bold">VELTINS</div>
-      </div>
-      <div class="brand-card">
-        <div class="brand-logo-placeholder p-leaf">Simplea</div>
-      </div>
-      <div class="brand-card">
-        <div class="brand-logo-placeholder p-blue-bold">Weihenstephan</div>
-      </div>
+    <div class="brands-container" #brandSlider>
+      <div class="brand-card"><img src="images/VilsaLogo.jpg" alt="Vilsa" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/LiptonLogo.jpg" alt="Lipton" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/hohes-c.png" alt="hohes C" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/MelittaLogo.png" alt="Melitta" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/veltins.png" alt="VELTINS" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/simplea.png" alt="Simplea" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/weihenstephan.png" alt="Weihenstephan" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/cocacola.png" alt="Coca-Cola" class="brand-logo"></div>
     </div>
+
+    <button class="slider-arrow right-arrow" (click)="scrollSlider(200)" aria-label="Nächste Marken">
+      <span class="arrow-icon">›</span>
+    </button>
   </div>
 </section>
+
 <footer class="site-footer">
   <div class="footer-container">
     <div class="footer-column">
