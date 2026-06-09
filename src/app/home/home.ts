@@ -1,14 +1,4 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
-
-@Component({
-  selector: 'app-home',
-  imports: [],
-  templateUrl: './home.html',
-  styleUrl: './home.css',
-})
-export class Home {}
-=======
 import { RouterLink, RouterLinkActive } from '@angular/router';
 // 1. Importiere das Lucide-Modul für Angular hier oben
 import { LucideAngularModule } from 'lucide-angular';
@@ -30,4 +20,3 @@ export class Home {
   WeinIcon = 'wine';
   KaffeeIcon = 'coffee';
 }
->>>>>>> caa384637f35fc40decf2234f5875c663186d562
