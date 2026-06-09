@@ -9,74 +9,50 @@ body {
   color: #333;
 }
 
-main {
-  display: block;
-}
-
-/* ==========================================================================
-   2. HEADER & NAVIGATION (Zusammengefasst & Bereinigt)
-   ========================================================================== */
-header {
-  background: linear-gradient(90deg, steelblue 0%, seagreen 100%);
-  padding: 10px 0 0 0; /* Unten kein Padding, damit die Icon-Leiste direkt anschließt */
+/* --- HEADER / NAVIGATION --- */
+.main-header {
+  width: 100%;
   position: sticky;
   top: 0;
   z-index: 1000;
-  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  background-color: white;
 }
 
-.top-bar {
+.top-nav {
+  background: linear-gradient(90deg, #4b89b8 0%, #2e8b57 100%);
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 10px 7%;
-  gap: 20px;
+  align-items: center;
+  padding: 12px 5%;
+  color: white;
 }
 
 .logo {
-  font-weight: bold;
-  font-size: 25px;
-  color: white; 
-  text-decoration: none;
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
 }
 
-.search-container {
-  flex-grow: 1;
-  max-width: 600px;
-}
-
-/* Suchleiste poliert mit Glaseffekt */
-.search-container input {
-  width: 100%;
+.search-bar input {
+  width: 450px;
   padding: 10px 20px;
-  border-radius: 20px; /* Schön rund */
+  border-radius: 25px;
   border: none;
-  background-color: rgba(255, 255, 255, 0.15); /* Dezenter Glaseffekt */
+  background: rgba(255, 255, 255, 0.15);
   color: white;
-  outline: none;
-  font-size: 14px;
-  transition: background-color 0.2s;
 }
 
-.search-container input:focus {
-  background-color: rgba(255, 255, 255, 0.25);
+.search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.75);
 }
 
-.search-container input::placeholder {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.nav-links {
+.user-nav {
   display: flex;
-  gap: 25px; /* Abstand zwischen Lieferstatus, Favoriten etc. */
   align-items: center;
-  color: white;
-  font-size: 13px;
-}
-
-.nav-links span, .nav-links i {
-  color: white;
-  cursor: pointer;
+  gap: 25px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .nav-links i {
@@ -93,40 +69,46 @@ header {
 
 /* --- ICON-LEISTE (Category Bar) --- */
 .category-bar {
+  background-color: white;
   display: flex;
   justify-content: center;
-  gap: 30px;
-  padding: 12px 0;
-  background-color: white; /* Weißer Hintergrund für starken Kontrast */
-  margin: 0; /* Direkt am Header */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Leichter Schatten nach unten */
-  overflow-x: auto;
+  gap: 35px;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
 }
 
-/* Versteckt die Scrollbar auf Mobilgeräten in der Kategorie-Leiste */
-.category-bar::-webkit-scrollbar {
-  display: none;
-}
-.category-bar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.cat-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  font-weight: 500;
+.category-bar .cat-item {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  text-decoration: none !important;
+  color: #666666 !important;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
-  color: #666;
-  text-decoration: none;
-  transition: color 0.2s;
-  white-space: nowrap;
+  padding: 4px 0;
+  position: relative;
 }
 
-.cat-item:hover, .cat-item.active {
-  color: darkslateblue;
+.category-bar .cat-item svg {
+  width: 20px !important;
+  height: 20px !important;
+  stroke: currentColor !important;
+  display: block;
+}
+
+.category-bar .cat-item.active {
+  color: #1a1a1a !important;
+}
+
+.category-bar .cat-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #2e8b57;
 }
 
 .nav-icon {
@@ -199,119 +181,8 @@ header {
 .bg-pink { background-color: #fffafb; }
 .bg-yellow { background-color: #fffdf5; }
 .bg-green { background-color: #f7fdf9; }
-.bg-blue { background-color: #f2f8fc; }
-.bg-orange { background-color: #fff6ee; }
 
-/* ==========================================================================
-   5. NEU: BELIEBTE MARKEN SEKTION (REWE-Style)
-   ========================================================================== */
-.brands-section {
-  max-width: 1200px;
-  margin: 50px auto 20px auto;
-  padding: 0 20px;
-}
-
-.brands-section h2 {
-  font-size: 1.6rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #222;
-}
-
-.brands-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.brands-container {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  width: 100%;
-  padding: 10px 4px;
-}
-
-/* Scrollbalken für ein sauberes Design unsichtbar machen */
-.brands-container::-webkit-scrollbar {
-  display: none;
-}
-.brands-container {
-  -ms-overflow-style: none;  
-  scrollbar-width: none;  
-}
-
-.brand-card {
-  min-width: 155px;
-  max-width: 155px;
-  height: 155px;
-  background-color: #ffffff;
-  border: 1px solid #e8e8e8;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.01);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-}
-
-.brand-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-}
-
-/* Styles für die Text-Marken-Platzhalter */
-.brand-logo-placeholder {
-  font-size: 1.1rem;
-  font-weight: 500;
-  text-align: center;
-}
-.p-blue { color: #0066cc; }
-.p-italic { font-style: italic; font-family: Georgia, serif; color: #333; }
-.p-green { color: #007a3d; font-weight: bold; }
-.p-red { color: #c8102e; font-family: 'Times New Roman', serif; }
-.p-bold { font-weight: 900; color: #111; letter-spacing: 1px; }
-.p-leaf { color: #4caf50; font-style: italic; }
-.p-blue-bold { color: #0a2540; font-weight: bold; }
-
-/* Der links herausragende Pfeil */
-.slider-arrow {
-  position: absolute;
-  left: -22px; /* Setzt den Pfeil halb auf den Rand */
-  z-index: 5;
-  width: 44px;
-  height: 44px;
-  background: #ffffff;
-  border: 1px solid #dddddd;
-  border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
-}
-
-.slider-arrow:hover {
-  background-color: #f9f9f9;
-  transform: scale(1.05);
-}
-
-.arrow-icon {
-  font-size: 2rem;
-  color: #28a745; /* Das typische helle Verkäufer-Grün */
-  font-weight: 300;
-  line-height: 1;
-  margin-right: 2px;
-  margin-bottom: 4px;
-}
-
-/* ==========================================================================
-   6. SITE FOOTER DESIGN
-   ========================================================================== */
+/* --- FOOTER DESIGN --- */
 .site-footer {
   background-color: #333333; /* Dunkles Grau wie im Bild */
   color: #ffffff;

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router'; // Importieren!
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-milch',
-  imports: [],
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './milch.html',
   styleUrl: './milch.css',
 })

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router'; // Importieren!
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-bier',
   standalone: true,
-  imports: [RouterLink], // Hier eintragen!
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './bier.html',
   styleUrl: './bier.css',
 })
