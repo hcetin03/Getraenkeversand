@@ -1,14 +1,4 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
-
-@Component({
-  selector: 'app-bier',
-  imports: [],
-  templateUrl: './bier.html',
-  styleUrl: './bier.css',
-})
-export class Bier {}
-=======
 import { RouterLink } from '@angular/router'; // Importieren!
 
 @Component({
@@ -19,4 +9,3 @@ import { RouterLink } from '@angular/router'; // Importieren!
   styleUrl: './bier.css',
 })
 export class Bier {}
->>>>>>> caa384637f35fc40decf2234f5875c663186d562

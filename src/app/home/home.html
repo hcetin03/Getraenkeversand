@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> caa384637f35fc40decf2234f5875c663186d562
 <header>
   <div class="top-bar">
-    <a href="#" class="logo">Getränke-Versand HSB</a>
+    <a routerLink="/" class="logo">Getränke-Versand HSB</a>
     <div class="search-container">
       <input type="text" placeholder="Was suchst du?">
     </div>
@@ -12,44 +8,32 @@
       <span>Lieferstatus</span>
       <span>Favoriten</span>
       <span>Konto</span>
-      <i data-lucide="shopping-cart"></i>
+      <a routerLink="/warenkorb" class="cart-link" title="Warenkorb öffnen">
+        <i data-lucide="shopping-cart"></i>
+      </a>
     </div>
   </div>
 
-<<<<<<< HEAD
   <nav class="category-bar">
-    <<a href="/wasser" class="cat-item"><i data-lucide="droplets"></i> Wasser</a>
-    <a href="/limo-saft" class="cat-item"><i data-lucide="cup-soda"></i>Limo & Saft </a>
-    <a href="/bier" class="cat-item"><i data-lucide="beer"></i> Bier</a>
-    <a href="/milch" class="cat-item"><i data-lucide="milk"></i>Milch</a>
-    <a href="/weine" class="cat-item"><i data-lucide="wine"></i> Weine</a>
-    <a href="/kaffee" class="cat-item"><i data-lucide="coffee"></i> Kaffee</a>
-    <a href="/zubehoer" class="cat-item"><i data-lucide="store"></i>Zubehör</a>
+    <a routerLink="/wasser" routerLinkActive="active" class="cat-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"/></svg> Wasser
+    </a>
+    <a routerLink="/limo-und-saft" routerLinkActive="active" class="cat-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8M5 8h14M7 15h10M12 8V2m0 0 2 2m-2-2-2 2"/></svg> Limo & Saft
+    </a>
+    <a routerLink="/bier" routerLinkActive="active" class="cat-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M17 11h1a3 3 0 1 1 0 6h-1M9 12v6M13 12v6M6 22h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2z"/></svg> Bier
+    </a>
+    <a routerLink="/milch" routerLinkActive="active" class="cat-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M15.2 22H8.8a2 2 0 0 1-2-1.79L5 3h14l-1.81 17.21A2 2 0 0 1 15.2 22zM6 12h12"/></svg> Milch
+    </a>
+    <a routerLink="/wein" routerLinkActive="active" class="cat-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M8 22h8M12 11v11M19 3a1 1 0 0 1 1 1v4c0 4.42-3.58 8-8 8s-8-3.58-8-8V4a1 1 0 0 1 1-1h14zM4 8h16"/></svg> Wein
+    </a>
+    <a routerLink="/kaffee" routerLinkActive="active" class="cat-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg> Kaffee
+    </a>
   </nav>
-=======
-
-<nav class="category-bar">
-  <a routerLink="/wasser" routerLinkActive="active" class="cat-item">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"/></svg> Wasser
-  </a>
-  <a routerLink="/limo-und-saft" routerLinkActive="active" class="cat-item">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8M5 8h14M7 15h10M12 8V2m0 0 2 2m-2-2-2 2"/></svg> Limo & Saft
-  </a>
-  <a routerLink="/bier" routerLinkActive="active" class="cat-item">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M17 11h1a3 3 0 1 1 0 6h-1M9 12v6M13 12v6M6 22h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2z"/></svg> Bier
-  </a>
-  <a routerLink="/milch" routerLinkActive="active" class="cat-item">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M15.2 22H8.8a2 2 0 0 1-2-1.79L5 3h14l-1.81 17.21A2 2 0 0 1 15.2 22zM6 12h12"/></svg> Milch
-  </a>
-  <a routerLink="/wein" routerLinkActive="active" class="cat-item">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M8 22h8M12 11v11M19 3a1 1 0 0 1 1 1v4c0 4.42-3.58 8-8 8s-8-3.58-8-8V4a1 1 0 0 1 1-1h14zM4 8h16"/></svg> Wein
-  </a>
-  <a routerLink="/kaffee" routerLinkActive="active" class="cat-item">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg> Kaffee
-  </a>
-</nav>
-
->>>>>>> caa384637f35fc40decf2234f5875c663186d562
 </header>
 
 <section class="hero-banner">
@@ -59,7 +43,6 @@
     <a href="#" class="btn-white">Mehr erfahren</a>
   </div>
 </section>
-
 
 <main class="grid-container">
   <div class="grid-card bg-green">
@@ -84,10 +67,39 @@
   </div>
 </main>
 
-<<<<<<< HEAD
+<section class="brands-section">
+  <h2>Beliebte Marken</h2>
+  
+  <div class="brands-wrapper">
+    <button class="slider-arrow left-arrow" aria-label="Vorherige Marken">
+      <span class="arrow-icon">‹</span>
+    </button>
 
-=======
->>>>>>> caa384637f35fc40decf2234f5875c663186d562
+    <div class="brands-container">
+      <div class="brand-card">
+        <div class="brand-logo-placeholder p-blue">Vilsa</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-logo-placeholder p-italic">Freixenet</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-logo-placeholder p-green">hohes C</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-logo-placeholder p-red">Tanqueray</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-logo-placeholder p-bold">VELTINS</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-logo-placeholder p-leaf">Simplea</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-logo-placeholder p-blue-bold">Weihenstephan</div>
+      </div>
+    </div>
+  </div>
+</section>
 <footer class="site-footer">
   <div class="footer-container">
     <div class="footer-column">
@@ -96,7 +108,6 @@
       <a href="#">Unsere Verantwortung</a>
       <a href="#">Jobs <span class="badge-gesucht">GESUCHT</span></a>
       <a href="#">Newsroom</a>
-
     </div>
 
     <div class="footer-column">
@@ -142,11 +153,6 @@
     <a href="#">AGB</a> | <a href="#">Datenschutzinformation</a> | <a href="#">Impressum</a>
   </div>
   <div class="copyright">
-    © dein-shop name
-<<<<<<< HEAD
+    © 2026 Getränke-Versand HSB. Alle Rechte vorbehalten.
   </div>
-</footer>
-=======
-  
 
->>>>>>> caa384637f35fc40decf2234f5875c663186d562

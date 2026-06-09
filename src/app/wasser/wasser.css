@@ -1,0 +1,202 @@
+/* --- BASIS STYLING --- */
+body {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f8f9fa; /* Ganz leichtes Grau für den Hintergrund */
+  margin: 0;
+  color: #333;
+}
+
+/* --- HEADER MIT MODERNEM VERLAUF --- */
+.main-header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.top-nav {
+  /* Farbverlauf wie in deinem Screenshot */
+  background: linear-gradient(90deg, #4b89b8 0%, #2e8b57 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 5%;
+  color: white;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+/* Moderne Suchleiste mit Glaseffekt */
+.search-bar input {
+  width: 450px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s;
+}
+
+.search-bar input:focus {
+  background: rgba(255, 255, 255, 0.25);
+  outline: none;
+  width: 480px;
+}
+
+.user-nav {
+  display: flex;
+  gap: 25px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Weiße Kategorieleiste */
+.category-nav {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.category-nav a {
+  text-decoration: none;
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.category-nav a:hover {
+  color: #2e8b57;
+}
+
+/* --- PRODUKT SEITE --- */
+.product-page {
+  padding: 30px 5%;
+}
+
+.page-title {
+  font-size: 36px;
+  font-weight: 800;
+  margin: 15px 0 25px 0;
+}
+
+/* Moderne Filter-Pillen */
+.filter-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.filter-btn {
+  background: white;
+  border: 1px solid #e0e0e0;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: #333;
+  background-color: #f0f0f0;
+}
+
+/* --- DAS PRODUKT GRID --- */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.product-card {
+  background: white;
+  border: none; /* Rand entfernen für modernen Look */
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03); /* Sehr dezenter Schatten */
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.p-img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+
+.brand {
+  color: #999;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.name {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 8px 0 20px 0;
+  line-height: 1.4;
+}
+
+.card-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Der markante rote Plus-Button */
+.add-btn {
+  background-color: midnightblue;
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-btn:hover {
+  background-color: midnightblue;
+}
+
+/* Badges */
+.badge-tiefpreis, .badge-regional {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  z-index: 10;
+}
+
+.badge-tiefpreis { background: #003a79; color: white; }
+.badge-regional { background: #ffcc00; color: #333; }

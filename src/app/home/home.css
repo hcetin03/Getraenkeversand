@@ -1,4 +1,6 @@
-/* Grund-Setup */
+/* ==========================================================================
+   1. GRUND-SETUP & ALLGEMEINES
+   ========================================================================== */
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
@@ -7,29 +9,34 @@ body {
   color: #333;
 }
 
-/* --- NAVIGATION --- */
+main {
+  display: block;
+}
+
+/* ==========================================================================
+   2. HEADER & NAVIGATION (Zusammengefasst & Bereinigt)
+   ========================================================================== */
 header {
-  /* Farbverlauf für den Header integriert */
-  background: linear-gradient(90deg, blue 45%, paleturquoise 100%);
-  padding: 13px 7%;
-  border-bottom: none;
+  background: linear-gradient(90deg, steelblue 0%, seagreen 100%);
+  padding: 10px 0 0 0; /* Unten kein Padding, damit die Icon-Leiste direkt anschließt */
   position: sticky;
   top: 0;
   z-index: 1000;
-  color: white; /* Text im Header allgemein auf weiß gestellt */
+  color: white;
 }
 
 .top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 10px 7%;
   gap: 20px;
 }
 
 .logo {
   font-weight: bold;
   font-size: 25px;
-  color: white; /* Logo auf Weiß geändert für den Verlauf */
+  color: white; 
   text-decoration: none;
 }
 
@@ -38,42 +45,71 @@ header {
   max-width: 600px;
 }
 
+/* Suchleiste poliert mit Glaseffekt */
 .search-container input {
-  width: 80%;
-  padding: 12px 15px;
-  border-radius: 20px;
-  border: none; /* Border entfernt für cleanen Look auf Farbe */
-  background-color: rgba(255, 255, 255, 0.2); /* Leicht transparentes Weiß */
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 20px; /* Schön rund */
+  border: none;
+  background-color: rgba(255, 255, 255, 0.15); /* Dezenter Glaseffekt */
   color: white;
   outline: none;
+  font-size: 14px;
+  transition: background-color 0.2s;
 }
 
-/* Platzhalter-Farbe für die Suche anpassen */
+.search-container input:focus {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
 .search-container input::placeholder {
   color: rgba(255, 255, 255, 0.8);
 }
 
 .nav-links {
   display: flex;
-  gap: 35px; /* 2. ABSTÄNDE VERGRÖSSERT für Lieferstatus, Favoriten, Konto */
-  font-size: 14px;
+  gap: 25px; /* Abstand zwischen Lieferstatus, Favoriten etc. */
   align-items: center;
+  color: white;
+  font-size: 13px;
 }
 
-/* Links im Header weiß machen */
 .nav-links span, .nav-links i {
   color: white;
   cursor: pointer;
 }
 
+.nav-links i {
+  font-size: 20px; /* Warenkorb-Icon etwas größer */
+}
+
+/* Fix für das Header-Warenkorb-Icon (Link-Wrapper) */
+.cart-link {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* --- ICON-LEISTE (Category Bar) --- */
 .category-bar {
   display: flex;
   justify-content: center;
-  gap: 25px;
-  padding: 15px 0;
+  gap: 30px;
+  padding: 12px 0;
+  background-color: white; /* Weißer Hintergrund für starken Kontrast */
+  margin: 0; /* Direkt am Header */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Leichter Schatten nach unten */
   overflow-x: auto;
-  background-color: white; /* Icon-Leiste bleibt weiß für Kontrast */
-  color: #555;
+}
+
+/* Versteckt die Scrollbar auf Mobilgeräten in der Kategorie-Leiste */
+.category-bar::-webkit-scrollbar {
+  display: none;
+}
+.category-bar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .cat-item {
@@ -81,17 +117,26 @@ header {
   align-items: center;
   gap: 8px;
   font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  color: #555;
+  color: #666;
+  text-decoration: none;
   transition: color 0.2s;
   white-space: nowrap;
 }
 
-.cat-item:hover {
+.cat-item:hover, .cat-item.active {
   color: darkslateblue;
 }
 
-/* --- BANNER --- */
+.nav-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ==========================================================================
+   3. HERO BANNER
+   ========================================================================== */
 .hero-banner {
   margin: 20px 5%;
   background: linear-gradient(90deg, steelblue 0%, seagreen 100%);
@@ -119,7 +164,9 @@ header {
   margin-top: 20px;
 }
 
-/* --- GRID SYSTEM --- */
+/* ==========================================================================
+   4. GRID SYSTEM (Bunte Kacheln)
+   ========================================================================== */
 .grid-container {
   margin: 40px 5%;
   display: grid;
@@ -152,74 +199,125 @@ header {
 .bg-pink { background-color: #fffafb; }
 .bg-yellow { background-color: #fffdf5; }
 .bg-green { background-color: #f7fdf9; }
-/* --- HEADER ANPASSUNG --- */
-header {
-  background: linear-gradient(90deg, steelblue 0%, seagreen 100%);
-  padding: 10px 0 0 0; /* Unten kein Padding, damit die Icon-Leiste direkt anschließt */
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+.bg-blue { background-color: #f2f8fc; }
+.bg-orange { background-color: #fff6ee; }
+
+/* ==========================================================================
+   5. NEU: BELIEBTE MARKEN SEKTION (REWE-Style)
+   ========================================================================== */
+.brands-section {
+  max-width: 1200px;
+  margin: 50px auto 20px auto;
+  padding: 0 20px;
 }
 
-.top-bar {
+.brands-section h2 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.brands-wrapper {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 5%; /* Padding hier statt im Header */
-  gap: 20px;
 }
 
-/* --- SUCHLEISTE POLIEREN --- */
-.search-container input {
+.brands-container {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
   width: 100%;
-  padding: 10px 20px;
-  border-radius: 20px; /* Schön rund */
-  border: none;
-  background-color: rgba(255, 255, 255, 0.15); /* Dezenter Glaseffekt */
-  color: white;
-  outline: none;
-  font-size: 14px;
+  padding: 10px 4px;
 }
 
-/* Suchleiste heller beim Anklicken */
-.search-container input:focus {
-  background-color: rgba(255, 255, 255, 0.25);
+/* Scrollbalken für ein sauberes Design unsichtbar machen */
+.brands-container::-webkit-scrollbar {
+  display: none;
+}
+.brands-container {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
 }
 
-/* --- ICON-LEISTE (Category Bar) --- */
-.category-bar {
+.brand-card {
+  min-width: 155px;
+  max-width: 155px;
+  height: 155px;
+  background-color: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
   display: flex;
-  justify-content: center;
-  gap: 30px;
-  padding: 12px 0;
-  background-color: white; /* Weißer Hintergrund wie bei Flaschenpost */
-  margin: 0; /* Direkt am Header */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Leichter Schatten nach unten */
-}
-
-.cat-item {
-  color: #666;
-  font-weight: 500;
-}
-
-/* --- NAVIGATION RECHTS --- */
-.nav-links {
-  display: flex;
-  gap: 25px; /* Abstand zwischen Lieferstatus, Favoriten etc. */
   align-items: center;
-  color: white;
-  font-size: 13px;
+  justify-content: center;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.01);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
 }
 
-.nav-links i {
-  font-size: 20px; /* Warenkorb-Icon etwas größer */
+.brand-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
-/* --- FOOTER DESIGN --- */
+
+/* Styles für die Text-Marken-Platzhalter */
+.brand-logo-placeholder {
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: center;
+}
+.p-blue { color: #0066cc; }
+.p-italic { font-style: italic; font-family: Georgia, serif; color: #333; }
+.p-green { color: #007a3d; font-weight: bold; }
+.p-red { color: #c8102e; font-family: 'Times New Roman', serif; }
+.p-bold { font-weight: 900; color: #111; letter-spacing: 1px; }
+.p-leaf { color: #4caf50; font-style: italic; }
+.p-blue-bold { color: #0a2540; font-weight: bold; }
+
+/* Der links herausragende Pfeil */
+.slider-arrow {
+  position: absolute;
+  left: -22px; /* Setzt den Pfeil halb auf den Rand */
+  z-index: 5;
+  width: 44px;
+  height: 44px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.slider-arrow:hover {
+  background-color: #f9f9f9;
+  transform: scale(1.05);
+}
+
+.arrow-icon {
+  font-size: 2rem;
+  color: #28a745; /* Das typische helle Verkäufer-Grün */
+  font-weight: 300;
+  line-height: 1;
+  margin-right: 2px;
+  margin-bottom: 4px;
+}
+
+/* ==========================================================================
+   6. SITE FOOTER DESIGN
+   ========================================================================== */
 .site-footer {
   background-color: #333333; /* Dunkles Grau wie im Bild */
   color: #ffffff;
   padding: 50px 5% 0 5%;
   margin-top: 50px;
+  font-family: 'Segoe UI', Arial, sans-serif;
   font-size: 14px;
 }
 
@@ -284,7 +382,7 @@ header {
   cursor: pointer;
 }
 
-/* Icons & App Buttons (Platzhalter) */
+/* Icons & App Buttons */
 .payment-grid, .app-buttons {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -315,12 +413,19 @@ header {
   font-size: 12px;
 }
 
+.copyright {
+  color: #888;
+  font-size: 12px;
+  margin-top: 15px;
+  padding-bottom: 20px;
+}
+
 /* Grüner Scroll-Top Button */
 .scroll-top-btn {
   position: fixed;
   bottom: 15px;
   right: 15px;
-  background-color: #8cc63f; /* Das Grün aus dem Bild */
+  background-color: #8cc63f; /* Das prägnante Grün */
   color: white;
   width: 35px;
   height: 35px;
@@ -334,28 +439,3 @@ header {
 
 .margin-top { margin-top: 25px; }
 .legal-text { font-size: 11px; color: #aaa; margin-top: 15px; }
-<<<<<<< HEAD
-=======
-
-/* Richtet das Icon und den Text sauber in einer Reihe aus */
-.cat-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px; /* Abstand zwischen Icon und Text */
-  text-decoration: none;
-  font-weight: 500;
-}
-
-/* Stylt das Icon selbst */
-.material-symbols-outlined {
-  font-size: 22px; /* Größe des Icons */
-  vertical-align: middle;
-}
-
-/* Farbwechsel, wenn ein Menüpunkt aktiv ist oder überflogen wird */
-.cat-item.active .material-symbols-outlined,
-.cat-item:hover .material-symbols-outlined {
-  color: #07f0c5; /* Nutze hier das Grün oder Blau deiner Seite */
-}
-
->>>>>>> caa384637f35fc40decf2234f5875c663186d562

@@ -1,0 +1,82 @@
+<div class="cart-container">
+  
+  <div *ngIf="items().length === 0" class="empty-cart-view">
+    <h1>Warenkorb</h1>
+    <p class="subtitle">Noch etwas vergessen? Suche nach Produkten und lege sie in den Warenkorb.</p>
+    
+    <div class="search-bar-container">
+      <input type="text" placeholder="Suche" class="shop-search-input">
+    </div>
+
+    <div class="empty-status-card">
+      <h2>Dein Warenkorb ist leer</h2>
+      <p>Du brauchst gerade nichts? Super – dann hast du Zeit für etwas anderes. Wir sind bereit, wenn dein nächster Einkauf ansteht.</p>
+      
+      <button class="back-to-shop-btn" routerLink="/wasser">
+        ← Zum Onlineshop
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="items().length > 0">
+    <h1>Dein Warenkorb 🛒</h1>
+    
+    <div class="cart-content">
+      
+      <div class="cart-items">
+        <div class="cart-labels">
+          <span class="label-product">Produkt</span>
+          <span class="label-qty">Menge</span>
+          <span class="label-single">Einzelpreis</span>
+          <span class="label-total">Gesamt</span>
+        </div>
+
+        <div class="cart-item" *ngFor="let item of items()">
+          <div class="item-main">
+            <img [src]="item.bildUrl" [alt]="item.name" class="item-img">
+            <div class="item-details">
+              <h3>{{ item.name }}</h3>
+              <p class="item-type">{{ item.typ | titlecase }}</p>
+            </div>
+          </div>
+
+          <div class="item-controls">
+            <button class="delete-btn" (click)="onRemove(item.name)" title="Artikel entfernen">
+              🗑️
+            </button>
+            <input type="number" [value]="item.menge" min="1" (input)="onQuantityChange(item.name, $event)" class="qty-input">
+          </div>
+
+          <div class="price-single">
+            {{ item.preis | number:'1.2-2' }} €
+          </div>
+
+          <div class="price-total">
+            {{ (item.preis * item.menge) | number:'1.2-2' }} €
+          </div>
+        </div>
+      </div>
+
+      <div class="cart-summary">
+        <h2>Zusammenfassung</h2>
+        <div class="summary-row">
+          <span>Zwischensumme:</span>
+          <span>{{ zwischensumme() | number:'1.2-2' }} €</span>
+        </div>
+        <div class="summary-row">
+          <span>Lieferkosten:</span>
+          <span>{{ lieferkosten() | number:'1.2-2' }} €</span>
+        </div>
+        <hr>
+        <div class="summary-row total">
+          <span>Gesamtsumme:</span>
+          <span>{{ gesamtsumme() | number:'1.2-2' }} €</span>
+        </div>
+        <button class="checkout-btn">Jetzt bestellen</button>
+        <button class="back-btn" routerLink="/wasser">← Weiter einkaufen</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
