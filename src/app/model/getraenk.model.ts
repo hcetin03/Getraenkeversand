@@ -7,4 +7,6 @@ export interface Getraenk {
   menge: number;
   bildUrl: string;
   lagerbestand: number;
+  alkoholgehalt?: number;
+  bestand: number;
 }
