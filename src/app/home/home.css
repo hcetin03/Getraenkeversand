@@ -310,3 +310,122 @@ body {
 
 .margin-top { margin-top: 25px; }
 .legal-text { font-size: 11px; color: #aaa; margin-top: 15px; }
+
+/* ==========================================================================
+   STYLING FÜR DIE MARKEN-SEKTION (REWE-Style)
+   ========================================================================== */
+.brands-section {
+  max-width: 1200px;
+  margin: 50px auto 20px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.brands-section h2 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+/* Flex-Ummantelung für den Slider */
+.brands-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Horizontal scrollbares Kachel-Band */
+.brands-container {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  width: 100%;
+  padding: 10px 4px;
+}
+
+/* Scrollbar für eine cleane Optik auf allen Browsern unsichtbar machen */
+.brands-container::-webkit-scrollbar {
+  display: none;
+}
+.brands-container {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+
+/* Die weißen Logo-Karten */
+.brand-card {
+  min-width: 155px;
+  max-width: 155px;
+  height: 155px;
+  background-color: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.01);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.brand-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Text-Stile für die temporären Text-Logos (kannst du später durch <img> ersetzen) */
+.brand-logo-placeholder {
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: center;
+}
+.p-blue { color: #0066cc; font-family: sans-serif; }
+.p-italic { font-style: italic; font-family: Georgia, serif; color: #333; }
+.p-green { color: #007a3d; font-weight: bold; }
+.p-red { color: #c8102e; font-family: 'Times New Roman', serif; }
+.p-bold { font-weight: 900; color: #111; letter-spacing: 1px; }
+.p-leaf { color: #4caf50; font-style: italic; }
+.p-blue-bold { color: #0a2540; font-weight: bold; }
+
+/* Der links überhängende Navigationspfeil */
+.slider-arrow {
+  position: absolute;
+  left: -22px; /* Schiebt das Rad genau halb über den linken Bildschirmrand */
+  z-index: 5;
+  width: 44px;
+  height: 44px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.slider-arrow:hover {
+  background-color: #f9f9f9;
+  transform: scale(1.05);
+}
+
+.arrow-icon {
+  font-size: 2rem;
+  color: #28a745; /* Grüner Pfeil wie im REWE-Beispiel */
+  font-weight: 300;
+  line-height: 1;
+  margin-right: 2px;
+  margin-bottom: 4px; /* Zentriert das Zeichen im Kreis aus */
+}
+
+/* Fix für das Header-Warenkorb-Icon */
+.cart-link {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
