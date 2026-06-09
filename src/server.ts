@@ -41,13 +41,7 @@ app.use(
 app.use((req, res, next) => {
   angularApp
     .handle(req)
-<<<<<<< HEAD
-    .then((response) =>
-      response ? writeResponseToNodeResponse(response, res) : next(),
-    )
-=======
     .then((response) => (response ? writeResponseToNodeResponse(response, res) : next()))
->>>>>>> 6b90232a27f4eeea189f024c3e05bea0349def92
     .catch(next);
 });
 
