@@ -1,9 +1,27 @@
 /* --- BASIS STYLING --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   background-color: #f8f9fa; /* Ganz leichtes Grau für den Hintergrund */
-  margin: 0;
   color: #333;
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Umschließt den Inhalt unter dem Header, damit er nicht am Rand klebt */
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px 40px 20px;
 }
 
 /* --- HEADER MIT MODERNEM VERLAUF --- */
@@ -13,6 +31,7 @@ body {
   top: 0;
   z-index: 1000;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  background-color: white;
 }
 
 .top-nav {
@@ -43,6 +62,10 @@ body {
   transition: all 0.3s;
 }
 
+.search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
 .search-bar input:focus {
   background: rgba(255, 255, 255, 0.25);
   outline: none;
@@ -51,42 +74,84 @@ body {
 
 .user-nav {
   display: flex;
+  align-items: center;
   gap: 25px;
   font-size: 14px;
   font-weight: 500;
 }
 
-/* Weiße Kategorieleiste */
-.category-nav {
+.cart-icon {
+  cursor: pointer;
+}
+
+/* --- WEISSE KATEGORIELEISTE (FIX FÜR DIE LINK-ORDNUNG) --- */
+.category-bar {
   background-color: white;
   display: flex;
-  justify-content: center;
-  gap: 35px;
+  justify-content: center; /* Zentriert die gesamte Leiste horizontal */
+  gap: 35px;               /* Abstand zwischen den einzelnen Kategorien */
   padding: 15px 0;
   border-bottom: 1px solid #eee;
 }
 
-.category-nav a {
-  text-decoration: none;
-  color: #666;
+/* Design der einzelnen Navigations-Links */
+.category-bar .cat-item {
+  display: inline-flex !important;  /* Zwingt Icon und Text nebeneinander */
+  align-items: center !important;   /* Richtet sie perfekt auf einer Mittelachse aus */
+  gap: 8px !important;              /* Abstand zwischen Icon und Text */
+  text-decoration: none !important; /* Entfernt die lila Unterstreichungen komplett */
+  color: #666666 !important;        /* Sauberes Grau statt Lila */
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+  position: relative;
   transition: color 0.2s;
 }
 
-.category-nav a:hover {
-  color: #2e8b57;
+/* Präzise Größenanpassung für die Lucide-Icons */
+.category-bar .cat-item svg {
+  width: 20px !important;
+  height: 20px !important;
+  stroke: currentColor !important;  /* Icon übernimmt die graue/grüne Textfarbe */
+  stroke-width: 2px;
+  display: block;
+}
+
+/* Farbwechsel beim Drüberfahren mit der Maus */
+.category-bar .cat-item:hover {
+  color: darkslateblue !important;        /* Wird beim Hover grün */
+  text-decoration: none !important;
+}
+
+/* Aktiver Zustand für die ausgewählte Kategorie (z.B. Weine) */
+.category-bar .cat-item.active {
+  color: #1a1a1a !important;        /* Text wird dunkler */
+}
+
+/* Der grüne Indikator-Strich unter dem aktiven Element */
+.category-bar .cat-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;                    /* Setzt den Strich genau auf die untere Kante */
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #2e8b57;
+  border-radius: 2px 2px 0 0;
 }
 
 /* --- PRODUKT SEITE --- */
-.product-page {
-  padding: 30px 5%;
+.breadcrumb {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 5px;
 }
 
 .page-title {
   font-size: 36px;
   font-weight: 800;
-  margin: 15px 0 25px 0;
+  margin: 10px 0 25px 0;
 }
 
 /* Moderne Filter-Pillen */
@@ -111,20 +176,26 @@ body {
   background-color: #f0f0f0;
 }
 
+.filter-btn.active {
+  background-color: #2e8b57;
+  border-color: #2e8b57;
+  color: white;
+}
+
 /* --- DAS PRODUKT GRID --- */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 25px;
 }
 
 .product-card {
   background: white;
-  border: none; /* Rand entfernen für modernen Look */
+  border: none;
   border-radius: 20px;
   padding: 20px;
   position: relative;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.03); /* Sehr dezenter Schatten */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
   transition: transform 0.3s, box-shadow 0.3s;
   display: flex;
   flex-direction: column;
@@ -154,6 +225,12 @@ body {
   font-weight: 600;
   margin: 8px 0 20px 0;
   line-height: 1.4;
+  height: 42px; /* Verhindert das Verrutschen der Karten */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .card-footer {
@@ -168,24 +245,28 @@ body {
   font-weight: 700;
 }
 
-/* Der markante rote Plus-Button */
+/* Runder, dunkelblauer Plus-Button */
 .add-btn {
   background-color: midnightblue;
   color: white;
   border: none;
   width: 40px;
   height: 40px;
-  border-radius: 12px;
-  font-size: 24px;
+  border-radius: 50%;
+  font-size: 22px;
   cursor: pointer;
-  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.1s;
 }
 
 .add-btn:hover {
-  background-color: midnightblue;
+  background-color: #001a4d;
+  transform: scale(1.05);
 }
 
-/* Badges */
+/* --- BADGES --- */
 .badge-tiefpreis, .badge-regional {
   position: absolute;
   top: 15px;
@@ -198,5 +279,32 @@ body {
   z-index: 10;
 }
 
-.badge-tiefpreis { background: #003a79; color: white; }
-.badge-regional { background: #ffcc00; color: #333; }
+.badge-tiefpreis {
+  background: #003a79;
+  color: white;
+}
+
+.badge-regional {
+  background: #ffcc00;
+  color: #333;
+}
+/* Richtet das Icon und den Text sauber in einer Reihe aus */
+.cat-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Abstand zwischen Icon und Text */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Stylt das Icon selbst */
+.material-symbols-outlined {
+  font-size: 22px; /* Größe des Icons */
+  vertical-align: middle;
+}
+
+/* Farbwechsel, wenn ein Menüpunkt aktiv ist oder überflogen wird */
+.cat-item.active .material-symbols-outlined,
+.cat-item:hover .material-symbols-outlined {
+  color: #07f0c5; /* Nutze hier das Grün oder Blau deiner Seite */
+}

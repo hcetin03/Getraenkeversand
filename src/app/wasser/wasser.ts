@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-wasser',
-  imports: [],
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './wasser.html',
   styleUrl: './wasser.css',
 })
