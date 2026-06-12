@@ -6,21 +6,18 @@ import { Milch } from './milch/milch';
 import { Wein } from './wein/wein';
 import { Kaffee } from './kaffee/kaffee';
 import { LimoUndSaft } from './limo-und-saft/limo-und-saft';
-import { WarenkorbComponent } from './warenkorb/warenkorb'; // <-- Importiere die Warenkorb-Komponente!
-
-
-
+import { WarenkorbComponent } from './warenkorb/warenkorb'; 
+import { Login } from './login/login'; // <-- Geändert zu LoginComponent!
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-
-  { path: 'home', component: Home }, // Wenn kein Pfad eingegeben ist (localhost:4200), zeigt er Home an
+  { path: 'home', component: Home }, 
   { path: 'bier', component: Bier },
   { path: 'milch', component: Milch },
   { path: 'wein', component: Wein },
   { path: 'wasser', component: Wasser },
   { path: 'kaffee', component: Kaffee },
   { path: 'limo-und-saft', component: LimoUndSaft },
-  { path: 'warenkorb', component: WarenkorbComponent } // <-- Geändert zu WarenkorbComponent!
+  { path: 'warenkorb', component: WarenkorbComponent }, // <-- Hier ist jetzt das Komma!
+  { path: 'login', component: Login } // <-- Geändert zu LoginComponent!
 ];
- 

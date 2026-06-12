@@ -1,6 +1,15 @@
 <header class="main-header">
   <div class="top-nav">
-    <div class="logo">Getränke-Versand HSB</div>
+   <a class="logo-wrapper" routerLink="/home" style="display: flex !important; align-items: center !important; gap: 15px !important; text-decoration: none !important;">
+  <img class="brand-logo-img" 
+       src="/images/flaschenlogo.jpg" 
+       alt="Logo" 
+       style="height: 50px !important; width: auto !important; display: block !important; object-fit: contain !important; mix-blend-mode: multiply !important;">
+  
+  <span class="logo-text" style="font-size: 24px !important; font-weight: 300 !important; letter-spacing: -0.5px !important; text-transform: lowercase !important; color: #ffffff !important; line-height: 1 !important; font-family: 'Segoe UI', Arial, sans-serif !important;">
+    getränke<span class="logo-highlight" style="font-weight: 800 !important;">versand</span> hsb
+  </span>
+</a>
 
     <div class="search-bar">
       <input type="text" placeholder="Was suchst du?">
@@ -9,15 +18,13 @@
     <div class="user-nav">
       <span>Lieferstatus</span>
       <span>Favoriten</span>
-      <span>Konto</span>
+      <a routerLink="/login" style="color: white; text-decoration: none; cursor: pointer;">Konto</a>
       <a routerLink="/warenkorb" class="cart-icon">🛒</a>
     </div>
   </div>
 
   <nav class="category-bar">
-    <a routerLink="/home" routerLinkActive="active" class="cat-item">
-      Home
-    </a>
+    <a routerLink="/home" routerLinkActive="active" class="cat-item">Home</a>
 
     <a routerLink="/wasser" routerLinkActive="active" class="cat-item">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"/></svg>
@@ -59,6 +66,35 @@
   </div>
 </section>
 
+<section class="voucher-outer-container">
+  <div class="voucher-section">
+    <div class="voucher-badge">
+      <div class="badge-circle">
+        <span class="amount">10€</span>
+      </div>
+    </div>
+    
+    <div class="voucher-details">
+      <div class="voucher-header-row">
+        <span class="tag-pink">Gutschein</span>
+        <span class="expiry-date">📅 gültig bis 31.07.2026</span>
+      </div>
+      <h2 class="voucher-title">
+        Code: <span class="code-highlight">HALLO030</span> | Sicher dir je 10 € auf deine ersten 3 Bestellungen*
+      </h2>
+      <div class="progress-container">
+        <span class="progress-text">Eingelöst: 0 von 3</span>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="voucher-action">
+      <button class="btn-redeem">Jetzt Code einlösen</button>
+    </div>
+  </div>
+</section>
 <main class="grid-container">
   <div class="grid-card bg-green">
     <h3>Angebote</h3>
@@ -86,27 +122,104 @@
   <h2>Beliebte Marken</h2>
   
   <div class="brands-wrapper">
-    <button class="slider-arrow left-arrow" (click)="scrollSlider(-200)" aria-label="Vorherige Marken">
+    <button class="slider-arrow left-arrow" (click)="scrollSlider(-800)" aria-label="Vorherige Marken">
       <span class="arrow-icon">‹</span>
     </button>
 
     <div class="brands-container" #brandSlider>
       <div class="brand-card"><img src="images/VilsaLogo.jpg" alt="Vilsa" class="brand-logo"></div>
-      <div class="brand-card"><img src="images/LiptonLogo.jpg" alt="Lipton" class="brand-logo"></div>
-      <div class="brand-card"><img src="images/hohes-c.png" alt="hohes C" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/gerolsteinerlogo.jpg" alt="GEROLSTEINER" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/mineauLogo.png" alt="Mineau" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/EvianLogo1.png" alt="Evian" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/VolvicLogo.webp" alt="Volvic" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/FuerstBismarckLogo.jpg" alt="Fuerst Bismarck" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/cocacolaLogo.png" alt="Coca-Cola" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/PepsiLogo.png" alt="Pepsi" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/FantaLogo.png" alt="Fanta" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/spriteLogo.png" alt="Sprite" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/LiptonLogo.png" alt="Lipton" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/DrPepperLogo.png" alt="Dr. Pepper" class="brand-logo"></div>
       <div class="brand-card"><img src="images/MelittaLogo.png" alt="Melitta" class="brand-logo"></div>
-      <div class="brand-card"><img src="images/veltins.png" alt="VELTINS" class="brand-logo"></div>
-      <div class="brand-card"><img src="images/simplea.png" alt="Simplea" class="brand-logo"></div>
-      <div class="brand-card"><img src="images/weihenstephan.png" alt="Weihenstephan" class="brand-logo"></div>
-      <div class="brand-card"><img src="images/cocacola.png" alt="Coca-Cola" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/LavazzaLogo.png" alt="Lavazza" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/DallmayrLogo.png" alt="Dallmayr" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/TchiboLogo.jpg" alt="Tchibo" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/JacobsLogo.png" alt="Jacobs" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/NescafeLogo.jpg" alt="Nescafé" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/moreLogo.png" alt="More" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/MuellerLogo.jpg" alt="Mueller" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/MilramLogo.jfif" alt="Milram" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/yfoodLogo.jpg" alt="yfood" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/StarbucksLogo.png" alt="Starbucks" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/EmmiLogo.png" alt="Emmi" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/MoevenpickLogo.jpg" alt="Moevenpick" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/AlproLogo.jpg" alt="Alpro" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/LandliebeLogo.jpg" alt="Landliebe" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/WeihenstephanLogo.webp" alt="Weihenstephan" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/BaerenmarkeLogo.png" alt="Baerenmarke" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/FreixenetLogo.png" alt="Freixenet" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/MaybachLogo.png" alt="Maybach" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/BecksLogo.jpg" alt="Becks" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/KrombacherLogo.png" alt="Krombacher" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/coronaLogo.png" alt="Corona" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/WarsteinerLogo.jpeg" alt="Warsteiner" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/VitaMalzLogo.png" alt="Vita Malz" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/PaulanerLogo.png" alt="Paulaner" class="brand-logo"></div>
+      <div class="brand-card"><img src="images/JeverLogo.png" alt="Jever" class="brand-logo"></div>
     </div>
 
-    <button class="slider-arrow right-arrow" (click)="scrollSlider(200)" aria-label="Nächste Marken">
+    <button class="slider-arrow right-arrow" (click)="scrollSlider(800)" aria-label="Nächste Marken">
       <span class="arrow-icon">›</span>
     </button>
   </div>
 </section>
 
+<section class="features-section-block">
+  <div class="features-header-text">
+    <p> Getränke - bei uns kannst du alle Getränkefür deinen Wocheneinkauf bequem online bestellen.</p>
+  </div>
+
+  <div class="cards-flex-grid">
+    <div class="info-card-item">
+      <div class="card-icon-circle bg-light-orange">
+        <span>🕒</span>
+      </div>
+      <div class="card-info-text">
+        <h3>Lieferung in 120 Minuten</h3>
+        <p>Wir liefern innerhalb von 120 Minuten ab deiner Bestellung oder zu einem von dir gewählten Wunschtermin. Montag bis Samstag von 8 bis 20 Uhr.</p>
+      </div>
+    </div>
+
+    <div class="info-card-item">
+      <div class="card-icon-circle bg-light-blue">
+        <span>🍏</span>
+      </div>
+      <div class="card-info-text">
+        <h3>Kaffee & Tee</h3>
+        <p>Bei uns findest du eine große Auswahl an Kafee und Tee-Sorten, die in bester Qualität bei dir ankommen.</p>
+      </div>
+    </div>
+
+    <div class="info-card-item">
+      <div class="card-icon-circle bg-light-green">
+        <span>📦</span>
+      </div>
+      <div class="card-info-text">
+        <h3>Kistenweise Getränke</h3>
+        <p>Spar dir das Schleppen schwerer Kisten. Die bringen wir dir auch in die oberste Etage.</p>
+      </div>
+    </div>
+
+    <div class="info-card-item">
+      <div class="card-icon-circle bg-light-yellow">
+        <span>🔄</span>
+      </div>
+      <div class="card-info-text">
+        <h3>Einfache Pfandrückgabe</h3>
+        <p>Dein Leergut nehmen wir ganz einfach wieder mit. Der Pfandbetrag wird noch vor Ort von der Rechnung abgezogen.</p>
+      </div>
+    </div>
+  </div>
+</section>
 <footer class="site-footer">
   <div class="footer-container">
     <div class="footer-column">
@@ -114,7 +227,7 @@
       <a href="#">Unser Unternehmen</a>
       <a href="#">Unsere Verantwortung</a>
       <a href="#">Jobs <span class="badge-gesucht">GESUCHT</span></a>
-      <a href="#">Newsroom</a>
+    
     </div>
 
     <div class="footer-column">
@@ -126,19 +239,31 @@
 
     <div class="footer-column">
       <h3>Lieferung</h3>
-      <p><i data-lucide="clock"></i> Mo - Sa von 8 bis 20 Uhr</p>
-      <p><i data-lucide="map-pin"></i> Dein Liefergebiet: <strong>28195</strong></p>
+      <p><lucide-icon name="clock"></lucide-icon> Mo - Sa von 8 bis 20 Uhr</p>
+      <p><lucide-icon name="map-pin"></lucide-icon> Dein Liefergebiet: <strong>28195</strong></p>
 
-      <h3 class="margin-top">Zahlungsmethoden</h3>
-      <div class="payment-grid">
-        <div class="pay-placeholder">VISA</div>
-        <div class="pay-placeholder">PayPal</div>
-        <div class="pay-placeholder">G-Pay</div>
-        <div class="pay-placeholder">Apple</div>
-        <div class="pay-placeholder">EC</div>
-        <div class="pay-placeholder">Amazon</div>
-      </div>
+<h3 class="margin-top">Zahlungsmethoden</h3>
+  <div class="payment-grid">
+    <div class="pay-card">
+      <img src="/images/visa.png" alt="Visa">
     </div>
+    <div class="pay-card">
+      <img src="/images/paypal.webp" alt="PayPal">
+    </div>
+    <div class="pay-card">
+      <img src="/images/klarna.png" alt="Klarna">
+    </div>
+    <div class="pay-card">
+      <img src="/images/applePay.png" alt="Apple Pay">
+    </div>
+    <div class="pay-card">
+      <img src="/images/EC.png" alt="EC Card">
+    </div>
+    <div class="pay-card">
+      <img src="/images/amazonPay.png" alt="Amazon Pay">
+    </div>
+  </div>
+</div>
 
     <div class="footer-column">
       <h3>Bestellen mit der App</h3>
@@ -156,10 +281,14 @@
     </div>
   </div>
 
-  <div class="bottom-links">
-    <a href="#">AGB</a> | <a href="#">Datenschutzinformation</a> | <a href="#">Impressum</a>
+  <div class="footer-bottom-bar">
+    <div class="bottom-links">
+      <a href="#">AGB</a> | <a href="#">Datenschutzinformation</a> | <a href="#">Impressum</a>
+    </div>
+    <div class="copyright">
+      © 2026 Getränke-Versand HSB. Alle Rechte vorbehalten.
+    </div>
   </div>
-  <div class="copyright">
-    © 2026 Getränke-Versand HSB. Alle Rechte vorbehalten.
-  </div>
+</footer>
 
+<a href="#" class="scroll-top-btn">⬆</a>

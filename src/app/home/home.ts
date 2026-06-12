@@ -1,16 +1,24 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common'; 
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { LucideAngularModule } from 'lucide-angular';
+// Wir importieren 'Wine' hier direkt aus lucide-angular für dein Logo mit
+import { LucideAngularModule, Wine } from 'lucide-angular';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, LucideAngularModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive, LucideAngularModule], 
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
-  // 1. Deine Icon-Variablen
+
+  // Das macht die cleane Flasche für dein Logo im HTML verfügbar!
+  readonly LogoFlasche = Wine;
+
+  logoPath = 'images/homelogo.PNG';
+
+  // Deine Icons für die Kategorieleiste unten drunter
   WasserIcon = 'droplet';
   LimoIcon = 'cup-soda';
   BierIcon = 'beer';
@@ -18,14 +26,11 @@ export class Home {
   WeinIcon = 'wine';
   KaffeeIcon = 'coffee';
 
-  // 2. Greift auf das #brandSlider Element aus dem HTML zu (jetzt RICHTIG innerhalb der Klasse)
   @ViewChild('brandSlider') brandSlider!: ElementRef;
 
-  // 3. Die Scroll-Funktion für die Pfeile
   scrollSlider(distance: number) {
     if (this.brandSlider) {
-      // Bewegt den Scrollbalken um den übergebenen Wert (z.B. +200px oder -200px)
       this.brandSlider.nativeElement.scrollLeft += distance;
     }
   }
-} // <-- Hier schließt sich die Klasse jetzt erst ganz am Ende!
+}
