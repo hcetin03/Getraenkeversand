@@ -1,0 +1,113 @@
+<section class ="mitarbeiter-container">
+
+<h1>Mitarbeiter-Portal</h1>
+
+    @if(!istEingeloggt){
+        <div class = "login-box">
+            <h2>Login für Mitarbeiter</h2>
+
+            <input
+            type="password"
+            placeholder="Passwort eingeben"
+            [(ngModel)]="passwort" >
+
+            <button (click) = "login()">Einloggen</button>
+
+            @if(loginFehler){
+                <p class="fehler">{{loginFehler}}</p>
+            }
+        </div>
+    }
+
+
+    @if(istEingeloggt){
+        <div class="bereich">
+            <h2>Versand & Logistik</h2>
+
+            <table>
+                <tr>
+                    <th>Nr.</th>
+                    <th>Kunde</th>
+                    <th>Datum</th>
+                    <th>Artikel</th>
+                    <th>Menge</th>
+                    <th>Gesamtpreis</th>
+                    <th>Status</th>
+                    <th>Aktion</th>                   
+                </tr>
+
+                @for(bestellung of bestellungen; track bestellung.id){
+                    <tr>
+                        <td>{{bestellung.id}}</td>
+                        <td>{{bestellung.kunde}}</td>
+                        <td>{{bestellung.datum}}</td>
+                        <td>{{bestellung.artikel}}</td>
+                        <td>{{bestellung.menge}}</td>
+                        <td>{{bestellung.gesamtpreis | currency: 'EUR'}}</td>
+                        <td>{{bestellung.status}}</td>
+                        <td>
+                            <button (click) = "rechnungDrucken(bestellung)">Rechnung drucken</button>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <div class="bereich">
+            <h2>Lagerbestand anpassen</h2>
+
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Getränk</th>
+                    <th>Kategorie</th>
+                    <th>Lagerbestand</th>
+                    <th>Aufstocken</th>
+                    <th>Speichern</th>
+                </tr>
+
+            @for (getraenk of getraenke; track getraenk.id){
+                <tr>
+                    <td>{{getraenk.id}}</td>
+                    <td>{{getraenk.name}}</td>
+                    <td>{{getraenk.kategorie}}</td>
+                    <td>{{getraenk.lagerbestand}}</td>
+                    <td>
+                        <input type="number" [(ngModel)]="getraenk.lagerbestand"></td>
+
+                    <td>
+                        <button (click) = "bestandErhoehen(getraenk, 10)">+10</button></td>
+                    <td>
+                        <button (click) = "bestandSpeichern(getraenk)">Änderung speichern</button></td>
+                </tr>
+            }
+            </table>
+            </div>
+
+            <div class="bereich">
+                <h2>Werbekampagne</h2>
+
+                <p>Stammkunden: {{stammkunden.length}}</p>
+
+                <ul>
+                    @for(kunde of stammkunden; track kunde.id){
+                        <li>{{kunde.name}} - {{kunde.email}}</li>
+                    }
+                </ul>
+
+                <h3>Newsletter-Vorschau</h3>
+
+                <textarea rows="8">
+                    Liebe Stammkunden,
+
+                    wir haben neue Angebote für Sie! Besuchen Sie unseren Shop und entdecken Sie unsere neuesten Getränke und Aktionen.
+
+                    Mit freundlichen Grüßen,
+                    Ihr Getränkeversand-Team
+                </textarea>
+
+                <br>
+                <button (click)="newsletterSenden()">Newsletter senden</button>
+            </div>
+        }
+</section>
