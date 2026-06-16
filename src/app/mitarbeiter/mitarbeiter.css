@@ -1,0 +1,80 @@
+.mitarbeiter-container{
+    padding: 30px;
+    max-width: 1200px;
+    margin: auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-box, .bereich{
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding:20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+h1{
+    margin-bottom: 25px;
+}
+
+h2{
+    margin-bottom: 15px;
+    color: #1f4e79;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td{
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th{
+    background-color:#1f4e79;
+    color: white;
+}
+
+input, textarea{
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+}
+
+button{
+    background-color:#1f4e79;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #163a59;
+}
+
+.fehler{
+    color: red;
+    font-weight: bold;
+}
+
+@media(max-width: 768px){
+    .mitarbeiter-container{
+        padding: 15px;
+    }
+
+    table{
+        font-size: 14px;
+        display: block;
+        overflow-x: auto;
+    }
+}

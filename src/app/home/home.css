@@ -9,6 +9,17 @@ body {
   color: #333;
 }
 
+/* Verhindert das Ineinander-Rutschen von Elementen */
+.voucher-outer-container,
+.grid-container,
+.brands-section,
+.features-section-block {
+  width: 100%;
+  clear: both;
+  display: block;
+  box-sizing: border-box;
+}
+
 /* --- HEADER / NAVIGATION --- */
 .main-header {
   width: 100%;
@@ -41,8 +52,34 @@ body {
   flex: 1 1 220px;
   min-width: 180px;
   max-width: 450px;
+.logo-wrapper {
+  display: flex !important;
+  align-items: center !important; 
+  gap: 15px !important;
+  text-decoration: none !important;
+  color: white !important;
 }
 
+.logo-text {
+  font-size: 24px !important;      
+  font-weight: 300 !important;     
+  letter-spacing: -0.5px !important;
+  text-transform: lowercase !important; 
+  color: #ffffff !important;
+  line-height: 1 !important;
+  font-family: 'Segoe UI', Arial, sans-serif !important;
+}
+
+.logo-highlight {
+  font-weight: 800 !important;     
+}
+
+.logo-wrapper:hover .brand-logo-img {
+  transform: scale(1.05) !important; 
+  transition: transform 0.2s ease;
+}
+
+/* --- SUCHLEISTE & USER NAVIGATION --- */
 .search-bar input {
   width: 100%;
   padding: 10px 20px;
@@ -51,6 +88,7 @@ body {
   background: rgba(255, 255, 255, 0.15);
   color: white;
   box-sizing: border-box;
+  outline: none;
 }
 
 .search-bar input::placeholder {
@@ -78,7 +116,7 @@ body {
   align-items: center;
 }
 
-/* --- ICON-LEISTE (Category Bar) --- */
+/* --- CATEGORY BAR --- */
 .category-bar {
   background-color: white;
   display: flex;
@@ -123,13 +161,8 @@ body {
   background-color: #2e8b57;
 }
 
-.nav-icon {
-  width: 16px;
-  height: 16px;
-}
-
 /* ==========================================================================
-   3. HERO BANNER
+   2. HERO BANNER
    ========================================================================== */
 .hero-banner {
   margin: 20px 5%;
@@ -156,6 +189,142 @@ body {
   font-weight: bold;
   display: inline-block;
   margin-top: 20px;
+}
+
+/* ==========================================================================
+   3. GUTSCHEIN-BANNER (Flaschenpost-Style)
+   ========================================================================== */
+.voucher-outer-container {
+  padding: 0 5%;
+  margin: 25px 0;
+}
+
+.voucher-section {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+}
+
+.voucher-badge {
+  background-color: #f3e5eb; 
+  padding: 30px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 2px dashed #d0b2c2; 
+}
+
+.badge-circle {
+  background-color: #9c004b; 
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(156, 0, 75, 0.3);
+  outline: 4px dashed #9c004b;
+  outline-offset: -2px;
+}
+
+.badge-circle .amount {
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 800;
+  font-family: 'Arial Black', sans-serif;
+}
+
+.voucher-details {
+  flex: 1;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.voucher-header-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.tag-pink {
+  background-color: #9c004b;
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.expiry-date {
+  color: #666666;
+  font-size: 14px;
+}
+
+.voucher-title {
+  font-size: 18px;
+  color: #222222;
+  margin: 0;
+  font-weight: 700;
+}
+
+.code-highlight {
+  color: #9c004b;
+  font-weight: 800;
+}
+
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progress-text {
+  font-size: 13px;
+  color: #888888;
+}
+
+.progress-bar-bg {
+  background-color: #e0e0e0;
+  height: 6px;
+  border-radius: 3px;
+  width: 250px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  background-color: #b0b0b0;
+  height: 100%;
+  width: 0%; 
+}
+
+.voucher-action {
+  padding: 0 40px;
+}
+
+.btn-redeem {
+  background-color: #ffffff;
+  color: #222222;
+  border: 1px solid #222222;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+}
+
+.btn-redeem:hover {
+  background-color: #222222;
+  color: #ffffff;
 }
 
 /* ==========================================================================
@@ -189,7 +358,6 @@ body {
   justify-content: center;
 }
 
-/* Farbakzente für die Kacheln */
 .bg-pink { background-color: #fffafb; }
 .bg-yellow { background-color: #fffdf5; }
 .bg-green { background-color: #f7fdf9; }
@@ -326,9 +494,11 @@ body {
 
 .margin-top { margin-top: 25px; }
 .legal-text { font-size: 11px; color: #aaa; margin-top: 15px; }
+.bg-blue { background-color: #f4fafd; }
+.bg-orange { background-color: #fffbf7; }
 
 /* ==========================================================================
-   MARKEN SEKTION MIT ECHTEN LOGOS (REWE-Style)
+   5. BELIEBTE MARKEN SLIDER
    ========================================================================== */
 .brands-section {
   max-width: 1200px;
@@ -366,9 +536,14 @@ body {
 .brands-container {
   -ms-overflow-style: none;
   scrollbar-width: none;
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
 }
 
-/* Die weißen quadratischen Kacheln */
+.brands-container::-webkit-scrollbar {
+  display: none;
+}
+
 .brand-card {
   min-width: 155px;
   max-width: 155px;
@@ -390,7 +565,6 @@ body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 
-/* ECHTE LOGO-BILDER ANPASSUNG */
 .brand-logo {
   max-width: 100%;
   max-height: 100%;
@@ -419,99 +593,245 @@ body {
   transform: scale(1.05);
 }
 
-.left-arrow {
-  left: -22px;
-}
-
-.right-arrow {
-  right: -22px;
-}
+.left-arrow { left: -22px; }
+.right-arrow { right: -22px; }
 
 .arrow-icon {
   font-size: 2rem;
-  color: #28a745;
+  color: #1a8eb9;
   font-weight: 300;
   line-height: 1;
   margin-bottom: 4px;
 }
 
-.right-arrow .arrow-icon {
-  margin-left: 2px;
-  margin-right: 0;
+.right-arrow .arrow-icon { margin-left: 2px; }
+.left-arrow .arrow-icon { margin-right: 2px; }
+
+/* ==========================================================================
+   6. INFOSEKTION (Features unter den Marken)
+   ========================================================================== */
+.features-section-block {
+  background-color: #f3f3f3; 
+  padding: 60px 20px;
+  margin-top: 50px;
 }
 
-.left-arrow .arrow-icon {
-  margin-right: 2px;
-  margin-left: 0;
+.features-header-text {
+  max-width: 1200px;
+  margin: 0 auto 40px auto;
+  text-align: left;
+}
+
+.features-header-text p {
+  font-size: 16px;
+  color: #555555;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.cards-flex-grid {
+  display: flex;
+  gap: 24px; 
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.info-card-item {
+  background-color: #ffffff;
+  border-radius: 24px; 
+  padding: 30px;
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02); 
+}
+
+.card-icon-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.card-icon-circle span {
+  font-size: 35px;
+  line-height: 1;
+}
+
+/* Farbige Kreise für Icons */
+.bg-light-orange { background-color: #fef4d7; }
+.bg-light-blue   { background-color: #d7effe; }
+.bg-light-green  { background-color: #e5f6df; }
+.bg-light-yellow { background-color: #fcf6d6; }
+
+.card-info-text h3 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #222222;
+  margin: 0 0 16px 0;
+  line-height: 1.2;
+}
+
+.card-info-text p {
+  font-size: 15px;
+  color: #555555;
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN
+   7. SITE FOOTER DESIGN
    ========================================================================== */
-@media (max-width: 900px) {
-  .top-nav {
-    justify-content: center;
-  }
+.site-footer {
+  background-color: #333333;
+  color: #ffffff;
+  padding: 50px 5% 0 5%;
+  margin-top: 0; 
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 14px;
+}
 
-  .search-bar {
-    order: 3;
-    flex-basis: 100%;
-    max-width: none;
-  }
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  padding-bottom: 40px;
+}
 
-  .user-nav {
-    justify-content: center;
-    gap: 14px;
-  }
+.footer-column h3 {
+  color: #999999;
+  font-size: 13px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
 
-  .category-bar {
+.footer-column a {
+  display: block;
+  color: #ffffff;
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: opacity 0.2s;
+}
+
+.footer-column a:hover { opacity: 0.7; }
+.badge-gesucht { border: 1px solid white; padding: 2px 6px; font-size: 10px; border-radius: 4px; margin-left: 5px; }
+
+.newsletter-form { display: flex; background: #2a2a2a; border: 1px solid #555; border-radius: 4px; }
+.newsletter-form input { background: transparent; border: none; padding: 10px; color: white; flex: 1; outline: none; }
+.newsletter-form button { background: #cccccc; border: none; padding: 0 15px; font-weight: bold; cursor: pointer; }
+
+/* GRIDS FÜR APPS & ZAHLUNGSARTEN (Optimiert auf kompakte Größe) */
+.app-buttons {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 12px !important;
+  max-width: 240px !important;
+}
+
+.payment-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important; /* 3 Spalten nebeneinander */
+  gap: 8px !important;                             /* Kompakter Abstand */
+  max-width: 240px !important;                     /* Schmalere Gesamtbreite */
+  margin-top: 15px !important;
+}
+
+/* KACHELN FÜR DIE LOGOS & APPS */
+.app-card,
+.pay-card {
+  background-color: #ffffff !important;
+  border-radius: 6px !important;                    /* Schön dezent abgerundet */
+  height: 34px !important;                          /* Flachere, edlere Höhe */
+  display: flex !important;
+  align-items: center !important;                   
+  justify-content: center !important;               
+  padding: 4px 6px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+/* BILDER IN DEN KACHELN (Skalieren jetzt perfekt mit der kleineren Box mit) */
+.app-card img,
+.pay-card img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;                   
+  display: block !important;
+}
+
+.footer-bottom-bar { border-top: 1px solid #444; padding: 20px 0; display: flex; justify-content: space-between; align-items: center; color: #888; }
+.bottom-links a { color: #fff; text-decoration: none; font-size: 12px; }
+.copyright { color: #888; font-size: 12px; margin-top: 15px; padding-bottom: 20px; }
+
+.scroll-top-btn {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  background-color: #8cc63f;
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* Überschriften-Klasse für Sektionen im Footer */
+.margin-top {
+  color: #999999;
+  font-size: 13px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  margin-top: 25px !important;
+}
+
+.legal-text { font-size: 11px; color: #aaa; margin-top: 15px; }
+
+/* ==========================================================================
+   8. RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
+@media (max-width: 992px) {
+  .cards-flex-grid {
+    flex-direction: column;
     gap: 20px;
-    padding: 12px 5%;
+  }
+  .info-card-item {
+    flex-direction: row; 
+    align-items: center;
+    gap: 20px;
+  }
+  .card-icon-circle {
+    margin-bottom: 0; 
+    flex-shrink: 0;
   }
 }
 
-@media (max-width: 600px) {
-  .top-nav {
-    padding: 12px 4%;
-    gap: 12px;
-  }
-
-  .logo {
-    font-size: 21px;
-  }
-
-  .user-nav {
-    font-size: 13px;
-    gap: 10px;
-  }
-
-  .search-bar {
-    min-width: 100%;
-  }
-
-  .hero-banner {
-    height: 230px;
-    padding: 0 25px;
-  }
-
-  .category-bar {
-    justify-content: flex-start;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    gap: 25px;
-    padding: 12px 5%;
-  }
-
-  .category-bar .cat-item {
-    white-space: nowrap;
-  }
-
-  .footer-bottom-bar {
-    align-items: flex-start;
+@media (max-width: 850px) {
+  .voucher-section {
     flex-direction: column;
+    align-items: stretch;
+    text-align: center;
   }
-
-  .slider-arrow {
-    display: none;
+  .voucher-badge {
+    border-right: none;
+    border-bottom: 2px dashed #d0b2c2; 
+    padding: 20px;
   }
+  .voucher-header-row { justify-content: center; }
+  .progress-bar-bg { margin: 0 auto; }
+  .voucher-action { padding: 20px; }
+  .btn-redeem { width: 100%; }
+}
 }
