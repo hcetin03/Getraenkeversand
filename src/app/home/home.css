@@ -26,21 +26,31 @@ body {
   align-items: center;
   padding: 12px 5%;
   color: white;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .logo {
   font-size: 24px;
   font-weight: 800;
   color: white;
+  white-space: nowrap;
+}
+
+.search-bar {
+  flex: 1 1 220px;
+  min-width: 180px;
+  max-width: 450px;
 }
 
 .search-bar input {
-  width: 450px;
+  width: 100%;
   padding: 10px 20px;
   border-radius: 25px;
   border: none;
   background: rgba(255, 255, 255, 0.15);
   color: white;
+  box-sizing: border-box;
 }
 
 .search-bar input::placeholder {
@@ -50,13 +60,14 @@ body {
 .user-nav {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 18px;
   font-size: 14px;
   font-weight: 500;
+  flex-wrap: wrap;
 }
 
 .nav-links i {
-  font-size: 20px; /* Warenkorb-Icon etwas größer */
+  font-size: 20px;
 }
 
 /* Fix für das Header-Warenkorb-Icon (Link-Wrapper) */
@@ -75,6 +86,7 @@ body {
   gap: 35px;
   padding: 15px 0;
   border-bottom: 1px solid #eee;
+  flex-wrap: wrap;
 }
 
 .category-bar .cat-item {
@@ -184,7 +196,7 @@ body {
 
 /* --- FOOTER DESIGN --- */
 .site-footer {
-  background-color: #333333; /* Dunkles Grau wie im Bild */
+  background-color: #333333;
   color: #ffffff;
   padding: 50px 5% 0 5%;
   margin-top: 50px;
@@ -254,13 +266,15 @@ body {
 }
 
 /* Icons & App Buttons */
-.payment-grid, .app-buttons {
+.payment-grid,
+.app-buttons {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
-.pay-placeholder, .app-placeholder {
+.pay-placeholder,
+.app-placeholder {
   background: #444;
   padding: 8px;
   text-align: center;
@@ -276,6 +290,8 @@ body {
   justify-content: space-between;
   align-items: center;
   color: #888;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .bottom-links a {
@@ -296,7 +312,7 @@ body {
   position: fixed;
   bottom: 15px;
   right: 15px;
-  background-color: #8cc63f; /* Das prägnante Grün */
+  background-color: #8cc63f;
   color: white;
   width: 35px;
   height: 35px;
@@ -346,9 +362,10 @@ body {
 .brands-container::-webkit-scrollbar {
   display: none;
 }
+
 .brands-container {
-  -ms-overflow-style: none;  
-  scrollbar-width: none;  
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Die weißen quadratischen Kacheln */
@@ -362,7 +379,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 15px; /* Erzeugt einen sauberen Innenabstand zum Logo-Rand */
+  padding: 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.01);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
@@ -377,10 +394,9 @@ body {
 .brand-logo {
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain; /* Sorgt dafür, dass die Logos ihr Seitenverhältnis behalten und nicht verzerren */
+  object-fit: contain;
 }
 
-/* Der grüne Navigationspfeil links */
 /* Gemeinsame Basis für beide Pfeile */
 .slider-arrow {
   position: absolute;
@@ -403,29 +419,99 @@ body {
   transform: scale(1.05);
 }
 
-/* Exakte Links/Rechts-Positionierung am Rand */
 .left-arrow {
-  left: -22px; /* Schiebt den linken Pfeil über den linken Rand */
+  left: -22px;
 }
 
 .right-arrow {
-  right: -22px; /* Schiebt den rechten Pfeil über den rechten Rand */
+  right: -22px;
 }
 
 .arrow-icon {
   font-size: 2rem;
-  color: #28a745; /* Das typische REWE/Flaschenpost-Grün */
+  color: #28a745;
   font-weight: 300;
   line-height: 1;
-  margin-bottom: 4px; /* Zentriert das Zeichen optisch */
+  margin-bottom: 4px;
 }
 
-/* Sorgt dafür, dass der rechte Pfeil ein '›' sauber anzeigt */
 .right-arrow .arrow-icon {
   margin-left: 2px;
   margin-right: 0;
 }
+
 .left-arrow .arrow-icon {
   margin-right: 2px;
   margin-left: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 900px) {
+  .top-nav {
+    justify-content: center;
+  }
+
+  .search-bar {
+    order: 3;
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .user-nav {
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .category-bar {
+    gap: 20px;
+    padding: 12px 5%;
+  }
+}
+
+@media (max-width: 600px) {
+  .top-nav {
+    padding: 12px 4%;
+    gap: 12px;
+  }
+
+  .logo {
+    font-size: 21px;
+  }
+
+  .user-nav {
+    font-size: 13px;
+    gap: 10px;
+  }
+
+  .search-bar {
+    min-width: 100%;
+  }
+
+  .hero-banner {
+    height: 230px;
+    padding: 0 25px;
+  }
+
+  .category-bar {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 25px;
+    padding: 12px 5%;
+  }
+
+  .category-bar .cat-item {
+    white-space: nowrap;
+  }
+
+  .footer-bottom-bar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .slider-arrow {
+    display: none;
+  }
 }

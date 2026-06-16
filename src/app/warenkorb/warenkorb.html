@@ -1,6 +1,11 @@
 <div class="cart-container">
   
   <div *ngIf="items().length === 0" class="empty-cart-view">
+    <button class="back-link" (click)="goBack()">
+  ← Weiter einkaufen
+</button>
+
+<h1>Warenkorb</h1>
     <h1>Warenkorb</h1>
     <p class="subtitle">Noch etwas vergessen? Suche nach Produkten und lege sie in den Warenkorb.</p>
     
@@ -19,6 +24,10 @@
   </div>
 
   <div *ngIf="items().length > 0">
+     <button class="back-link" (click)="goBack()">
+    ← Weiter einkaufen
+  </button>
+
     <h1>Dein Warenkorb 🛒</h1>
     
     <div class="cart-content">
@@ -73,7 +82,7 @@
           <span>{{ gesamtsumme() | number:'1.2-2' }} €</span>
         </div>
         <button class="checkout-btn">Jetzt bestellen</button>
-        <button class="back-btn" routerLink="/wasser">← Weiter einkaufen</button>
+        
       </div>
 
     </div>
