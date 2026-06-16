@@ -78,7 +78,7 @@ export class MitarbeiterComponent{
         if(getraenk.lagerbestand < 0){
             getraenk.lagerbestand = 0;
         }
-        alert('Lagerbestand von ' + getraenk.name + 'wurde auf ' + getraenk.lagerbestand + ' aktualisiert.');
+        alert('Lagerbestand von ' + getraenk.name + ' wurde auf ' + getraenk.lagerbestand + ' aktualisiert.');
     }
 
     rechnungDrucken(bestellung: Bestellung): void{
