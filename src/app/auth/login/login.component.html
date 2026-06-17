@@ -1,0 +1,18 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Anmelden</h2>
+
+    <div *ngIf="fehler" class="fehler-meldung" {{ fehler }}</div>
+
+      <div class="form-group">
+        <label for="email">E-Mail</label>
+        <input id="email" type="email" [(ngModel)]="email" placeholder="deine@email.de" />
+      </div>
+
+      <button (click)="onLogin" class="btn-primary">Einloggen</button>
+
+      <p class="link-text">
+        Noch kein Konto? <a routerLink="/register">Jetzt registrieren</a>
+      </p>
+    </div>
+  </div>
