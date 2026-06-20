@@ -6,8 +6,9 @@
 }
 
 body {
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f8f9fa; /* Ganz leichtes Grau für den Hintergrund */
+  /* Moderne System-Schriftart ohne Serif für die gesamte Seite */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f8f9fa;
   color: #333;
   line-height: 1.5;
 }
@@ -17,7 +18,6 @@ a {
   color: inherit;
 }
 
-/* Umschließt den Inhalt unter dem Header, damit er nicht am Rand klebt */
 .content-wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -52,7 +52,6 @@ a {
   white-space: nowrap;
 }
 
-/* Moderne Suchleiste mit Glaseffekt */
 .search-bar {
   flex: 1 1 220px;
   min-width: 180px;
@@ -93,23 +92,22 @@ a {
   cursor: pointer;
 }
 
-/* --- WEISSE KATEGORIELEISTE (FIX FÜR DIE LINK-ORDNUNG) --- */
+/* --- KATEGORIELEISTE --- */
 .category-bar {
   background-color: white;
   display: flex;
-  justify-content: center; /* Zentriert die gesamte Leiste horizontal */
-  gap: 35px;               /* Abstand zwischen den einzelnen Kategorien */
+  justify-content: center;
+  gap: 35px;
   padding: 15px 0;
   border-bottom: 1px solid #eee;
 }
 
-/* Design der einzelnen Navigations-Links */
 .category-bar .cat-item {
-  display: inline-flex !important;  /* Zwingt Icon und Text nebeneinander */
-  align-items: center !important;   /* Richtet sie perfekt auf einer Mittelachse aus */
-  gap: 8px !important;              /* Abstand zwischen Icon und Text */
-  text-decoration: none !important; /* Entfernt die lila Unterstreichungen komplett */
-  color: #666666 !important;        /* Sauberes Grau statt Lila */
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  text-decoration: none !important;
+  color: #666666 !important;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -118,31 +116,27 @@ a {
   transition: color 0.2s;
 }
 
-/* Präzise Größenanpassung für die Lucide-Icons */
 .category-bar .cat-item svg {
   width: 20px !important;
   height: 20px !important;
-  stroke: currentColor !important;  /* Icon übernimmt die graue/grüne Textfarbe */
+  stroke: currentColor !important;
   stroke-width: 2px;
   display: block;
 }
 
-/* Farbwechsel beim Drüberfahren mit der Maus */
 .category-bar .cat-item:hover {
-  color: darkslateblue !important;        /* Wird beim Hover grün */
+  color: darkslateblue !important;
   text-decoration: none !important;
 }
 
-/* Aktiver Zustand für die ausgewählte Kategorie (z.B. Weine) */
 .category-bar .cat-item.active {
-  color: #1a1a1a !important;        /* Text wird dunkler */
+  color: #1a1a1a !important;
 }
 
-/* Der grüne Indikator-Strich unter dem aktiven Element */
 .category-bar .cat-item.active::after {
   content: '';
   position: absolute;
-  bottom: -16px;                    /* Setzt den Strich genau auf die untere Kante */
+  bottom: -16px;
   left: 0;
   width: 100%;
   height: 3px;
@@ -163,7 +157,6 @@ a {
   margin: 10px 0 25px 0;
 }
 
-/* Moderne Filter-Pillen */
 .filter-bar {
   display: flex;
   gap: 12px;
@@ -222,36 +215,58 @@ a {
   margin-bottom: 20px;
 }
 
+/* --- HIER SIND DIE OPTIMIERTEN TEXT-STYLES --- */
+
+/* 1. Der Markenname (VILSA CLASSIC) -> Jetzt groß, fett & modern */
 .brand {
-  color: #999;
-  font-size: 12px;
-  text-transform: uppercase;
+  font-size: 18px;               /* Deutlich vergrößert */
+  font-weight: 800;               /* Maximal dick / Bold */
+  text-transform: uppercase;     /* Alles in Großbuchstaben */
+  color: #111;                   /* Satteres, modernes Schwarz */
   letter-spacing: 0.5px;
+  margin-bottom: 6px;            /* Kleiner Abstand zur Liter-Angabe */
+  display: block;
 }
 
+/* 2. Die Liter-Angabe (0,7 L • GLAS) -> Schlank, sauber, unaufdringlich */
 .name {
-  font-size: 15px;
-  font-weight: 600;
-  margin: 8px 0 20px 0;
+  font-size: 15px;               /* Angenehm dezente Größe */
+  font-weight: 500;               /* Normale bis leicht mittlere Stärke (nicht fett) */
+  text-transform: uppercase;     
+  color: #555;                   /* Etwas weicheres Dunkelgrau statt Tiefschwarz */
+  margin: 0 0 20px 0;            /* Abstand nach unten zum Pfand-Bereich */
   line-height: 1.4;
-  height: 42px; /* Verhindert das Verrutschen der Karten */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  
+  /* Alte Höhenbegrenzungen und Klemmer komplett entfernt */
+  display: block;
+  height: auto; 
+  overflow: visible;
 }
 
+/* --- FOOTER & PREIS-BEREICH --- */
 .card-footer {
   margin-top: auto;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
+}
+
+.price-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.pfand-label {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 2px;
 }
 
 .price {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 800;
+  color: #000;
 }
 
 /* Runder, dunkelblauer Plus-Button */
@@ -259,10 +274,10 @@ a {
   background-color: midnightblue;
   color: white;
   border: none;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  font-size: 22px;
+  font-size: 24px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -297,44 +312,39 @@ a {
   background: #ffcc00;
   color: #333;
 }
-/* Richtet das Icon und den Text sauber in einer Reihe aus */
+
 .cat-item {
   display: inline-flex;
   align-items: center;
-  gap: 8px; /* Abstand zwischen Icon und Text */
+  gap: 8px;
   text-decoration: none;
   font-weight: 500;
 }
 
-/* Stylt das Icon selbst */
 .material-symbols-outlined {
-  font-size: 22px; /* Größe des Icons */
+  font-size: 22px;
   vertical-align: middle;
 }
 
-/* Farbwechsel, wenn ein Menüpunkt aktiv ist oder überflogen wird */
 .cat-item.active .material-symbols-outlined,
 .cat-item:hover .material-symbols-outlined {
-  color: #07f0c5; /* Nutze hier das Grün oder Blau deiner Seite */
+  color: #07f0c5;
 }
 
+/* --- MEDIA QUERIES --- */
 @media (max-width: 900px) {
-
   .top-nav {
     justify-content: center;
   }
-
   .search-bar {
     order: 3;
     flex-basis: 100%;
     max-width: none;
   }
-
   .user-nav {
     justify-content: center;
     gap: 14px;
   }
-
   .category-bar {
     gap: 20px;
     padding: 12px 5%;
@@ -343,30 +353,24 @@ a {
 }
 
 @media (max-width: 600px) {
-
   .top-nav {
     gap: 12px;
   }
-
   .logo {
     font-size: 21px;
   }
-
   .search-bar {
     min-width: 100%;
   }
-
   .user-nav {
     gap: 10px;
     font-size: 13px;
   }
-
   .category-bar {
     overflow-x: auto;
     justify-content: flex-start;
     flex-wrap: nowrap;
   }
-
 }
 
 .dropdown {

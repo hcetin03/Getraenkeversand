@@ -1,6 +1,6 @@
-<header class="main-header">
+ <header class="main-header">
   <div class="top-nav">
-   <a routerLink="/home" class="logo">Getränkeversand</a>
+    <a routerLink="/home" class="logo">Getränkeversand</a>
 
     <div class="search-bar">
       <input type="text" placeholder="Was suchst du?">
@@ -14,9 +14,9 @@
     </div>
   </div>
 
+  <nav class="category-bar">
 
-<nav class="category-bar">
-  <a routerLink="/home" routerLinkActive="active" class="cat-item">
+ <a routerLink="/home" routerLinkActive="active" class="cat-item">
   Home
 </a>
   <a routerLink="/wasser" routerLinkActive="active" class="cat-item">
@@ -41,549 +41,66 @@
 </header>
 
 <main class="content-wrapper">
-  <nav class="breadcrumb">Startseite &gt; Wein &gt; <strong>Wein</strong></nav>
-  <h1 class="page-title">Wein</h1>
+<nav class="breadcrumb">
+  Startseite &gt; Wein &gt; <strong>Wein</strong>
+</nav>
+
+<h1 class="page-title">Wein</h1>
 
   <div class="filter-bar">
     <button class="filter-btn active">Alle Filter</button>
-    <button class="filter-btn">Weisswein</button>
-    <button class="filter-btn">Rotwein</button>
-    <button class="filter-btn">Roséwein</button>
-    <button class="filter-btn">Glühwein</button>
+    <button class="filter-btn">Wasser</button>
+    <button class="filter-btn">Mineralwasser</button>
+    <button class="filter-btn">Wasser mit Geschmack</button>
+    <button class="filter-btn">Babywasser</button>
   </div>
 
-  <div class="product-grid">
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/Akzente.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Moselland Akzente Weißwein Riesling QbA halbtrocken 0,75l</span>
-        <p class="name">Riesling halbtrocken Deutscher Qualitätswein Mosel</p>
-        <div class="card-footer">
-          <span class="price">4,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
+<div class="product-grid">
+  <div class="product-card" *ngFor="let produkt of produkte">
+
+    <div class="badge-tiefpreis" *ngIf="produkt.badge">
+      {{ produkt.badge }}
     </div>
 
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/GalloFamily.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Gallo Weißwein Pinot Grigio halbtrocken 0,75l</span>
-        <p class="name">US-California, Pinot Grigio 11,5 % vol</p>
-        <div class="card-footer">
-          <span class="price">5,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
+    <img [src]="produkt.bild" [alt]="produkt.name" class="p-img">
+
+    <div class="p-info">
+
+      <!-- Marke -->
+      <p class="brand">
+        {{ produkt.marke }}
+      </p>
+
+      <!-- Produktname -->
+      <p class="name">
+        {{ produkt.name }}
+      </p>
+
+      <!-- Inhalt + Verpackung -->
+      <p class="details">
+        {{ produkt.inhalt }} ({{ produkt.verpackung }})
+      </p>
+
+      <!-- Pfandart -->
+      <p class="pfandart">
+        {{ produkt.pfandart }}
+      </p>
+
+      <!-- Pfand -->
+      <p class="pfand">
+        zzgl. {{ produkt.pfand }} € Pfand
+      </p>
+
+      <!-- Preis -->
+      <div class="card-footer">
+        <span class="price">
+          {{ produkt.preis }} €
+        </span>
+
+        <button class="add-btn">+</button>
       </div>
+
     </div>
 
-    <div class="product-card">
-      <div class="badge-regional">Regional</div>
-      <img src="/images/Riesling.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Kerner Weißwein Riesling halbtrocken 1l</span>
-        <p class="name">DE-Rheinhessen QW, Riesling - Kerner, halbtrocken</p>
-        <div class="card-footer">
-          <span class="price">2,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-regional">Regional</div>
-      <img src="/images/IslandBay_weisswein.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Island Bay Weißwein Sauvignon Blanc trocken 0,75l</span>
-        <p class="name">NZ-Marlborough, Sauvignon Blanc</p>
-        <div class="card-footer">
-          <span class="price">6,49 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/MaybachWeissWein.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Maybach Weißwein Weißer Burgunder QbA trocken 0,25l</span>
-        <p class="name">Qualitätswein aus Deutschland</p>
-        <div class="card-footer">
-          <span class="price">1,49 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/FreixenetMiaWeisswein.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Freixenet Weißwein Mia Blanco Spanien lieblich 0,75l</span>
-        <p class="name">Spanien, lieblich 12 % vol - Freixenet</p>
-        <div class="card-footer">
-          <span class="price">4,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/barefootWeisswein.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Barefoot Weißwein Moscato süß 0,75l</span>
-        <p class="name">Fettarme Milch 1,5% Fett</p>
-        <div class="card-footer">
-          <span class="price">5,85 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/breeFreeWeisswein.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Bree Weißwein Chardonnay halbtrocken 0,75 l</span>
-        <p class="name">Chardonnay halbtrocken</p>
-        <div class="card-footer">
-          <span class="price">5,49 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-regional">Regional</div>
-      <img src="/images/Rasgon.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Rasgón Rotwein Tempranillo halbtrocken 0,75l</span>
-        <p class="name">ES-de Castilla VdlT/ IGP, Tempranillo, Rotwein halbtrocken 12,5 % vol - Rasgón</p>
-        <div class="card-footer">
-          <span class="price">3,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-regional">Regional</div>
-      <img src="/images/Dornfelder.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Dornfelder Rotwein QbA halbtrocken 0,75l</span>
-        <p class="name">DE-Rheinhessen QW, Dornfelder, halbtrocken 12,5 % vol - Dornfelder</p>
-        <div class="card-footer">
-          <span class="price">2,29 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-regional">Regional</div>
-      <img src="/images/La_Baume_SaintPaul.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Réserve La Baume Saint-Paul Rotwein Merlot trocken 0,75l</span>
-        <p class="name">Frankreich, Merlot</p>
-        <div class="card-footer">
-          <span class="price">6,49 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/14Homes.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">14 Homes Rotwein Cabernet Sauvignon Merlot trocken 0,75l</span>
-        <p class="name">ZA-W.O. Coastal Region, Cabernet Sauvignon - Merlot, Rotwein</p>
-        <div class="card-footer">
-          <span class="price">4,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/Negrar.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Amarone Della Rotwein Valpolicella Classico trocken 0,75l</span>
-        <p class="name">Wein aus der EU DOC Italien, Venetien</p>
-        <div class="card-footer">
-          <span class="price">19,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/Miluna.png" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Miluna Rotwein Negroamaro halbtrocken 6x0,75l</span>
-        <p class="name">Wein aus der EU DOC Italien, Sizilien</p>
-        <div class="card-footer">
-          <span class="price">41,94 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/XO.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">El Cortez Rotwein Xo trocken 0,75l</span>
-        <p class="name">Rotwein aus Spanien</p>
-        <div class="card-footer">
-          <span class="price">6,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="product-card">
-      <div class="badge-regional">Regional</div>
-      <img src="/images/Lauffener.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Lauffener Weingärtner Rotwein Katzenbeisser Samtrot QbA halbtrocken 0,75l</span>
-        <p class="name">Rotwein aus Deutschland, Rheinhessen</p>
-        <div class="card-footer">
-          <span class="price">5,29 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/LightLive.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Light live Rotwein alkoholfrei 0,75l</span>
-        <p class="name">Alkoholfreies aromatisiertes Getränk auf Basis entalkoholisierten Weines</p>
-        <div class="card-footer">
-          <span class="price">3,79 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/CorteRossa.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Corte Rossa Rotwein Barolo QbA trocken 0,75l</span>
-        <p class="name">Wein aus der EU DOCG Italien, Piemont</p>
-        <div class="card-footer">
-          <span class="price">18,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/ShirazYellowTail.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Yellow Tail Rotwein Shiraz trocken 0,75l</span>
-        <p class="name">Wein aus der EU DOC Italien, Südlig</p>
-        <div class="card-footer">
-          <span class="price">5,49 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/Stemmari.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Stemmari Rotwein Nero d' Avola DOC trocken 0,75l</span>
-        <p class="name">Wein aus der EU DOC Italien, Sizilien</p>
-        <div class="card-footer">
-          <span class="price">4,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/GluehWeinNuernberger.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Nürnberger Christkindles Markt Glühwein 1l</span>
-        <p class="name">Glühwein aus der EU DOC Deutschland, Nürnberg</p>
-        <div class="card-footer">
-          <span class="price">4,49 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/Pimenta.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Casa Agrícola Alexandre Relvas Monte da Pimenta Rotwein trocken 0,75l</span>
-        <p class="name">PT-Vinho Regional Alentejano IGP, Alicante Bouschet - Aragonez - Trincadeira - Syrah, Rotwein</p>
-        <div class="card-footer">
-          <span class="price">6,99€</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/barefoot.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Barefoot Rotwein Merlot trocken 0,75l</span>
-        <p class="name">US-California, Merlot, Rotwein 13,5 % vol</p>
-        <div class="card-footer">
-          <span class="price">5,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-   <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/112.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">1112 Weißwein Blanc de Noirs trocken 0,75l</span>
-        <p class="name">Deutscher Qualitätswein Baden</p>
-        <div class="card-footer">
-          <span class="price">3,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/DoppioPassio.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Doppio Passo Rosé Puglia Primitivo halbtrocken 0,75l</span>
-        <p class="name">Wein aus der EU DOC Italien, Puglia</p>
-        <div class="card-footer">
-          <span class="price">7,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/Strandgut.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Strandgut Weinschorle Rosé 0,75l</span>
-        <p class="name">Weinschorle Rosé</p>
-        <div class="card-footer">
-          <span class="price">2,49 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-regional">Regional</div>
-      <img src="/images/Granbeau.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Granbeau Rosé Préstige trocken 0,75l</span>
-        <p class="name">Wein aus der EU DOC Frankreich, Provence</p>
-        <div class="card-footer">
-          <span class="price">6,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-
-    
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/Vollmer.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Vollmer Rosé Portugieser Qualitätswein trocken 0,75l</span>
-        <p class="name">Portugieser Qualitätswein</p>
-        <div class="card-footer">
-          <span class="price">4,49 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/GalloFamilyRose.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Gallo Family Rosé Grenache lieblich 0,75l</span>
-        <p class="name">Wein aus der EU DOC Kalifornien, Sonoma County</p>
-        <div class="card-footer">
-          <span class="price">5,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/DornfelderRose.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Von Schoenaich Rosé Dornfelder Pfalz QbA lieblich 0,75l</span>
-        <p class="name">Wein aus der EU DOC Rheinland-Pfalz</p>
-        <div class="card-footer">
-          <span class="price">2,29 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/PortugalDornfeldRose.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Deutscher Qualitätswein Rosé Portugieser Dornfelder QbA feinherb 0,75l</span>
-        <p class="name">DE-Pfalz QW, Portugieser - Dornfelder, Rosé feinherb</p>
-        <div class="card-footer">
-          <span class="price">2,29 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/JHettinger.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">J Hettinger Rosé Dornfelder Spätburgunder halbtrocken 1l</span>
-        <p class="name">DE-Pfalz QW, Dornfelder & Spätburgunder, Rosé halbtrocken</p>
-        <div class="card-footer">
-          <span class="price">3,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/FrancoisDulac.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">François Dulac Rosé Méditerranée frisch & fruchtig trocken 1l</span>
-        <p class="name">Wein aus Frankreich</p>
-        <div class="card-footer">
-          <span class="price">3,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/Freixenet.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Freixenet Roséwein Rosado trocken 0,75l</span>
-        <p class="name">Wein aus Spanien</p>
-        <div class="card-footer">
-          <span class="price">5,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/FreixenetMia.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Freixenet Roséwein Mia Rosado halbtrocken 0,75l</span>
-        <p class="name">Wein aus Spanien</p>
-        <div class="card-footer">
-          <span class="price">4,49 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/Maybach.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Maybach Rosé QbA lieblich alkoholfrei 0,75l</span>
-        <p class="name">Aromatisiertes alkoholfreies Getränk aus entalkoholisiertem Wein</p>
-        <div class="card-footer">
-          <span class="price">4,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-    <div class="badge-regional">Regional</div>
-      <img src="/images/TrollingerRose.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Württemberger Rosé Trollinger QbA süß & fruchtig 0,75l</span>
-        <p class="name">Wein aus Deutschland</p>
-        <div class="card-footer">
-          <span class="price">4,99 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/LightLiveRose.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Light live Rosé alkoholfrei 0,75l</span>
-        <p class="name">Alkoholfreies aromatisiertes Getränk auf Basis entalkoholisierten Weines</p>
-        <div class="card-footer">
-          <span class="price">3,79 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/Free.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Bree Rosé Free Alkoholfreier 0,75l</span>
-        <p class="name">Aromatisiertes alkoholfreies Getränk aus entalkoholisiertem Wein</p>
-        <div class="card-footer">
-          <span class="price">5,49 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge-tiefpreis">Tiefpreis</div>
-      <img src="/images/ChiarettoBardolino.avif" alt="Produkt" class="p-img">
-      <div class="p-info">
-        <span class="brand">Ca'Vive Rosé Bardolino Chiaretto Veneto DOC trocken 0,75l</span>
-        <p class="name">Trockener Rosé-Wein aus Italien</p>
-        <div class="card-footer">
-          <span class="price">2,79 €</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-  
   </div>
-</main> 
-
-    
-
-  
+</div>

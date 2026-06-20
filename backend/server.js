@@ -24,16 +24,34 @@ db.connect((err) => {
     }
 });
 
-app.get('/api/produkte', (req, res) => {
-   db.query('SELECT * FROM 26_IT_Gruppe2.produkt', (err, result) => {
-        if (err) {
-            console.log(err);
-            res.status(500).json(err);
-        } else {
-            res.json(result);
-        }
-    });
+// Route angepasst auf /api/produkt (Einzahl, passend zu Angular)
+app.get('/api/produkt', (req, res) => {
+    // Holt den Wert aus "?kategorie=..." (z.B. 'Wasser')
+    const kategorie = req.query.kategorie; 
+
+    if (kategorie) {
+        // Wenn eine Kategorie übergeben wurde, filtern wir mit WHERE
+        db.query('SELECT * FROM 26_IT_Gruppe2.produkt WHERE hauptkategorie = ?', [kategorie], (err, result) => {
+            if (err) {
+                console.log(err);
+                res.status(500).json(err);
+            } else {
+                res.json(result);
+            }
+        });
+    } else {
+        // Falls kein Parameter übergeben wird, schicken wir einfach alle Produkte
+        db.query('SELECT * FROM 26_IT_Gruppe2.produkt', (err, result) => {
+            if (err) {
+                console.log(err);
+                res.status(500).json(err);
+            } else {
+                res.json(result);
+            }
+        });
+    }
 });
+
 app.listen(3000, () => {
     console.log('Server läuft auf Port 3000');
 });
