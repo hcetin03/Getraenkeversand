@@ -7,8 +7,9 @@ import { Wein } from './wein/wein';
 import { Kaffee } from './kaffee/kaffee';
 import { LimoUndSaft } from './limo-und-saft/limo-und-saft';
 import { WarenkorbComponent } from './warenkorb/warenkorb'; 
-import { Login } from './login/login'; // <-- Geändert zu LoginComponent!
-import {MitarbeiterComponent } from './mitarbeiter/mitarbeiter';
+import { Login } from './login/login'; 
+import { MitarbeiterComponent } from './mitarbeiter/mitarbeiter';
+import { Favoriten } from './favoriten/favoriten'; 
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -19,7 +20,8 @@ export const routes: Routes = [
   { path: 'wasser', component: Wasser },
   { path: 'kaffee', component: Kaffee },
   { path: 'limo-und-saft', component: LimoUndSaft },
-  { path: 'warenkorb', component: WarenkorbComponent }, // <-- Hier ist jetzt das Komma!
-  { path: 'login', component: Login }, // <-- Geändert zu LoginComponent!
-  { path: 'mitarbeiter', component: MitarbeiterComponent }
+  { path: 'warenkorb', component: WarenkorbComponent }, 
+  { path: 'login', component: Login }, 
+  { path: 'mitarbeiter', component: MitarbeiterComponent }, // <-- Hier hat das Komma gefehlt!
+  { path: 'favoriten', component: Favoriten }, 
 ];

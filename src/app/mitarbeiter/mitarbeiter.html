@@ -40,7 +40,7 @@
                     <tr>
                         <td>{{bestellung.id}}</td>
                         <td>{{bestellung.kunde}}</td>
-                        <td>{{bestellung.datum}}</td>
+                        <td>{{bestellung.datum | date: 'dd.MM.yyyy'}}</td>
                         <td>{{bestellung.artikel}}</td>
                         <td>{{bestellung.menge}}</td>
                         <td>{{bestellung.gesamtpreis | currency: 'EUR'}}</td>
@@ -61,7 +61,8 @@
                     <th>ID</th>
                     <th>Getränk</th>
                     <th>Kategorie</th>
-                    <th>Lagerbestand</th>
+                    <th>Aktueller Bestand</th>
+                    <th>Bestand bearbeiten</th>
                     <th>Aufstocken</th>
                     <th>Speichern</th>
                 </tr>

@@ -11,18 +11,16 @@ import { CommonModule } from '@angular/common';
   templateUrl: './wein.html',
   styleUrl: './wein.css',
 })
-export class Wein {
 
-  produkte: any[] = [];
+export class Wein {
+    produkte: any[] = [];
 
   constructor(private http: HttpClient) {
-
-    this.http.get<any[]>('http://localhost:3000/api/produkte?kategorie=Wein')
+this.http.get<any[]>('http://localhost:3000/api/produkt?kategorie=Wein')
       .subscribe(data => {
         this.produkte = data;
         console.log(this.produkte);
       });
 
   }
-
 }

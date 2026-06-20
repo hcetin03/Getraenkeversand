@@ -6,9 +6,9 @@
        alt="Logo" 
        style="height: 50px !important; width: auto !important; display: block !important; object-fit: contain !important; mix-blend-mode: multiply !important;">
   
-  <span class="logo-text" style="font-size: 24px !important; font-weight: 300 !important; letter-spacing: -0.5px !important; text-transform: lowercase !important; color: #ffffff !important; line-height: 1 !important; font-family: 'Segoe UI', Arial, sans-serif !important;">
-    getränke<span class="logo-highlight" style="font-weight: 800 !important;">versand</span> hsb
-  </span>
+  <span class="logo-text" style="font-size: 24px !important; font-weight: 300 !important; text-transform: none !important;">
+    Getränke<span class="logo-highlight" style="font-weight: 800 !important;">versand</span>
+</span>
 </a>
 
     <div class="search-bar">
@@ -58,13 +58,22 @@
   </nav>
 </header>
 
-<section class="hero-banner">
-  <div class="hero-text">
-    <h1>Willkommen auf der Homepage Getränke-Shop der HSB</h1>
+<div class="welcome-banner-split">
+  
+  <div class="banner-gradient-side">
+    <h1>
+      Willkommen bei<br>
+      <span>Getränke-Versand</span>
+    </h1>
     <p>Hier findest du dein Lieblingsgetränk!</p>
-    <a href="#" class="btn-white">Mehr erfahren</a>
+    <a href="#themenwelten" class="btn-more">Mehr erfahren</a>
   </div>
-</section>
+
+  <div class="banner-image-side">
+    <img src="/images/Erfrischung.jpg" alt="Getränke-Auswahl">
+  </div>
+
+</div>
 
 <section class="voucher-outer-container">
   <div class="voucher-section">
@@ -80,7 +89,7 @@
         <span class="expiry-date">📅 gültig bis 31.07.2026</span>
       </div>
       <h2 class="voucher-title">
-        Code: <span class="code-highlight">HALLO030</span> | Sicher dir je 10 € auf deine ersten 3 Bestellungen*
+        Code: <span class="code-highlight">GETRAENKE020</span> | Sicher dir je 10 € auf deine ersten 3 Bestellungen*
       </h2>
       <div class="progress-container">
         <span class="progress-text">Eingelöst: 0 von 3</span>
@@ -95,28 +104,146 @@
     </div>
   </div>
 </section>
-<main class="grid-container">
-  <div class="grid-card bg-green">
-    <h3>Angebote</h3>
-    <div class="card-img">%</div>
+
+<section class="themenwelten-section">
+  <h2>Deine Themenwelten</h2>
+  
+  <main class="grid-container-modern">
+    <a routerLink="/angebote" class="themen-kachel">
+      <div class="kachel-bild-wrapper">
+        <img src="images/angebote.jpg" alt="Angebote">
+      </div>
+      <div class="kachel-footer">
+        <span>Angebote</span>
+        <span class="pfeil">›</span>
+      </div>
+    </a>
+
+    <a routerLink="/jubilaeum" class="themen-kachel">
+      <div class="kachel-bild-wrapper">
+        <img src="images/jubilaeum.jpg" alt="Jubiläum">
+      </div>
+      <div class="kachel-footer">
+        <span>Jubiläum</span>
+        <span class="pfeil">›</span>
+      </div>
+    </a>
+
+    <a routerLink="/milch" class="themen-kachel">
+      <div class="kachel-bild-wrapper">
+        <img src="images/wine.png" alt="Weinwelt">
+      </div>
+      <div class="kachel-footer">
+        <span>Weinwelt</span>
+        <span class="pfeil">›</span>
+      </div>
+    </a>
+
+    <a routerLink="/bier" class="themen-kachel mehr-entdecken-kachel">
+      <div class="kachel-bild-wrapper">
+        <img src="images/Bierwelt.jpg" alt="Bierwelt">
+        <div class="plus-overlay">
+          <span class="plus-icon">+</span>
+        </div>
+      </div>
+      <div class="kachel-footer">
+        <span>Bierwelt</span>
+        <span class="pfeil">›</span>
+      </div>
+    </a>
+  </main>
+</section>
+
+<div class="diet-outer-container">
+  <div class="diet-section">
+    <div class="diet-header">
+      <h2>Ernährungsformen</h2>
+      <p>Was ist dir bei der Ernährung wichtig?</p>
+    </div>
+    <div class="diet-badges-container">
+      <a href="#" class="diet-badge">Vegan</a>
+      <a href="#" class="diet-badge">Bio</a>
+      <a href="#" class="diet-badge">Laktosefrei</a>
+      <a href="#" class="diet-badge">Glutenfrei</a>
+      <a href="#" class="diet-badge">Proteinreich</a>
+      <a href="#" class="diet-badge">Zuckerarm</a>
+      <a href="#" class="diet-badge">Alkoholfrei</a>
+    </div>
   </div>
-  <div class="grid-card bg-blue">
-    <h3>Molkerei</h3>
-    <div class="card-img">🥛</div>
+</div>
+
+<div class="brand-promo-container">
+  
+  <div class="promo-top-banner">
+    <div class="promo-banner-left">
+      <span class="advertising-tag">Werbung</span>
+      <h1>100% GESCHMACK<br><span class="highlight-text">0% ZUCKER</span></h1>
+      <a href="#" class="btn-promo-buy">Jetzt kaufen</a>
+    </div>
+    <div class="promo-banner-right">
+      <img src="/images/volvicwerbe.jpg" alt="Volvic Tee Zero Promotion" class="promo-bg-img">
+    </div>
   </div>
-  <div class="grid-card bg-yellow">
-    <h3>Jubiläum</h3>
-    <div class="card-img">🎁</div>
+
+  <div class="promo-products-box">
+    <div class="promo-products-header">
+      <h2>Deine Pause mit Volvic Tee Zero</h2>
+      <div class="promo-slider-arrows">
+        <button class="arrow-btn left">&lt;</button>
+        <button class="arrow-btn right">&gt;</button>
+      </div>
+    </div>
+
+    <div class="promo-products-grid">
+      
+      <div class="promo-product-card">
+        <button class="wishlist-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </button>
+        <div class="product-img-wrapper">
+          <img src="/images/volvic.jpg" alt="Volvic Pfirsich">
+        </div>
+        <div class="product-details">
+          <h3 class="product-title">Volvic Tee Pfirsich 6x1,5l (EINWEG)</h3>
+          <p class="product-subtitle">6x1,50l (1 l = 1,26 €) zzgl. 0,25 € Pfand</p>
+          <div class="product-footer">
+            <span class="product-price">11,34 €</span>
+            <button class="btn-add-to-cart">
+              <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="promo-product-card">
+        <button class="wishlist-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </button>
+        <div class="product-img-wrapper">
+          <img src="/images/volvic1.jpg" alt="Volvic Zitrone">
+        </div>
+        <div class="product-details">
+          <h3 class="product-title">Volvic Tee Zitrone 6x1,5l (EINWEG)</h3>
+          <p class="product-subtitle">6x1,50l (1 l = 1,26 €) zzgl. 0,25 € Pfand</p>
+          <div class="product-footer">
+            <span class="product-price">11,34 €</span>
+            <button class="btn-add-to-cart">
+              <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="promo-product-card go-to-brand-card">
+        <a href="#" class="brand-link-fallback">
+          <span class="arrow-right">→</span>
+          <span>Jetzt kaufen</span>
+        </a>
+      </div>
+
+    </div>
   </div>
-  <div class="grid-card bg-orange">
-    <h3>Airfryer</h3>
-    <div class="card-img">🍳</div>
-  </div>
-  <div class="grid-card bg-yellow">
-    <h3>Bierwelt</h3>
-    <div class="card-img">🍺</div>
-  </div>
-</main>
+</div>
 
 <section class="brands-section">
   <h2>Beliebte Marken</h2>
@@ -276,7 +403,10 @@
     </div>
   </div>
 
+<<<<<<< HEAD
   <h3 class="margin-top">Newsletter abonnieren</h3>
+=======
+>>>>>>> 02376bc40184be0e25b8ae6eccf5e7e235c6d12f
 
       <h3 class="margin-top">Newsletter abonnieren</h3>
       <div class="newsletter-form">

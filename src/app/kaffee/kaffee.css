@@ -1,4 +1,11 @@
-/* --- BASIS STYLING --- */
+Hier ist dein vollständiger, fertig zusammengebauter CSS-Code. Ich habe die Anpassungen für die Schriftgröße, Schriftdicke, das Einkaufswagen-Icon und den Zwang zur modernen, serifenlosen Schriftart direkt an den richtigen Stellen eingefügt.
+
+Du kannst diesen gesamten Block kopieren und damit den Inhalt deiner CSS-Dateien auf allen Seiten ersetzen:
+
+CSS
+/* ==========================================================================
+   1. BASIS STYLING & ALLGEMEINES
+   ========================================================================== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,8 +13,9 @@
 }
 
 body {
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f8f9fa; /* Ganz leichtes Grau für den Hintergrund */
+  /* Erzwingt die moderne Schriftart auf der gesamten Seite */
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  background-color: #f8f9fa; 
   color: #333;
   line-height: 1.5;
 }
@@ -15,16 +23,19 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
 }
 
-/* Umschließt den Inhalt unter dem Header, damit er nicht am Rand klebt */
+/* Inhalt unter dem Header */
 .content-wrapper {
   max-width: 1200px;
   margin: 0 auto;
   padding: 30px 20px 40px 20px;
 }
 
-/* --- HEADER MIT MODERNEM VERLAUF --- */
+/* ==========================================================================
+   2. HEADER & NAVIGATION (1 ZU 1 HOMEPAGE-STYLE)
+   ========================================================================== */
 .main-header {
   width: 100%;
   position: sticky;
@@ -39,24 +50,29 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 5%;
+  padding: 12px 5%; 
   color: white;
   gap: 20px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; 
 }
 
+/* Logo-Bereich links */
 .logo {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
   font-size: 24px;
   font-weight: 800;
   letter-spacing: -0.5px;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Moderne Suchleiste mit Glaseffekt */
+/* Mittige Suchleiste mit Glaseffekt */
 .search-bar {
-  flex: 1 1 220px;
-  min-width: 180px;
-  max-width: 450px;
+  flex: 1 1 auto;
+  max-width: 500px; 
+  margin: 0 20px;
 }
 
 .search-bar input {
@@ -64,85 +80,104 @@ a {
   padding: 10px 20px;
   border-radius: 25px;
   border: none;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
   color: white;
   backdrop-filter: blur(5px);
+  outline: none;
   transition: all 0.3s;
-  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
 }
 
 .search-bar input::placeholder {
-  color: rgba(255,255,255,0.75);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .search-bar input:focus {
-  background: rgba(255,255,255,0.25);
-  outline: none;
+  background: rgba(255, 255, 255, 0.25);
 }
 
+/* Rechte Navigation (Texte & Einkaufswagen angepasiert) */
 .user-nav {
   display: flex;
   align-items: center;
-  gap: 18px;
-  font-size: 14px;
-  font-weight: 500;
-  flex-wrap: wrap;
+  gap: 25px;                    
+  font-size: 18px !important;   /* Große, gut lesbare Schrift */
+  font-weight: 600 !important;  /* Kräftiges Semi-Bold */
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  white-space: nowrap;
 }
 
+.user-nav a {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  transition: opacity 0.2s;
+}
+
+.user-nav a:hover {
+  opacity: 0.8;
+}
+
+/* Einkaufswagen Icon vergrößert */
 .cart-icon {
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
 }
 
-/* --- WEISSE KATEGORIELEISTE (FIX FÜR DIE LINK-ORDNUNG) --- */
+.cart-icon svg,
+.cart-icon img {
+  width: 26px !important;       /* Icon-Größe exakt an 18px Schrift angepasst */
+  height: auto !important;
+  vertical-align: middle;
+}
+
+/* ==========================================================================
+   3. WEISSE KATEGORIELEISTE
+   ========================================================================== */
 .category-bar {
   background-color: white;
   display: flex;
-  justify-content: center; /* Zentriert die gesamte Leiste horizontal */
-  gap: 35px;               /* Abstand zwischen den einzelnen Kategorien */
+  justify-content: center; 
+  gap: 35px;               
   padding: 15px 0;
   border-bottom: 1px solid #eee;
 }
 
-/* Design der einzelnen Navigations-Links */
 .category-bar .cat-item {
-  display: inline-flex !important;  /* Zwingt Icon und Text nebeneinander */
-  align-items: center !important;   /* Richtet sie perfekt auf einer Mittelachse aus */
-  gap: 8px !important;              /* Abstand zwischen Icon und Text */
-  text-decoration: none !important; /* Entfernt die lila Unterstreichungen komplett */
-  color: #666666 !important;        /* Sauberes Grau statt Lila */
-  font-size: 14px;
-  font-weight: 600;
+  display: inline-flex !important;  
+  align-items: center !important;   
+  gap: 8px !important;              
+  text-decoration: none !important; 
+  color: #666666 !important;        
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
   cursor: pointer;
   padding: 4px 0;
   position: relative;
   transition: color 0.2s;
 }
 
-/* Präzise Größenanpassung für die Lucide-Icons */
 .category-bar .cat-item svg {
   width: 20px !important;
   height: 20px !important;
-  stroke: currentColor !important;  /* Icon übernimmt die graue/grüne Textfarbe */
+  stroke: currentColor !important;  
   stroke-width: 2px;
   display: block;
 }
 
-/* Farbwechsel beim Drüberfahren mit der Maus */
 .category-bar .cat-item:hover {
-  color: darkslateblue !important;        /* Wird beim Hover grün */
+  color: darkslateblue !important; 
   text-decoration: none !important;
 }
 
-/* Aktiver Zustand für die ausgewählte Kategorie (z.B. Weine) */
 .category-bar .cat-item.active {
-  color: #1a1a1a !important;        /* Text wird dunkler */
+  color: #1a1a1a !important;        
 }
 
-/* Der grüne Indikator-Strich unter dem aktiven Element */
 .category-bar .cat-item.active::after {
   content: '';
   position: absolute;
-  bottom: -16px;                    /* Setzt den Strich genau auf die untere Kante */
+  bottom: -16px;                    
   left: 0;
   width: 100%;
   height: 3px;
@@ -150,7 +185,9 @@ a {
   border-radius: 2px 2px 0 0;
 }
 
-/* --- PRODUKT SEITE --- */
+/* ==========================================================================
+   4. PRODUKT SEITE & GRID
+   ========================================================================== */
 .breadcrumb {
   font-size: 13px;
   color: #999;
@@ -163,7 +200,6 @@ a {
   margin: 10px 0 25px 0;
 }
 
-/* Moderne Filter-Pillen */
 .filter-bar {
   display: flex;
   gap: 12px;
@@ -191,7 +227,6 @@ a {
   color: white;
 }
 
-/* --- DAS PRODUKT GRID --- */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -234,7 +269,7 @@ a {
   font-weight: 600;
   margin: 8px 0 20px 0;
   line-height: 1.4;
-  height: 42px; /* Verhindert das Verrutschen der Karten */
+  height: 42px; 
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -253,7 +288,6 @@ a {
   font-weight: 700;
 }
 
-/* Runder, dunkelblauer Plus-Button */
 .add-btn {
   background-color: midnightblue;
   color: white;
@@ -274,7 +308,6 @@ a {
   transform: scale(1.05);
 }
 
-/* --- BADGES --- */
 .badge-tiefpreis, .badge-regional {
   position: absolute;
   top: 15px;
@@ -297,21 +330,26 @@ a {
   color: #333;
 }
 
+/* ==========================================================================
+   5. RESPONSIVE RESPONSIVENESS (MOBIL-OPTIMIERUNG)
+   ========================================================================== */
 @media (max-width: 900px) {
-
   .top-nav {
+    flex-wrap: wrap;
     justify-content: center;
+    gap: 15px;
   }
 
   .search-bar {
     order: 3;
     flex-basis: 100%;
+    margin: 5px 0;
     max-width: none;
   }
 
   .user-nav {
     justify-content: center;
-    gap: 14px;
+    gap: 18px;
   }
 
   .category-bar {
@@ -322,28 +360,19 @@ a {
 }
 
 @media (max-width: 600px) {
-
-  .top-nav {
-    gap: 12px;
-  }
-
   .logo {
     font-size: 21px;
   }
 
-  .search-bar {
-    min-width: 100%;
-  }
-
   .user-nav {
-    gap: 10px;
-    font-size: 13px;
+    gap: 12px;
+    font-size: 15px; 
   }
 
   .category-bar {
     overflow-x: auto;
     justify-content: flex-start;
     flex-wrap: nowrap;
+    padding: 12px 15px;
   }
-
 }

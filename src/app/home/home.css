@@ -10,8 +10,9 @@ body {
 }
 
 /* Verhindert das Ineinander-Rutschen von Elementen */
+.welcome-banner-split,
 .voucher-outer-container,
-.grid-container,
+.themenwelten-section,
 .brands-section,
 .features-section-block {
   width: 100%;
@@ -51,7 +52,7 @@ body {
   font-size: 24px !important;      
   font-weight: 300 !important;     
   letter-spacing: -0.5px !important;
-  text-transform: lowercase !important; 
+  text-transform: none !important;
   color: #ffffff !important;
   line-height: 1 !important;
   font-family: 'Segoe UI', Arial, sans-serif !important;
@@ -85,8 +86,19 @@ body {
   display: flex;
   align-items: center;
   gap: 25px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.user-nav a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.user-nav a:hover {
+  opacity: 0.8;
 }
 
 .cart-link {
@@ -94,6 +106,13 @@ body {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+}
+
+.cart-link svg,
+.cart-link img {
+  width: 26px !important;
+  height: auto !important;
+  vertical-align: middle;
 }
 
 /* --- CATEGORY BAR --- */
@@ -141,33 +160,79 @@ body {
 }
 
 /* ==========================================================================
-   2. HERO BANNER
+   2. NEU: WILLKOMMENS-BANNER (Länge an Gutschein/1200px angepasst & ohne störenden Verlauf)
    ========================================================================== */
-.hero-banner {
-  margin: 20px 5%;
-  background: linear-gradient(90deg, steelblue 0%, seagreen 100%);
-  border-radius: 20px;
-  height: 300px;
+.welcome-banner-split {
   display: flex;
-  align-items: center;
-  padding: 0 50px;
-  color: white;
+  width: calc(100% - 10%); /* Gleicht das Padding 0 5% der anderen Sektionen aus */
+  max-width: 1200px;       /* Exakt dieselbe Breite wie die Gutschein-Sektion */
+  height: 380px; 
+  margin: 30px auto;
+  border-radius: 24px;
+  overflow: hidden; 
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
-.hero-text h1 {
-  font-size: clamp(30px, 5vw, 60px);
-  margin: 0;
+/* Linke Hälfte: Der blaue-grüne Farbverlauf für den Text */
+.banner-gradient-side {
+  flex: 1.1; /* Gibt dem Text minimal mehr Platz */
+  background: linear-gradient(135deg, #4b89b8 0%, #2e8b57 100%);
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  color: #ffffff;
 }
 
-.btn-white {
-  background: white;
-  color: #333;
-  padding: 10px 15px;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: bold;
+.banner-gradient-side h1 {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 15px 0;
+}
+
+.banner-gradient-side h1 span {
+  font-weight: 400;
+  opacity: 0.95;
+}
+
+.banner-gradient-side p {
+  font-size: 16px;
+  opacity: 0.85;
+  margin: 0 0 30px 0;
+}
+
+/* Button im Farbverlauf */
+.btn-more {
   display: inline-block;
-  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-more:hover {
+  background-color: #ffffff;
+  color: #2e8b57;
+  transform: translateY(-2px);
+}
+
+/* Rechte Hälfte: Das ungezoomte, klare Bildfeld */
+.banner-image-side {
+  flex: 0.9;
+  background-color: #f7f7f7;
+}
+
+.banner-image-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  display: block;
 }
 
 /* ==========================================================================
@@ -307,41 +372,114 @@ body {
 }
 
 /* ==========================================================================
-   4. GRID SYSTEM (Bunte Kacheln)
+   4. GRID SYSTEM (Kacheln, Bild-Zoom & Schrift-Hover)
    ========================================================================== */
-.grid-container {
-  margin: 40px 5%;
+.themenwelten-section {
+  padding: 0 5%;
+  margin: 50px auto;
+  max-width: 1400px; 
+}
+
+.themenwelten-section h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+.grid-container-modern {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 24px;
 }
 
-.grid-card {
-  background: white;
-  border-radius: 15px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: transform 0.2s;
-}
-
-.grid-card:hover {
-  transform: translateY(-5px);
-}
-
-.card-img {
-  height: 80px;
-  font-size: 40px;
+.themen-kachel {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  text-decoration: none;
+  color: #333;
+  background-color: #ffffff;
+  border-radius: 20px; 
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.bg-pink { background-color: #fffafb; }
-.bg-yellow { background-color: #fffdf5; }
-.bg-green { background-color: #f7fdf9; }
-.bg-blue { background-color: #f4fafd; }
-.bg-orange { background-color: #fffbf7; }
+.themen-kachel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.1);
+}
+
+.kachel-bild-wrapper {
+  position: relative;
+  width: 100%;
+  height: 290px; 
+  overflow: hidden; 
+}
+
+.kachel-bild-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease; 
+}
+
+.themen-kachel:hover .kachel-bild-wrapper img {
+  transform: scale(1.06); 
+}
+
+.kachel-footer {
+  background: #ffffff;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 600;
+  transition: color 0.3s ease; 
+}
+
+.themen-kachel:hover .kachel-footer {
+  color: #2e8b57; 
+}
+
+.kachel-footer .pfeil {
+  font-size: 18px;
+  color: #999;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.themen-kachel:hover .pfeil {
+  color: #2e8b57;
+  transform: translateX(3px);
+}
+
+.plus-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.themen-kachel:hover .plus-overlay {
+  transform: translate(-50%, -50%) scale(1.05); 
+}
+
+.plus-icon {
+  font-size: 34px;
+  font-weight: bold;
+  color: #333;
+  line-height: 1;
+}
 
 /* ==========================================================================
    5. BELIEBTE MARKEN SLIDER
@@ -498,7 +636,6 @@ body {
   line-height: 1;
 }
 
-/* Farbige Kreise für Icons */
 .bg-light-orange { background-color: #fef4d7; }
 .bg-light-blue   { background-color: #d7effe; }
 .bg-light-green  { background-color: #e5f6df; }
@@ -561,7 +698,6 @@ body {
 .newsletter-form input { background: transparent; border: none; padding: 10px; color: white; flex: 1; outline: none; }
 .newsletter-form button { background: #cccccc; border: none; padding: 0 15px; font-weight: bold; cursor: pointer; }
 
-/* GRIDS FÜR APPS & ZAHLUNGSARTEN (Optimiert auf kompakte Größe) */
 .app-buttons {
   display: grid !important;
   grid-template-columns: repeat(2, 1fr) !important;
@@ -571,34 +707,32 @@ body {
 
 .payment-grid {
   display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important; /* 3 Spalten nebeneinander */
-  gap: 8px !important;                             /* Kompakter Abstand */
-  max-width: 240px !important;                     /* Schmalere Gesamtbreite */
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 8px !important;                                                                                                    
+  max-width: 240px !important;                                                                
   margin-top: 15px !important;
 }
 
-/* KACHELN FÜR DIE LOGOS & APPS */
 .app-card,
 .pay-card {
   background-color: #ffffff !important;
-  border-radius: 6px !important;                    /* Schön dezent abgerundet */
-  height: 34px !important;                          /* Flachere, edlere Höhe */
+  border-radius: 6px !important;                                    
+  height: 34px !important;                                                                          
   display: flex !important;
-  align-items: center !important;                   
+  align-items: center !important;                  
   justify-content: center !important;               
   padding: 4px 6px !important;
   box-sizing: border-box !important;
   overflow: hidden !important;
 }
 
-/* BILDER IN DEN KACHELN (Skalieren jetzt perfekt mit der kleineren Box mit) */
 .app-card img,
 .pay-card img {
   max-width: 100% !important;
   max-height: 100% !important;
   width: auto !important;
   height: auto !important;
-  object-fit: contain !important;                   
+  object-fit: contain !important;                  
   display: block !important;
 }
 
@@ -622,7 +756,6 @@ body {
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
-/* Überschriften-Klasse für Sektionen im Footer */
 .margin-top {
   color: #999999;
   font-size: 13px;
@@ -635,7 +768,7 @@ body {
 .legal-text { font-size: 11px; color: #aaa; margin-top: 15px; }
 
 /* ==========================================================================
-   8. RESPONSIVE MEDIA QUERIES
+   8. RESPONSIVE MEDIA QUERIES & SPLIT BANNER RESPONSIVE
    ========================================================================== */
 @media (max-width: 992px) {
   .cards-flex-grid {
@@ -654,6 +787,18 @@ body {
 }
 
 @media (max-width: 850px) {
+  .welcome-banner-split {
+    flex-direction: column;
+    height: auto;
+    width: calc(100% - 10%);
+  }
+  .banner-gradient-side {
+    padding: 35px 25px;
+  }
+  .banner-image-side {
+    height: 220px;
+  }
+
   .voucher-section {
     flex-direction: column;
     align-items: stretch;
@@ -668,4 +813,345 @@ body {
   .progress-bar-bg { margin: 0 auto; }
   .voucher-action { padding: 20px; }
   .btn-redeem { width: 100%; }
+}
+
+/* ==========================================================================
+   X. ERNÄHRUNGSFORMEN BANNER (Flaschenpost-Style)
+   ========================================================================== */
+.diet-outer-container {
+  padding: 0 5%;
+  margin: 40px 0;
+  width: 100%;
+  box-sizing: border-box;
+  clear: both;
+  display: block;
+}
+
+.diet-section {
+  display: flex;
+  align-items: center;
+  background-color: #e5f2e5; 
+  border-radius: 20px;
+  max-width: 1400px; 
+  margin: 0 auto;
+  padding: 30px 40px;
+  gap: 40px;
+}
+
+.diet-header {
+  min-width: 250px;
+}
+
+.diet-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #222222;
+  margin: 0 0 8px 0;
+}
+
+.diet-header p {
+  font-size: 15px;
+  color: #555555;
+  margin: 0;
+}
+
+.diet-badges-container {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 12px 10px; 
+  flex: 1;
+}
+
+.diet-badge {
+  display: inline-block;
+  background-color: #ffffff;
+  color: #222222;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 12px; 
+  border: 1px solid #1a1a1a; 
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+}
+
+.diet-badge:hover {
+  background-color: #2e8b57; 
+  color: #ffffff;
+  border-color: #2e8b57;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 850px) {
+  .diet-section {
+    flex-direction: column; 
+    align-items: flex-start;
+    padding: 25px;
+    gap: 20px;
+  }
+  
+  .diet-badges-container {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   X. VOLVIC BRAND BANNER & SLIDER
+   ========================================================================== */
+.brand-promo-container {
+  padding: 0 5%;
+  margin: 50px auto;
+  max-width: 1400px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.promo-top-banner {
+  display: flex;
+  background-color: #fcf4e4; 
+  border-radius: 24px 24px 0 0; 
+  overflow: hidden;
+  height: 280px;
+  position: relative;
+}
+
+.promo-banner-left {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  z-index: 2;
+}
+
+.advertising-tag {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background-color: #222;
+  color: #fff;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.promo-banner-left h1 {
+  font-size: 38px;
+  font-weight: 900;
+  color: #007a3d; 
+  line-height: 1.1;
+  margin: 0 0 25px 0;
+  font-family: 'Arial Black', sans-serif;
+}
+
+.promo-banner-left h1 .highlight-text {
+  color: #00a5db; 
+}
+
+.btn-promo-buy {
+  background-color: #007a3d;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: background-color 0.2s;
+}
+
+.btn-promo-buy:hover {
+  background-color: #005c2e;
+}
+
+.promo-banner-right {
+  width: 55%;
+  position: relative;
+}
+
+.promo-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.promo-products-box {
+  background-color: #e5f2e5; 
+  border-radius: 0 0 24px 24px; 
+  padding: 30px;
+}
+
+.promo-products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.promo-products-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #005c2e;
+  margin: 0;
+}
+
+.promo-slider-arrows {
+  display: flex;
+  gap: 10px;
+}
+
+.promo-slider-arrows .arrow-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #666;
+}
+
+.promo-products-grid {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto; 
+  scrollbar-width: none; 
+}
+
+.promo-products-grid::-webkit-scrollbar {
+  display: none; 
+}
+
+.promo-product-card {
+  min-width: 210px;
+  max-width: 210px;
+  background: white;
+  border-radius: 16px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.wishlist-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.wishlist-btn svg {
+  fill: none;
+  stroke: #333;
+  stroke-width: 2;
+}
+
+.product-img-wrapper {
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.product-img-wrapper img {
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.product-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #222;
+  margin: 0 0 6px 0;
+  line-height: 1.3;
+  height: 34px;
+  overflow: hidden;
+}
+
+.product-subtitle {
+  font-size: 11px;
+  color: #777;
+  margin: 0 0 15px 0;
+}
+
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.product-price {
+  font-size: 15px;
+  font-weight: 800;
+  color: #222;
+}
+
+.btn-add-to-cart {
+  background-color: #ce0037; 
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-add-to-cart svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
+.go-to-brand-card {
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: 2px dashed #005c2e;
+  box-shadow: none;
+}
+
+.brand-link-fallback {
+  text-decoration: none;
+  color: #005c2e;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.arrow-right {
+  font-size: 24px;
+}
+
+@media (max-width: 768px) {
+  .promo-top-banner {
+    flex-direction: column;
+    height: auto;
+  }
+  .promo-banner-right {
+    width: 100%;
+    height: 180px;
+  }
 }
