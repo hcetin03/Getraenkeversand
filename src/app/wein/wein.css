@@ -348,3 +348,32 @@ a {
   }
 
 }
+
+
+.brand {
+  font-size: 22px;      /* größer */
+  font-weight: 700;
+  color: black;
+  margin-bottom: 6px;
+}
+
+.name {
+  font-size: 18px;      /* etwas größer */
+  font-weight: 500;
+  color: black;
+  margin-bottom: 6px;
+}
+
+.details,
+.pfandart,
+.pfand {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.price {
+  font-size: 20px;      /* kleiner als vorher */
+  font-weight: 700;
+  color: black;
+}

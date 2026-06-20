@@ -17,7 +17,7 @@ export class Wasser {
 
   constructor(private http: HttpClient) {
 
-    this.http.get<any[]>('http://localhost:3000/api/produkte')
+    this.http.get<any[]>('http://localhost:3000/api/produkte?kategorie=Wasser')
       .subscribe(data => {
         this.produkte = data;
         console.log(this.produkte);

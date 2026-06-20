@@ -1,119 +1,4 @@
-<header class="main-header">
-  <div class="top-nav">
-    <a routerLink="/home" class="logo">Getränkeversand</a>
-
-    <div class="search-bar">
-      <input type="text" placeholder="Was suchst du?">
-    </div>
-
-    <div class="user-nav">
-      <span>Lieferstatus</span>
-      <span>Favoriten</span>
-      <span>Konto</span>
-      <a routerLink="/warenkorb" class="cart-icon">🛒</a>
-    </div>
-  </div>
-
-  <nav class="category-bar">
-
- <a routerLink="/home" routerLinkActive="active" class="cat-item">
-  Home
-</a>
-  <a routerLink="/wasser" routerLinkActive="active" class="cat-item">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"/></svg> Wasser
-  </a>
-  <a routerLink="/limo-und-saft" routerLinkActive="active" class="cat-item">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8M5 8h14M7 15h10M12 8V2m0 0 2 2m-2-2-2 2"/></svg> Limo & Saft
-  </a>
-  <a routerLink="/bier" routerLinkActive="active" class="cat-item">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M17 11h1a3 3 0 1 1 0 6h-1M9 12v6M13 12v6M6 22h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2z"/></svg> Bier
-  </a>
-  <a routerLink="/milch" routerLinkActive="active" class="cat-item">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M15.2 22H8.8a2 2 0 0 1-2-1.79L5 3h14l-1.81 17.21A2 2 0 0 1 15.2 22zM6 12h12"/></svg> Milch
-  </a>
-  <a routerLink="/wein" routerLinkActive="active" class="cat-item">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M8 22h8M12 11v11M19 3a1 1 0 0 1 1 1v4c0 4.42-3.58 8-8 8s-8-3.58-8-8V4a1 1 0 0 1 1-1h14zM4 8h16"/></svg> Wein
-  </a>
-  <a routerLink="/kaffee" routerLinkActive="active" class="cat-item">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg> Kaffee
-  </a>
-</nav>
-</header>
-
-<main class="content-wrapper">
-  <nav class="breadcrumb">
-    Startseite &gt; Wasser &gt; <strong>Wasser</strong>
-  </nav>
-
-  <h1 class="page-title">Wasser</h1>
-
-  <div class="filter-bar">
-    <button class="filter-btn active">Alle Filter</button>
-    <button class="filter-btn">Wasser</button>
-    <button class="filter-btn">Mineralwasser</button>
-    <button class="filter-btn">Wasser mit Geschmack</button>
-    <button class="filter-btn">Babywasser</button>
-  </div>
-
-<div class="product-grid">
-  <div class="product-card" *ngFor="let produkt of produkte">
-
-    <div class="badge-tiefpreis" *ngIf="produkt.badge">
-      {{ produkt.badge }}
-    </div>
-
-    <img [src]="produkt.bild" [alt]="produkt.name" class="p-img">
-
-    <div class="p-info">
-
-      <!-- Marke -->
-      <p class="brand">
-        {{ produkt.marke }}
-      </p>
-
-      <!-- Produktname -->
-      <p class="name">
-        {{ produkt.name }}
-      </p>
-
-      <!-- Inhalt + Verpackung -->
-      <p class="details">
-        {{ produkt.inhalt }} ({{ produkt.verpackung }})
-      </p>
-
-      <!-- Pfandart -->
-      <p class="pfandart">
-        {{ produkt.pfandart }}
-      </p>
-
-      <!-- Pfand -->
-      <p class="pfand">
-        zzgl. {{ produkt.pfand }} € Pfand
-      </p>
-
-      <!-- Preis -->
-      <div class="card-footer">
-        <span class="price">
-          {{ produkt.preis }} €
-        </span>
-
-        <button class="add-btn">+</button>
-      </div>
-
-    </div>
-
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
- <!-- <header class="main-header">
+< <header class="main-header">
   <div class="top-nav">
     <a routerLink="/home" class="logo">Getränkeversand</a>
 
@@ -188,7 +73,7 @@
 </div>
 
 
-<div class="product-grid">
+<div class="product-grid"> *
   <div class="product-card">
     <div class="badge-tiefpreis">Tiefpreis</div>
     <img src="/images/Vilsa_classic.png" alt="Milch" class="p-img">
@@ -203,7 +88,7 @@
   </div>
 
   <div class="product-card">
-    <img src="/images/Vilsa_naturelle.avif" alt="Milch" class="p-img">
+    <img src="/images/Vilsa_naturelle.avif" alt="Milch" class="p-img"> *
     <div class="p-info">
       <span class="brand">REWE Bio</span>
       <p class="name">Frische Weidemilch 1,8 % 1l</p>
@@ -214,7 +99,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card"> *
     <div class="badge-regional">Regional</div>
     <img src="/images/Vilsa_medium.png" alt="Milch" class="p-img">
     <div class="p-info">
@@ -227,7 +112,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card"> *
     <div class="badge-regional">Regional</div>
     <img src="/images/VilsaOrange.jpg" alt="Milch" class="p-img">
     <div class="p-info">
@@ -240,7 +125,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
     <img src="/images/Vilsa_Lemon.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -252,7 +137,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/Vilsa_LimetteMinze.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -264,7 +149,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/VILSA-Plus-Bio-Orange.jpg" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -276,7 +161,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/VilsaBabywasser.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -288,7 +173,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/vilsa-naturelle1.png" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -300,7 +185,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/vilsa-medium1.png" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -312,7 +197,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/VilsaClassic6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -324,7 +209,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/VilsaNaturelle6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -336,7 +221,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/VilsaMedium6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -348,7 +233,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/VilsaLeichtperlig6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -360,7 +245,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/VilsaLemon6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -372,7 +257,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/VilsaH2Obst.png" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Vilsa H2Obst Apfel/Orange 6x0,75l (EINWEG)</span>
@@ -384,7 +269,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/GerolsteinerNaturell.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Gerolsteiner Mineralwasser Naturell 1,5l (EINWEG)</span>
@@ -396,7 +281,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/GerolsteinerSprudel.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Gerolsteiner Sprudel 1,5l (EINWEG)</span>
@@ -408,7 +293,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/GerolsteinerMedium.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Gerolsteiner Medium 1,5l (EINWEG)</span>
@@ -420,7 +305,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/GerolsteinerMedium1.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Gerolsteiner Medium 1l (MEHRWEG)</span>
@@ -432,7 +317,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/GerolsteinerSprudel1.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Gerolsteiner Sprudel 1l (MEHRWEG)</span>
@@ -444,7 +329,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/GerolsteinerNaturell1.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Gerolsteiner Naturell 1l (MEHRWEG)</span>
@@ -456,7 +341,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/GerolsteinerMedium3.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Gerolsteiner Medium 3l (MEHRWEG)</span>
@@ -468,7 +353,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/GerolsteinerSprudel3.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -480,7 +365,7 @@
     </div>
   </div>
 
-  <div class="product-card">
+  <div class="product-card">*
      <img src="/images/GerolsteinerNaturellklein.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -492,7 +377,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/GerolsteinerSprudelklein.png" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -504,7 +389,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/GerolsteinerMedium6klein.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -516,7 +401,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/GerolsteinerLemon6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -528,7 +413,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/GerolsteinerNaturell6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -540,7 +425,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/GerolsteinerMedium6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -552,7 +437,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/GerolsteinerSprudel6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -564,7 +449,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/GerolsteinerNaturellKiste.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -576,7 +461,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card"> *
      <img src="/images/GerolsteinerMediumKiste6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -588,7 +473,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/mineau.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -600,7 +485,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/MineauMedium.png" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -612,7 +497,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/mineauClassic.png" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -624,7 +509,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/mineauKiste.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -636,7 +521,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/mineauMediumKiste.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -648,7 +533,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/MineauQuelleKiste.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Markenname</span>
@@ -660,7 +545,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/Vio6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Vio Mineralwasser Still 6x0,5l (EINWEG)</span>
@@ -672,7 +557,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/Evian.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Mineralwasser Still 1,5l (EINWEG)</span>
@@ -684,7 +569,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/Evian6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Mineralwasser still 6x1l (EINWEG)</span>
@@ -696,7 +581,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/Evian1.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 0,5l (EINWEG)</span>
@@ -708,7 +593,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/Evian2.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -720,7 +605,7 @@
     </div>
   </div>
 
-     <div class="product-card">
+     <div class="product-card">*
      <img src="/images/volvic.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -733,7 +618,7 @@
   </div>
 
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/volvic_apfel.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -745,7 +630,7 @@
     </div>
   </div>
 
-     <div class="product-card">
+     <div class="product-card">*
      <img src="/images/volvic_mango.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -757,7 +642,7 @@
     </div>
   </div>
 
-     <div class="product-card">
+     <div class="product-card">*
      <img src="/images/volvic_wassermelone.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -769,7 +654,7 @@
     </div>
   </div>
 
-     <div class="product-card">
+     <div class="product-card">*
      <img src="/images/volvic_ZitroneLimette.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -781,7 +666,7 @@
     </div>
   </div>
 
-     <div class="product-card">
+     <div class="product-card">*
      <img src="/images/volvic1.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -793,7 +678,7 @@
     </div>
   </div>
 
-     <div class="product-card">
+     <div class="product-card">*
      <img src="/images/volvicKids.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -805,7 +690,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/volvic_himbeere.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -817,7 +702,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/volvic_peach.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -829,7 +714,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/volvic_hibiskus.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -841,7 +726,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/volvic_pfirsich.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -853,7 +738,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/volvic6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -865,7 +750,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/volvicApfel6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -877,7 +762,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/volvicMango6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -889,7 +774,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/volvicWassermelone6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -901,7 +786,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/volvicZitroneLimette6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -913,7 +798,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/volvicPeach6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -925,7 +810,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/volvicPfirsich6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -937,7 +822,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/volvicHibiskus6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -949,7 +834,7 @@
     </div>
   </div>
 
-   <div class="product-card">
+   <div class="product-card">*
      <img src="/images/volvic_6.avif" alt="Produkt" class="p-img">
     <div class="p-info">
       <span class="brand">Evian Premium 1l (EINWEG)</span>
@@ -1204,4 +1089,4 @@
 
 
 </div>
-</main>  -->
+</main>  

@@ -25,7 +25,18 @@ db.connect((err) => {
 });
 
 app.get('/api/produkte', (req, res) => {
-   db.query('SELECT * FROM 26_IT_Gruppe2.produkt', (err, result) => {
+
+    const kategorie = req.query.kategorie;
+
+    let sql = 'SELECT * FROM produkt';
+    let values = [];
+
+    if (kategorie) {
+        sql += ' WHERE hauptkategorie = ?';
+        values.push(kategorie);
+    }
+
+    db.query(sql, values, (err, result) => {
         if (err) {
             console.log(err);
             res.status(500).json(err);
@@ -33,7 +44,9 @@ app.get('/api/produkte', (req, res) => {
             res.json(result);
         }
     });
+
 });
+
 app.listen(3000, () => {
     console.log('Server läuft auf Port 3000');
 });

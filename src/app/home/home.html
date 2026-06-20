@@ -122,7 +122,7 @@
   <h2>Beliebte Marken</h2>
   
   <div class="brands-wrapper">
-    <button class="slider-arrow left-arrow" (click)="scrollSlider(-800)" aria-label="Vorherige Marken">
+    <button class="slider-arrow left-arrow" (click)="scrollSlider(-1000)" aria-label="Vorherige Marken">
       <span class="arrow-icon">‹</span>
     </button>
 
@@ -167,7 +167,7 @@
       <div class="brand-card"><img src="images/JeverLogo.png" alt="Jever" class="brand-logo"></div>
     </div>
 
-    <button class="slider-arrow right-arrow" (click)="scrollSlider(800)" aria-label="Nächste Marken">
+    <button class="slider-arrow right-arrow" (click)="scrollSlider(1000)" aria-label="Nächste Marken">
       <span class="arrow-icon">›</span>
     </button>
   </div>
@@ -191,10 +191,10 @@
 
     <div class="info-card-item">
       <div class="card-icon-circle bg-light-blue">
-        <span>🍏</span>
+        <span>☕</span>
       </div>
       <div class="card-info-text">
-        <h3>Kaffee & Tee</h3>
+        <h3>Kaffee-Welt</h3>
         <p>Bei uns findest du eine große Auswahl an Kafee und Tee-Sorten, die in bester Qualität bei dir ankommen.</p>
       </div>
     </div>
@@ -265,12 +265,18 @@
   </div>
 </div>
 
-    <div class="footer-column">
-      <h3>Bestellen mit der App</h3>
-      <div class="app-buttons">
-        <div class="app-placeholder">App Store</div>
-        <div class="app-placeholder">Google Play</div>
-      </div>
+   <div class="footer-column">
+  <h3>Bestellen mit der App</h3>
+  <div class="app-buttons">
+    <div class="app-card">
+      <img src="/images/Apple-App-Store-badge.png" alt="App Store">
+    </div>
+    <div class="app-card">
+      <img src="/images/google-play-badge.png" alt="Google Play">
+    </div>
+  </div>
+
+  <h3 class="margin-top">Newsletter abonnieren</h3>
 
       <h3 class="margin-top">Newsletter abonnieren</h3>
       <div class="newsletter-form">
