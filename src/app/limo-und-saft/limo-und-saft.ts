@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Header } from '../header/header';
 
 @Component({
   selector: 'app-limo-und-saft',
@@ -8,7 +9,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [
     CommonModule,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    Header
   ],
   templateUrl: './limo-und-saft.html',
   styleUrl: './limo-und-saft.css',

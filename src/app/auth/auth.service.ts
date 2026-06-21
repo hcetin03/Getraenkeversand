@@ -4,11 +4,11 @@ import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
-export class AuthSErvic {
+export class AuthService {
 
   constructor(private router: Router) { }
   //TEMPORÄR: wird später noch durch echten backend ersetzt 
-  login: (email: string, password: string): Observable<any> {
+  login (email: string, password: string): Observable<any> {
     const mockResponse = {
       token: 'test-token-123',
       rolle: email.includes('mitarbeiter') ? 'mitarbeiter' : 'kunde'
@@ -38,3 +38,4 @@ export class AuthSErvic {
   getRolle(): string | null {
     return localStorage.getItem('rolle');
   }
+}

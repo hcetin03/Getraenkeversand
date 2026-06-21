@@ -20,7 +20,7 @@ export class LoginComponent {
 
   onLogin() {
     this.auth.login(this.email, this.password).subscribe({
-      next: (res) => {
+     next: (res: any) => {
         if (res.rolle === 'mitarbeiter') {
           this.router.navigate(['home']); //mitarbeiter -> home
         } else {

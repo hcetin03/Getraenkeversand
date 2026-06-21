@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 // Wir importieren 'Wine' hier direkt aus lucide-angular für dein Logo mit
 import { LucideAngularModule, Wine } from 'lucide-angular';
+import { Header } from '../header/header';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, LucideAngularModule], 
+  imports: [CommonModule, RouterLink, RouterLinkActive, LucideAngularModule, Header], 
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

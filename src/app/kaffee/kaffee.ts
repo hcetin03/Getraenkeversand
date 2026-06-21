@@ -3,11 +3,12 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { Header } from '../header/header';
 
 @Component({
   selector: 'app-kaffee',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, CommonModule, HttpClientModule],
+  imports: [RouterLink, RouterLinkActive, CommonModule, HttpClientModule, Header],
   templateUrl: './kaffee.html',
   styleUrl: './kaffee.css',
 })

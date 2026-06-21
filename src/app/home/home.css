@@ -1,15 +1,7 @@
-/* ==========================================================================
-   1. GRUND-SETUP & ALLGEMEINES
-   ========================================================================== */
-body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #fcfcfc;
-  color: #333;
-}
+/* =========================================================
+   HOME-SEITE: ALLGEMEINES LAYOUT
+========================================================= */
 
-/* Verhindert das Ineinander-Rutschen von Elementen */
 .welcome-banner-split,
 .voucher-outer-container,
 .themenwelten-section,
@@ -21,161 +13,24 @@ body {
   box-sizing: border-box;
 }
 
-/* --- HEADER / NAVIGATION --- */
-.main-header {
-  width: 100%;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  background-color: white;
-}
 
-.top-nav {
-  background: linear-gradient(90deg, #4b89b8 0%, #2e8b57 100%);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 5%;
-  color: white;
-}
+/* =========================================================
+   WILLKOMMENS-BANNER
+========================================================= */
 
-.logo-wrapper {
-  display: flex !important;
-  align-items: center !important; 
-  gap: 15px !important;
-  text-decoration: none !important;
-  color: white !important;
-}
-
-.logo-text {
-  font-size: 24px !important;      
-  font-weight: 300 !important;     
-  letter-spacing: -0.5px !important;
-  text-transform: none !important;
-  color: #ffffff !important;
-  line-height: 1 !important;
-  font-family: 'Segoe UI', Arial, sans-serif !important;
-}
-
-.logo-highlight {
-  font-weight: 800 !important;     
-}
-
-.logo-wrapper:hover .brand-logo-img {
-  transform: scale(1.05) !important; 
-  transition: transform 0.2s ease;
-}
-
-/* --- SUCHLEISTE & USER NAVIGATION --- */
-.search-bar input {
-  width: 450px;
-  padding: 10px 20px;
-  border-radius: 25px;
-  border: none;
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  outline: none;
-}
-
-.search-bar input::placeholder {
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.user-nav {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  font-size: 18px;
-  font-weight: 600;
-  font-family: 'Segoe UI', Arial, sans-serif;
-}
-
-.user-nav a {
-  color: inherit;
-  text-decoration: none;
-  transition: opacity 0.2s;
-}
-
-.user-nav a:hover {
-  opacity: 0.8;
-}
-
-.cart-link {
-  color: inherit;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-}
-
-.cart-link svg,
-.cart-link img {
-  width: 26px !important;
-  height: auto !important;
-  vertical-align: middle;
-}
-
-/* --- CATEGORY BAR --- */
-.category-bar {
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  gap: 35px;
-  padding: 15px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.category-bar .cat-item {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  text-decoration: none !important;
-  color: #666666 !important;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 4px 0;
-  position: relative;
-}
-
-.category-bar .cat-item svg {
-  width: 20px !important;
-  height: 20px !important;
-  stroke: currentColor !important;
-  display: block;
-}
-
-.category-bar .cat-item.active {
-  color: #1a1a1a !important;
-}
-
-.category-bar .cat-item.active::after {
-  content: '';
-  position: absolute;
-  bottom: -16px;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background-color: #2e8b57;
-}
-
-/* ==========================================================================
-   2. NEU: WILLKOMMENS-BANNER (Länge an Gutschein/1200px angepasst & ohne störenden Verlauf)
-   ========================================================================== */
 .welcome-banner-split {
   display: flex;
-  width: calc(100% - 10%); /* Gleicht das Padding 0 5% der anderen Sektionen aus */
-  max-width: 1200px;       /* Exakt dieselbe Breite wie die Gutschein-Sektion */
-  height: 380px; 
+  width: calc(100% - 10%);
+  max-width: 1200px;
+  height: 380px;
   margin: 30px auto;
   border-radius: 24px;
-  overflow: hidden; 
+  overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
-/* Linke Hälfte: Der blaue-grüne Farbverlauf für den Text */
 .banner-gradient-side {
-  flex: 1.1; /* Gibt dem Text minimal mehr Platz */
+  flex: 1.1;
   background: linear-gradient(135deg, #4b89b8 0%, #2e8b57 100%);
   padding: 50px;
   display: flex;
@@ -203,7 +58,6 @@ body {
   margin: 0 0 30px 0;
 }
 
-/* Button im Farbverlauf */
 .btn-more {
   display: inline-block;
   background-color: rgba(255, 255, 255, 0.2);
@@ -222,7 +76,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* Rechte Hälfte: Das ungezoomte, klare Bildfeld */
 .banner-image-side {
   flex: 0.9;
   background-color: #f7f7f7;
@@ -231,13 +84,15 @@ body {
 .banner-image-side img {
   width: 100%;
   height: 100%;
-  object-fit: cover; 
+  object-fit: cover;
   display: block;
 }
 
-/* ==========================================================================
-   3. GUTSCHEIN-BANNER (Flaschenpost-Style)
-   ========================================================================== */
+
+/* =========================================================
+   GUTSCHEIN-BANNER
+========================================================= */
+
 .voucher-outer-container {
   padding: 0 5%;
   margin: 25px 0;
@@ -256,16 +111,16 @@ body {
 }
 
 .voucher-badge {
-  background-color: #f3e5eb; 
+  background-color: #f3e5eb;
   padding: 30px 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-right: 2px dashed #d0b2c2; 
+  border-right: 2px dashed #d0b2c2;
 }
 
 .badge-circle {
-  background-color: #9c004b; 
+  background-color: #9c004b;
   width: 90px;
   height: 90px;
   border-radius: 50%;
@@ -346,7 +201,7 @@ body {
 .progress-bar-fill {
   background-color: #b0b0b0;
   height: 100%;
-  width: 0%; 
+  width: 0%;
 }
 
 .voucher-action {
@@ -371,13 +226,15 @@ body {
   color: #ffffff;
 }
 
-/* ==========================================================================
-   4. GRID SYSTEM (Kacheln, Bild-Zoom & Schrift-Hover)
-   ========================================================================== */
+
+/* =========================================================
+   THEMENWELTEN
+========================================================= */
+
 .themenwelten-section {
   padding: 0 5%;
   margin: 50px auto;
-  max-width: 1400px; 
+  max-width: 1400px;
 }
 
 .themenwelten-section h2 {
@@ -399,7 +256,7 @@ body {
   text-decoration: none;
   color: #333;
   background-color: #ffffff;
-  border-radius: 20px; 
+  border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -413,19 +270,19 @@ body {
 .kachel-bild-wrapper {
   position: relative;
   width: 100%;
-  height: 290px; 
-  overflow: hidden; 
+  height: 290px;
+  overflow: hidden;
 }
 
 .kachel-bild-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease; 
+  transition: transform 0.4s ease;
 }
 
 .themen-kachel:hover .kachel-bild-wrapper img {
-  transform: scale(1.06); 
+  transform: scale(1.06);
 }
 
 .kachel-footer {
@@ -436,11 +293,11 @@ body {
   align-items: center;
   font-size: 17px;
   font-weight: 600;
-  transition: color 0.3s ease; 
+  transition: color 0.3s ease;
 }
 
 .themen-kachel:hover .kachel-footer {
-  color: #2e8b57; 
+  color: #2e8b57;
 }
 
 .kachel-footer .pfeil {
@@ -471,7 +328,7 @@ body {
 }
 
 .themen-kachel:hover .plus-overlay {
-  transform: translate(-50%, -50%) scale(1.05); 
+  transform: translate(-50%, -50%) scale(1.05);
 }
 
 .plus-icon {
@@ -481,358 +338,32 @@ body {
   line-height: 1;
 }
 
-/* ==========================================================================
-   5. BELIEBTE MARKEN SLIDER
-   ========================================================================== */
-.brands-section {
-  max-width: 1200px;
-  margin: 50px auto 20px auto;
-  padding: 0 20px;
-}
 
-.brands-section h2 {
-  font-size: 1.6rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #222;
-}
 
-.brands-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
 
-.brands-container {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  width: 100%;
-  padding: 10px 4px;
-  -ms-overflow-style: none;  
-  scrollbar-width: none;  
-}
 
-.brands-container::-webkit-scrollbar {
-  display: none;
-}
 
-.brand-card {
-  min-width: 155px;
-  max-width: 155px;
-  height: 155px;
-  background-color: #ffffff;
-  border: 1px solid #e8e8e8;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.01);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-}
 
-.brand-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-}
 
-.brand-logo {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
 
-.slider-arrow {
-  position: absolute;
-  z-index: 5;
-  width: 44px;
-  height: 44px;
-  background: #ffffff;
-  border: 1px solid #dddddd;
-  border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
-}
+/* =========================================================
+   ERNÄHRUNGSFORMEN
+========================================================= */
 
-.slider-arrow:hover {
-  background-color: #f9f9f9;
-  transform: scale(1.05);
-}
-
-.left-arrow { left: -22px; }
-.right-arrow { right: -22px; }
-
-.arrow-icon {
-  font-size: 2rem;
-  color: #1a8eb9;
-  font-weight: 300;
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.right-arrow .arrow-icon { margin-left: 2px; }
-.left-arrow .arrow-icon { margin-right: 2px; }
-
-/* ==========================================================================
-   6. INFOSEKTION (Features unter den Marken)
-   ========================================================================== */
-.features-section-block {
-  background-color: #f3f3f3; 
-  padding: 60px 20px;
-  margin-top: 50px;
-}
-
-.features-header-text {
-  max-width: 1200px;
-  margin: 0 auto 40px auto;
-  text-align: left;
-}
-
-.features-header-text p {
-  font-size: 16px;
-  color: #555555;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.cards-flex-grid {
-  display: flex;
-  gap: 24px; 
-  max-width: 1200px;
-  margin: 0 auto;
-  justify-content: space-between;
-}
-
-.info-card-item {
-  background-color: #ffffff;
-  border-radius: 24px; 
-  padding: 30px;
-  flex: 1; 
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02); 
-}
-
-.card-icon-circle {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 24px;
-}
-
-.card-icon-circle span {
-  font-size: 35px;
-  line-height: 1;
-}
-
-.bg-light-orange { background-color: #fef4d7; }
-.bg-light-blue   { background-color: #d7effe; }
-.bg-light-green  { background-color: #e5f6df; }
-.bg-light-yellow { background-color: #fcf6d6; }
-
-.card-info-text h3 {
-  font-size: 22px;
-  font-weight: bold;
-  color: #222222;
-  margin: 0 0 16px 0;
-  line-height: 1.2;
-}
-
-.card-info-text p {
-  font-size: 15px;
-  color: #555555;
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* ==========================================================================
-   7. SITE FOOTER DESIGN
-   ========================================================================== */
-.site-footer {
-  background-color: #333333;
-  color: #ffffff;
-  padding: 50px 5% 0 5%;
-  margin-top: 0; 
-  font-family: 'Segoe UI', Arial, sans-serif;
-  font-size: 14px;
-}
-
-.footer-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
-  padding-bottom: 40px;
-}
-
-.footer-column h3 {
-  color: #999999;
-  font-size: 13px;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  letter-spacing: 1px;
-}
-
-.footer-column a {
-  display: block;
-  color: #ffffff;
-  text-decoration: none;
-  margin-bottom: 10px;
-  transition: opacity 0.2s;
-}
-
-.footer-column a:hover { opacity: 0.7; }
-.badge-gesucht { border: 1px solid white; padding: 2px 6px; font-size: 10px; border-radius: 4px; margin-left: 5px; }
-
-.newsletter-form { display: flex; background: #2a2a2a; border: 1px solid #555; border-radius: 4px; }
-.newsletter-form input { background: transparent; border: none; padding: 10px; color: white; flex: 1; outline: none; }
-.newsletter-form button { background: #cccccc; border: none; padding: 0 15px; font-weight: bold; cursor: pointer; }
-
-.app-buttons {
-  display: grid !important;
-  grid-template-columns: repeat(2, 1fr) !important;
-  gap: 12px !important;
-  max-width: 240px !important;
-}
-
-.payment-grid {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
-  gap: 8px !important;                                                                                                    
-  max-width: 240px !important;                                                                
-  margin-top: 15px !important;
-}
-
-.app-card,
-.pay-card {
-  background-color: #ffffff !important;
-  border-radius: 6px !important;                                    
-  height: 34px !important;                                                                          
-  display: flex !important;
-  align-items: center !important;                  
-  justify-content: center !important;               
-  padding: 4px 6px !important;
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-}
-
-.app-card img,
-.pay-card img {
-  max-width: 100% !important;
-  max-height: 100% !important;
-  width: auto !important;
-  height: auto !important;
-  object-fit: contain !important;                  
-  display: block !important;
-}
-
-.footer-bottom-bar { border-top: 1px solid #444; padding: 20px 0; display: flex; justify-content: space-between; align-items: center; color: #888; }
-.bottom-links a { color: #fff; text-decoration: none; font-size: 12px; }
-.copyright { color: #888; font-size: 12px; margin-top: 15px; padding-bottom: 20px; }
-
-.scroll-top-btn {
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  background-color: #8cc63f;
-  color: white;
-  width: 35px;
-  height: 35px;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
-
-.margin-top {
-  color: #999999;
-  font-size: 13px;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  letter-spacing: 1px;
-  margin-top: 25px !important;
-}
-
-.legal-text { font-size: 11px; color: #aaa; margin-top: 15px; }
-
-/* ==========================================================================
-   8. RESPONSIVE MEDIA QUERIES & SPLIT BANNER RESPONSIVE
-   ========================================================================== */
-@media (max-width: 992px) {
-  .cards-flex-grid {
-    flex-direction: column;
-    gap: 20px;
-  }
-  .info-card-item {
-    flex-direction: row; 
-    align-items: center;
-    gap: 20px;
-  }
-  .card-icon-circle {
-    margin-bottom: 0; 
-    flex-shrink: 0;
-  }
-}
-
-@media (max-width: 850px) {
-  .welcome-banner-split {
-    flex-direction: column;
-    height: auto;
-    width: calc(100% - 10%);
-  }
-  .banner-gradient-side {
-    padding: 35px 25px;
-  }
-  .banner-image-side {
-    height: 220px;
-  }
-
-  .voucher-section {
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
-  }
-  .voucher-badge {
-    border-right: none;
-    border-bottom: 2px dashed #d0b2c2; 
-    padding: 20px;
-  }
-  .voucher-header-row { justify-content: center; }
-  .progress-bar-bg { margin: 0 auto; }
-  .voucher-action { padding: 20px; }
-  .btn-redeem { width: 100%; }
-}
-
-/* ==========================================================================
-   X. ERNÄHRUNGSFORMEN BANNER (Flaschenpost-Style)
-   ========================================================================== */
 .diet-outer-container {
   padding: 0 5%;
   margin: 40px 0;
   width: 100%;
   box-sizing: border-box;
   clear: both;
-  display: block;
 }
 
 .diet-section {
   display: flex;
   align-items: center;
-  background-color: #e5f2e5; 
+  background-color: #e5f2e5;
   border-radius: 20px;
-  max-width: 1400px; 
+  max-width: 1400px;
   margin: 0 auto;
   padding: 30px 40px;
   gap: 40px;
@@ -857,8 +388,8 @@ body {
 
 .diet-badges-container {
   display: flex;
-  flex-wrap: wrap; 
-  gap: 12px 10px; 
+  flex-wrap: wrap;
+  gap: 12px 10px;
   flex: 1;
 }
 
@@ -870,35 +401,24 @@ body {
   font-size: 15px;
   font-weight: 600;
   padding: 10px 20px;
-  border-radius: 12px; 
-  border: 1px solid #1a1a1a; 
+  border-radius: 12px;
+  border: 1px solid #1a1a1a;
   transition: all 0.2s ease-in-out;
   white-space: nowrap;
 }
 
 .diet-badge:hover {
-  background-color: #2e8b57; 
+  background-color: #2e8b57;
   color: #ffffff;
   border-color: #2e8b57;
   transform: translateY(-1px);
 }
 
-@media (max-width: 850px) {
-  .diet-section {
-    flex-direction: column; 
-    align-items: flex-start;
-    padding: 25px;
-    gap: 20px;
-  }
-  
-  .diet-badges-container {
-    width: 100%;
-  }
-}
 
-/* ==========================================================================
-   X. VOLVIC BRAND BANNER & SLIDER
-   ========================================================================== */
+/* =========================================================
+   VOLVIC PROMO-BANNER
+========================================================= */
+
 .brand-promo-container {
   padding: 0 5%;
   margin: 50px auto;
@@ -909,8 +429,8 @@ body {
 
 .promo-top-banner {
   display: flex;
-  background-color: #fcf4e4; 
-  border-radius: 24px 24px 0 0; 
+  background-color: #fcf4e4;
+  border-radius: 24px 24px 0 0;
   overflow: hidden;
   height: 280px;
   position: relative;
@@ -942,14 +462,14 @@ body {
 .promo-banner-left h1 {
   font-size: 38px;
   font-weight: 900;
-  color: #007a3d; 
+  color: #007a3d;
   line-height: 1.1;
   margin: 0 0 25px 0;
   font-family: 'Arial Black', sans-serif;
 }
 
 .promo-banner-left h1 .highlight-text {
-  color: #00a5db; 
+  color: #00a5db;
 }
 
 .btn-promo-buy {
@@ -979,8 +499,8 @@ body {
 }
 
 .promo-products-box {
-  background-color: #e5f2e5; 
-  border-radius: 0 0 24px 24px; 
+  background-color: #e5f2e5;
+  border-radius: 0 0 24px 24px;
   padding: 30px;
 }
 
@@ -998,160 +518,245 @@ body {
   margin: 0;
 }
 
-.promo-slider-arrows {
-  display: flex;
-  gap: 10px;
+
+
+
+
+
+
+
+/* =========================================================
+   MARKEN-SLIDER
+========================================================= */
+
+.brands-section {
+  max-width: 1200px;
+  margin: 50px auto 20px auto;
+  padding: 0 20px;
 }
 
-.promo-slider-arrows .arrow-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1px solid #ccc;
-  background: white;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.brands-section h2 {
+  font-size: 1.6rem;
   font-weight: bold;
-  color: #666;
+  margin-bottom: 20px;
+  color: #222;
 }
 
-.promo-products-grid {
+.brands-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.brands-container {
   display: flex;
   gap: 16px;
-  overflow-x: auto; 
-  scrollbar-width: none; 
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  width: 100%;
+  padding: 10px 4px;
+  scrollbar-width: none;
 }
 
-.promo-products-grid::-webkit-scrollbar {
-  display: none; 
+.brands-container::-webkit-scrollbar {
+  display: none;
 }
 
-.promo-product-card {
-  min-width: 210px;
-  max-width: 210px;
-  background: white;
-  border-radius: 16px;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-}
-
-.wishlist-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  width: 24px;
-  height: 24px;
-}
-
-.wishlist-btn svg {
-  fill: none;
-  stroke: #333;
-  stroke-width: 2;
-}
-
-.product-img-wrapper {
-  height: 140px;
+.brand-card {
+  min-width: 155px;
+  max-width: 155px;
+  height: 155px;
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 12px;
+  padding: 15px;
+  transition: 0.2s;
 }
 
-.product-img-wrapper img {
+.brand-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.brand-logo {
+  max-width: 100%;
   max-height: 100%;
   object-fit: contain;
 }
 
-.product-details {
+
+/* =========================================================
+   INFO-KARTEN
+========================================================= */
+
+.features-section-block {
+  background-color: #f3f3f3;
+  padding: 60px 20px;
+  margin-top: 50px;
+}
+
+.features-header-text {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+}
+
+.features-header-text p {
+  font-size: 16px;
+  color: #555;
+}
+
+.cards-flex-grid {
   display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.product-title {
+.info-card-item {
+  flex: 1;
+  background: white;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.card-icon-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-icon-circle span {
+  font-size: 35px;
+}
+
+.bg-light-orange {
+  background-color: #fef4d7;
+}
+
+.bg-light-blue {
+  background-color: #d7effe;
+}
+
+.bg-light-green {
+  background-color: #e5f6df;
+}
+
+.bg-light-yellow {
+  background-color: #fcf6d6;
+}
+
+.card-info-text h3 {
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.card-info-text p {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.site-footer {
+  background: #333;
+  color: white;
+  padding: 50px 5% 0;
+  font-size: 14px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 30px;
+  padding-bottom: 40px;
+}
+
+.footer-column h3 {
+  color: #999;
   font-size: 13px;
-  font-weight: 700;
-  color: #222;
-  margin: 0 0 6px 0;
-  line-height: 1.3;
-  height: 34px;
-  overflow: hidden;
+  text-transform: uppercase;
+  margin-bottom: 20px;
 }
 
-.product-subtitle {
-  font-size: 11px;
-  color: #777;
-  margin: 0 0 15px 0;
+.footer-column a {
+  color: white;
+  display: block;
+  margin-bottom: 10px;
 }
 
-.product-footer {
+.footer-column a:hover {
+  opacity: 0.7;
+}
+
+.footer-bottom-bar {
+  border-top: 1px solid #444;
+  padding: 20px 0;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: auto;
+  color: #888;
 }
 
-.product-price {
-  font-size: 15px;
-  font-weight: 800;
-  color: #222;
+.bottom-links a {
+  color: white;
+  font-size: 12px;
 }
 
-.btn-add-to-cart {
-  background-color: #ce0037; 
-  border: none;
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.copyright {
+  color: #888;
+  font-size: 12px;
 }
 
-.btn-add-to-cart svg {
-  width: 20px;
-  height: 20px;
-  fill: white;
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 992px) {
+
+  .cards-flex-grid {
+    flex-direction: column;
+  }
+
+  .info-card-item {
+    flex-direction: row;
+    gap: 20px;
+  }
+
 }
 
-.go-to-brand-card {
-  justify-content: center;
-  align-items: center;
-  background: transparent;
-  border: 2px dashed #005c2e;
-  box-shadow: none;
-}
+@media (max-width: 850px) {
 
-.brand-link-fallback {
-  text-decoration: none;
-  color: #005c2e;
-  font-weight: bold;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.arrow-right {
-  font-size: 24px;
-}
-
-@media (max-width: 768px) {
-  .promo-top-banner {
+  .welcome-banner-split,
+  .promo-top-banner,
+  .diet-section,
+  .voucher-section {
     flex-direction: column;
     height: auto;
   }
+
   .promo-banner-right {
     width: 100%;
     height: 180px;
   }
+
+}
+
+@media (max-width: 768px) {
+
+  .cards-flex-grid {
+    flex-direction: column;
+  }
+
 }
