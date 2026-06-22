@@ -719,6 +719,100 @@
 }
 
 
+
+
+.payment-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 70px);
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.pay-card {
+  background: white;
+  border-radius: 8px;
+  padding: 8px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pay-card img {
+  max-width: 55px;
+  max-height: 28px;
+  object-fit: contain;
+}
+
+.app-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.app-card img {
+  width: 160px;
+  height: auto;
+  display: block;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.newsletter-form input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  width: 160px;
+}
+
+.newsletter-form button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #2e8b57;
+  color: white;
+  cursor: pointer;
+}
+
+.legal-text {
+  color: #aaa;
+  font-size: 12px;
+  line-height: 1.4;
+  max-width: 260px;
+}
+
+.margin-top {
+  margin-top: 25px;
+}
+
+.badge-gesucht {
+  font-size: 10px;
+  background: #2e8b57;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+
+.scroll-top-btn {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  background: #2e8b57;
+  color: white;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* =========================================================
    RESPONSIVE
 ========================================================= */
@@ -760,3 +854,5 @@
   }
 
 }
+
+
