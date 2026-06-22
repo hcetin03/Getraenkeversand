@@ -232,7 +232,6 @@
 ========================================================= */
 
 @media (max-width: 600px) {
-
   .filter-bar {
     flex-wrap: wrap;
   }
@@ -240,5 +239,8 @@
   .product-grid {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
-
 }
+
+
+
+

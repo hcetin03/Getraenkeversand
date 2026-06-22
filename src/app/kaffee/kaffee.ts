@@ -1,27 +1,36 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Header } from '../header/header';
 
 @Component({
   selector: 'app-kaffee',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, CommonModule, HttpClientModule, Header],
+  imports: [CommonModule, Header],
   templateUrl: './kaffee.html',
   styleUrl: './kaffee.css',
 })
+export class Kaffee implements OnInit {
+  produkte: any[] = [];
 
-export class Kaffee {
-    produkte: any[] = [];
+  constructor(
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef
+  ) {}
 
-  constructor(private http: HttpClient) {
-this.http.get<any[]>('http://localhost:3000/api/produkt?kategorie=Kaffee')
-      .subscribe(data => {
-        this.produkte = data;
-        console.log(this.produkte);
+  ngOnInit(): void {
+    console.log('Kaffee-Seite wurde geöffnet');
+
+    this.http.get<any[]>('http://localhost:3000/api/produkt?kategorie=Kaffee')
+      .subscribe({
+        next: (data) => {
+          this.produkte = data;
+          this.cdr.detectChanges();
+          console.log('Kaffee Produkte:', this.produkte);
+        },
+        error: (error) => {
+          console.error('Fehler beim Laden:', error);
+        }
       });
-
   }
 }
