@@ -129,6 +129,34 @@ app.post('/api/bestellung', (req, res) => {
 
 });
 
+// ======================================================
+// KUNDEN / STAMMKUNDEN
+// ======================================================
+
+app.get('/api/kunden', (req, res) => {
+    const sql = `
+    SELECT
+    k.id,
+    k.vorname,
+    k.nachname,
+    k.email
+    COUNT(b.id) AS anzahl_bestellungen,
+    COUNT(b.id) >= 3 AS stammkunde
+
+    FROM kunde k
+    LEFT JOIN bestellung b ON b.kunden_id = k.id
+    GROUP BY k.id
+    `;
+
+    db.query(sql, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json(err);
+        } 
+            res.json(result);
+    });
+});
+
 
 
 // ======================================================
