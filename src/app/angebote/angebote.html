@@ -1,0 +1,80 @@
+<div class="offers-container">
+  
+  <header class="offers-hero">
+    <div class="hero-content">
+      <span class="badge">Nur für kurze Zeit</span>
+      <h1>Unsere aktuellen Top-Angebote</h1>
+      <p>Erfrischende Preise! Greif zu, bevor die Aktion vorbei ist.</p>
+    </div>
+  </header>
+
+  <section class="steps-section">
+    <h2>So einfach geht's</h2>
+    <div class="steps-grid">
+      
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3>Wunschartikel aussuchen</h3>
+        <p>Suche dir deine Lieblingsartikel mit Rabatt-Kennzeichnung aus.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3>Warenkorb füllen</h3>
+        <p>Füge mindestens die Menge an Artikeln in den Warenkorb, die für den jeweiligen Rabatt erforderlich ist.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3>Rabatt sichern</h3>
+        <p>Der Rabatt wird automatisch eingelöst.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="categories-container">
+    @for (kategorie of kategorisierteProdukte; track kategorie.name) {
+      <section class="category-section">
+        <h2 class="category-title">{{ kategorie.name }}</h2>
+        
+        <div class="offers-grid">
+          @for (produkt of kategorie.produkte; track produkt.id) {
+            <div class="product-card" tabindex="0">
+              
+              @if (produkt.rabatt) {
+                <div class="discount-badge">-{{ produkt.rabatt }}%</div>
+              }
+              
+              <div class="img-container">
+                <img [src]="produkt.imageUrl" [alt]="produkt.name">
+              </div>
+              
+              <div class="product-details">
+                <h3>{{ produkt.name }}</h3>
+                <p class="category">{{ produkt.kategorie || 'Inkl. MwSt., zzgl. Pfand' }}</p>
+                
+                <div class="price-box">
+                  <span class="old-price">{{ produkt.alterPreis }} €</span>
+                  <span class="current-price">{{ produkt.neuerPreis }} €</span>
+                </div>
+
+                <button class="add-btn-green" (click)="inDenWarenkorb(produkt)" title="In den Warenkorb">+</button>
+              </div>
+
+            </div>
+          }
+
+          <div class="more-card" (click)="loadMore(kategorie.name)">
+            <div class="plus-circle">+</div>
+            <span>Mehr anzeigen</span>
+          </div>
+
+        </div>
+      </section>
+    } @empty {
+      <p class="no-offers">Aktuell sind keine Sonderangebote verfügbar. Schau bald wieder vorbei!</p>
+    }
+  </div>
+
+</div>

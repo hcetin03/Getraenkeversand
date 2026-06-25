@@ -1,0 +1,86 @@
+.jubilee-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: #333;
+  text-align: center;
+}
+
+.badge {
+  background: #d4af37; /* Gold */
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-top: 15px;
+  color: #1a252f;
+}
+
+.divider {
+  border: 0;
+  height: 1px;
+  background: #e0e0e0;
+  margin: 40px 0;
+}
+
+.product-card {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  text-align: left;
+  background: #fdfdfd;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.product-img {
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.price-tag {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 15px 0;
+  color: #d4af37;
+}
+
+.cta-button {
+  background: #1a252f;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cta-button:hover {
+  background: #d4af37;
+}
+
+.warning-text {
+  color: #c0392b;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Responsiv für Smartphones */
+@media (max-width: 768px) {
+  .product-card {
+    flex-direction: column;
+    text-align: center;
+  }
+}

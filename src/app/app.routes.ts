@@ -10,6 +10,8 @@ import { WarenkorbComponent } from './warenkorb/warenkorb';
 import { Login } from './login/login'; 
 import { MitarbeiterComponent } from './mitarbeiter/mitarbeiter';
 import { Favoriten } from './favoriten/favoriten'; 
+import { Jubilaeum } from './jubilaeum/jubilaeum';
+import { Angebote } from './angebote/angebote';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,6 +24,8 @@ export const routes: Routes = [
   { path: 'limo-und-saft', component: LimoUndSaft },
   { path: 'warenkorb', component: WarenkorbComponent }, 
   { path: 'login', component: Login }, 
-  { path: 'mitarbeiter', component: MitarbeiterComponent }, // <-- Hier hat das Komma gefehlt!
+  { path: 'mitarbeiter', component: MitarbeiterComponent }, 
   { path: 'favoriten', component: Favoriten }, 
+  { path: 'jubilaeum', component: Jubilaeum }, 
+  { path: 'angebote', component: Angebote },
 ];

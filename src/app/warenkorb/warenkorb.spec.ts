@@ -1,19 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+// 1. Importiere die korrekte Klasse (meistens WarenkorbComponent)
+import { WarenkorbComponent } from './warenkorb'; 
 
-import { Warenkorb } from './warenkorb';
-
-describe('Warenkorb', () => {
-  let component: Warenkorb;
-  let fixture: ComponentFixture<Warenkorb>;
+describe('WarenkorbComponent', () => {
+  let component: WarenkorbComponent;
+  let fixture: ComponentFixture<WarenkorbComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Warenkorb],
+      // 2. Hier ebenfalls die korrekte Komponente eintragen
+      imports: [WarenkorbComponent], 
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Warenkorb);
+    fixture = TestBed.createComponent(WarenkorbComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges(); // Aktualisiert das Stylesheet/HTML für den Test
   });
 
   it('should create', () => {
