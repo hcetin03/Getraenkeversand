@@ -17,7 +17,7 @@
 
     <div class="user-nav">
       <span>Lieferstatus</span>
-      <span>Favoriten</span>
+      <a routerLink="/favoriten" style="color: white; text-decoration: none; cursor: pointer;">Favoriten</a>
       <a routerLink="/login" style="color: white; text-decoration: none; cursor: pointer;">Konto</a>
       <a routerLink="/warenkorb" class="cart-icon">🛒</a>
     </div>
@@ -54,6 +54,11 @@
     <a routerLink="/kaffee" routerLinkActive="active" class="cat-item">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg>
       Kaffee
+    </a>
+
+    <a routerLink="/angebote" routerLinkActive="active" class="cat-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8M5 8h14M7 15h10M12 8V2m0 0 2 2m-2-2-2 2"/></svg>
+      Angebote
     </a>
   </nav>
 </header>

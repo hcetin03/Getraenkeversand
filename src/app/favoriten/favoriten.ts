@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common'; 
+import { RouterLink, RouterLinkActive } from '@angular/router';
+// Wir importieren 'Wine' hier direkt aus lucide-angular für dein Logo mit
+import { LucideAngularModule, Wine } from 'lucide-angular';
+import { Header } from '../header/header';
 
 @Component({
   selector: 'app-favoriten',
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [CommonModule, RouterLink, RouterLinkActive, LucideAngularModule, Header], 
   templateUrl: './favoriten.html',
   styleUrl: './favoriten.css',
 })

@@ -1,0 +1,279 @@
+/* --- CONTAINER & ALLGEMEINES --- */
+.offers-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+/* --- DEIN BLAU/GRÜNER HERO-BANNER --- */
+.offers-hero {
+  background: linear-gradient(135deg, #078db6, #4ea57e);
+  color: white;
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 15px rgba(7, 141, 182, 0.2);
+}
+
+.badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.offers-hero h1 {
+  margin: 15px 0 5px 0;
+  font-size: 2.5rem;
+}
+
+/* --- SCHRITTE SEKTION (Perfekt mittig zentriert) --- */
+.steps-section {
+  padding: 20px 0;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.steps-section h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+  color: #333333;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 340px));
+  justify-content: center;
+  gap: 20px;
+}
+
+.step-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.step-number {
+  background-color: #a0004c;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.step-card h3 {
+  font-size: 18px;
+  margin: 0 0 10px 0;
+  color: #222222;
+}
+
+.step-card p {
+  font-size: 14px;
+  color: #555555;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* --- KATEGORIEN-LAYOUT --- */
+.categories-container {
+  background-color: #cee6f3; /* Das dezente Hellblau als Hintergrund-Sektion */
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.category-section {
+  margin-bottom: 35px;
+}
+
+.category-section:last-child {
+  margin-bottom: 0;
+}
+
+.category-title {
+  font-size: 20px;
+  color: #2c3e50;
+  margin: 0 0 15px 0;
+  font-weight: bold;
+}
+
+/* --- PRODUKT GRID (Große Spalten, die nicht quetschen) --- */
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* 280px Breite für große Karten */
+  gap: 30px;
+}
+
+/* --- DEINE ORIGINALEN GROSSEN PRODUKT-KARTEN --- */
+.product-card {
+  background: white;
+  border: 1px solid #eef2f3;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* --- PRODUKTBILDER & SOFT ZOOM --- */
+.img-container {
+  height: 200px; /* Zurück auf deine originale Bildhöhe gesetzt */
+  background: #fdfdfd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.img-container img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease-in-out;
+}
+
+.product-card:active .img-container img,
+.product-card:focus .img-container img {
+  transform: scale(1.1);
+}
+
+/* --- PROZENT-BADGE (Original oben links) --- */
+.discount-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: #a11425;
+  color: white;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 6px;
+  z-index: 10;
+}
+
+/* --- CARD DETAILS & PREISE --- */
+.product-details {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.product-details h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.2rem;
+  color: #2c3e50;
+}
+
+.category {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  margin-bottom: 15px;
+}
+
+.price-box {
+  margin-top: auto;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #95a5a6;
+  font-size: 1rem;
+}
+
+.current-price {
+  color: #2e2d2d;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+/* --- DEIN ORIGINALER BREITER WARENKORB-BUTTON --- */
+.add-to-cart-btn {
+  width: 100%;
+  background: #2c3e50;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-to-cart-btn:hover {
+  background: #9ea3ab;
+}
+
+/* --- „MEHR ANZEIGEN“-KARTE (In derselben großen Dimension) --- */
+.more-card {
+  background: #ffffff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid #eef2f3;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+  transition: background-color 0.2s, transform 0.2s;
+  padding: 40px 20px;
+}
+
+.more-card:hover {
+  background-color: #fcfcfc;
+  transform: translateY(-5px);
+}
+
+.plus-circle {
+  background-color: #78be20;
+  color: white;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(120, 190, 32, 0.3);
+}
+
+.more-card span {
+  font-size: 1rem;
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+.no-offers {
+  text-align: center;
+  color: #7f8c8d;
+  font-style: italic;
+  padding: 20px;
+}
