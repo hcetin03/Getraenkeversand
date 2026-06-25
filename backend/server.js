@@ -25,33 +25,115 @@ db.connect((err) => {
     }
 });
 
-// Route angepasst auf /api/produkt (Einzahl, passend zu Angular)
+
+// ======================================================
+// PRODUKTE
+// ======================================================
+
+// Route zum Laden aller Produkte oder einer Kategorie
 app.get('/api/produkt', (req, res) => {
-    // Holt den Wert aus "?kategorie=..." (z.B. 'Wasser')
-    const kategorie = req.query.kategorie; 
+
+    const kategorie = req.query.kategorie;
 
     if (kategorie) {
-        // Wenn eine Kategorie übergeben wurde, filtern wir mit WHERE
-        db.query('SELECT * FROM 26_IT_Gruppe2.produkt WHERE hauptkategorie = ?', [kategorie], (err, result) => {
-            if (err) {
-                console.log(err);
-                res.status(500).json(err);
-            } else {
-                res.json(result);
+
+        db.query(
+            'SELECT * FROM produkt WHERE hauptkategorie = ?',
+            [kategorie],
+            (err, result) => {
+
+                if (err) {
+                    console.log(err);
+                    res.status(500).json(err);
+                } else {
+                    res.json(result);
+                }
+
             }
-        });
+        );
+
     } else {
-        // Falls kein Parameter übergeben wird, schicken wir einfach alle Produkte
-        db.query('SELECT * FROM 26_IT_Gruppe2.produkt', (err, result) => {
+
+        db.query('SELECT * FROM produkt', (err, result) => {
+
             if (err) {
                 console.log(err);
                 res.status(500).json(err);
             } else {
                 res.json(result);
             }
+
+        });
+
+    }
+
+});
+
+
+// ======================================================
+// BESTELLUNG
+// ======================================================
+
+app.post('/api/bestellung', (req, res) => {
+
+    const { bestellteProdukte, gesamtpreis, datum } = req.body;
+
+    if (!bestellteProdukte || bestellteProdukte.length === 0) {
+        return res.status(400).json({
+            message: 'Keine Produkte übergeben.'
         });
     }
+
+    const sqlBestellung = `
+        INSERT INTO bestellung (kunden_id, gesamtpreis, datum)
+        VALUES (?, ?, ?)
+    `;
+
+    db.query(sqlBestellung, [null, gesamtpreis, datum], (err, result) => {
+
+        if (err) {
+            console.log(err);
+            return res.status(500).json(err);
+        }
+
+        const bestellungId = result.insertId;
+
+        const positionen = bestellteProdukte.map(produkt => [
+            bestellungId,
+            produkt.getraenk.id,
+            produkt.menge,
+            produkt.getraenk.preis
+        ]);
+
+        const sqlPositionen = `
+            INSERT INTO bestellposition
+            (bestellung_id, produkt_id, menge, einzelpreis)
+            VALUES ?
+        `;
+
+        db.query(sqlPositionen, [positionen], (err) => {
+
+            if (err) {
+                console.log(err);
+                return res.status(500).json(err);
+            }
+
+            res.json({
+                message: 'Bestellung erfolgreich gespeichert.',
+                bestellung_id: bestellungId
+            });
+
+        });
+
+    });
+
 });
+
+
+
+// ======================================================
+// SERVER STARTEN
+// ======================================================
 
 app.listen(3000, () => {
     console.log('Server läuft auf Port 3000');
