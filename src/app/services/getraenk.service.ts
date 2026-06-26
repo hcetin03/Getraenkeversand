@@ -35,9 +35,37 @@ export class GetraenkService{
         menge: 1000,
         bildUrl: 'public/images/Alpro_Barista_Not_MLK.png',
         lagerbestand: 75
-    }];
+    }, {
+        id: 3,
+        name: 'Alpro Barista Soya',
+        beschreibung: 'Cremiger Sojadrink speziell für Kaffee, pflanzlich und gut aufschäumbar.',
+        preis: 2.55,
+        kategorie: 'Milch',
+        menge: 1000,
+        bildUrl: 'public/images/Alpro_Barista_Soya_1_Liter_1035685243.png',
+        lagerbestand: 75
+    }, {
+        id: 4,
+        name: 'Alpro Hafer & Mandel',
+        beschreibung: 'Milder Pflanzendrink aus Hafer und Mandel, cremig im Geschmack und vielseitig verwendbar.',
+        preis: 2.79,
+        kategorie: 'Milch',
+        menge: 1000,
+        bildUrl: 'public/images/Alpro_HaferMandel.avif',
+        lagerbestand: 25
+    }, {
+        id: 5,
+        name: 'Alpro geröstete Mandel ohne Zucker',
+        beschreibung: 'Pflanzlicher Mandeldrink ohne Zucker mit mild gerösteter Note - perfekt für Kaffee, Frühstück und Smoothies.',
+        preis: 3.49,
+        kategorie: 'Milch',
+        bestand: 25,
+        bildUrl: 'public/images/Alpro_Mandel.avif',
+    }
 
-/*getAllGetraenke(): Observable<Getraenk[]> {
+    ];
+
+getAllGetraenke(): Observable<Getraenk[]> {
     return of(this.getraenke);
 }
 

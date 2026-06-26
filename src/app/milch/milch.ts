@@ -1,7 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef , inject} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Header } from '../header/header';
+import { Warenkorb } from '../services/warenkorb.service';
+import { Getraenk } from '../model';
 
 @Component({
   selector: 'app-milch',
@@ -12,6 +14,7 @@ import { Header } from '../header/header';
 })
 export class Milch implements OnInit {
   produkte: any[] = [];
+  private warenkorbService = inject(Warenkorb);
 
   constructor(
     private http: HttpClient,
@@ -32,5 +35,9 @@ export class Milch implements OnInit {
           console.error('Fehler beim Laden:', error);
         }
       });
+  }
+
+  inDenWarenkorb(produkt : Getraenk){
+    this.warenkorbService.produktHinzufuegen(produkt);
   }
 }

@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Header } from '../header/header';
+import { Warenkorb } from '../services/warenkorb.service';
+import { Getraenk } from '../model';
 
 @Component({
   selector: 'app-limo-und-saft',
@@ -18,9 +20,14 @@ import { Header } from '../header/header';
 export class LimoUndSaft {
 
   aktiveKategorie = 'alle';
+  private warenkorbService = inject(Warenkorb);
 
   setKategorie(kategorie: string) {
     this.aktiveKategorie = kategorie;
+  }
+
+  inDenWarenkorb(produkt : Getraenk){
+      this.warenkorbService.produktHinzufuegen(produkt);
   }
 
 }

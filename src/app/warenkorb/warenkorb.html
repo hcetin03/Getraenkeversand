@@ -42,26 +42,26 @@
 
         <div class="cart-item" *ngFor="let item of items()">
           <div class="item-main">
-            <img [src]="item.bildUrl" [alt]="item.name" class="item-img">
+            <img [src]="item.getraenk.bildUrl" [alt]="item.getraenk.name" class="item-img">
             <div class="item-details">
-              <h3>{{ item.name }}</h3>
-              <p class="item-type">{{ item.typ | titlecase }}</p>
+              <h3>{{ item.getraenk.name }}</h3>
+              <p class="item-type">{{ item.getraenk.kategorie | titlecase }}</p>
             </div>
           </div>
 
           <div class="item-controls">
-            <button class="delete-btn" (click)="onRemove(item.name)" title="Artikel entfernen">
+            <button class="delete-btn" (click)="onRemove(item.getraenk.id)" title="Artikel entfernen">
               🗑️
             </button>
-            <input type="number" [value]="item.menge" min="1" (input)="onQuantityChange(item.name, $event)" class="qty-input">
+            <input type="number" [value]="item.menge" min="1" (input)="onQuantityChange(item.getraenk, $event)" class="qty-input">
           </div>
 
           <div class="price-single">
-            {{ item.preis | number:'1.2-2' }} €
+            {{ item.getraenk.preis | number:'1.2-2' }} €
           </div>
 
           <div class="price-total">
-            {{ (item.preis * item.menge) | number:'1.2-2' }} €
+            {{ (item.getraenk.preis * item.menge) | number:'1.2-2' }} €
           </div>
         </div>
       </div>

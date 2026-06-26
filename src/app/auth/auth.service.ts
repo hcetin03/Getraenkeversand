@@ -14,7 +14,7 @@ export class AuthService {
       rolle: email.includes('mitarbeiter') ? 'mitarbeiter' : 'kunde'
     };
     return of(mockResponse).pipe(
-      tap((res) => {
+      tap((res: any) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('rolle', res.rolle);
       })
