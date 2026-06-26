@@ -1,0 +1,35 @@
+<div class="jubilee-container">
+  <header class="jubilee-header">
+    <span class="badge">Limierte Jubiläums-Edition</span>
+    <h1>75 Jahre Erfrischung & Geschmack</h1>
+    <p class="subtitle">Wir feiern unser Jubiläum mit exklusiven Kreationen!</p>
+  </header>
+
+  <hr class="divider">
+
+  <main class="jubilee-content">
+    <div class="product-card">
+      <img [src]="anniversaryProduct.imageUrl" [alt]="anniversaryProduct.name" class="product-img">
+      
+      <div class="product-info">
+        <h2>{{ anniversaryProduct.name }}</h2>
+        <p class="description">{{ anniversaryProduct.description }}</p>
+        
+        <div class="price-tag">{{ anniversaryProduct.price }} €</div>
+
+        <button class="cta-button" (click)="onOrder(anniversaryProduct)">
+          Jetzt Jubiläums-Box sichern
+        </button>
+
+        @if (anniversaryProduct.isStockLow) {
+          <p class="warning-text">⚠️ Nur noch wenige Flaschen verfügbar!</p>
+        }
+      </div>
+    </div>
+  </main>
+
+  <footer class="jubilee-history">
+    <h3>Unsere Geschichte</h3>
+    <p>Seit Generationen stehen wir für beste Zutaten und einzigartigen Geschmack. Danke für eure Treue!</p>
+  </footer>
+</div>

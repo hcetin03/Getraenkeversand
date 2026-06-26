@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {CurrencyPipe, DatePipe} from '@angular/common';
 
@@ -21,8 +22,10 @@ type Getraenk = {
 
 type Kunde = {
     id: number;
-    name: string;
+    vorname: string;
+    nachname: string;
     email: string;
+    anzahlBestellungen: number;
     stammkunde: boolean;
 };
 
@@ -35,7 +38,7 @@ type Kunde = {
     styleUrl: './mitarbeiter.css'
 })
 
-export class MitarbeiterComponent{
+export class MitarbeiterComponent implements OnInit{
     passwort = '';
     istEingeloggt = false;
     loginFehler= '';
@@ -52,12 +55,15 @@ export class MitarbeiterComponent{
         {id: 3, name: 'Tee', kategorie: 'Tee', lagerbestand: 200}
     ];
 
-    kunden: Kunde[] = [
-        {id: 1, name: 'Max Mustermann', email: 'max@beispiel.de', stammkunde: true},
-        {id: 2, name: 'Erika Musterfrau', email: 'erika@beispiel.de', stammkunde: false},
-        {id: 3, name: 'Mia Schmidt', email: 'mia@beispiel.de', stammkunde: true},
-        {id: 4, name: 'Sara Becker', email: 'sara@beispiel.de', stammkunde: true},
-    ];
+    kunden: Kunde[] = [];
+
+    constructor(private http: HttpClient) {}
+
+    ngOnInit(): void {
+        this.http.get<Kunde[]>('http://localhost:3000/api/kunden').subscribe((daten) => {
+            this.kunden = daten;
+        });
+    }
 
     login(): void{
         if(this.passwort === 'geheim123'){
