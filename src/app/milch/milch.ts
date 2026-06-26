@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Header } from '../header/header';
 import { Warenkorb } from '../services/warenkorb.service';
-import { Getraenk } from '../model';
+import { Getraenk } from '../model/getraenk.model';
 
 @Component({
   selector: 'app-milch',

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Header } from '../header/header';
+import { Warenkorb } from '../services/warenkorb.service';
+import { Getraenk } from '../model/getraenk.model';
 
 @Component({
   selector: 'app-bier',
@@ -9,4 +11,11 @@ import { Header } from '../header/header';
   templateUrl: './bier.html',
   styleUrl: './bier.css',
 })
-export class Bier {}
+export class Bier {
+  private warenkorbService = inject(Warenkorb);
+
+
+  inDenWarenkorb(produkt: Getraenk) {
+  this.warenkorbService.produktHinzufuegen(produkt);
+  }
+}
