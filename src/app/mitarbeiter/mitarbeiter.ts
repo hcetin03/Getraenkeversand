@@ -49,12 +49,9 @@ export class MitarbeiterComponent implements OnInit{
         {id: 3, kunde: 'Mia Schmidt', datum: '2024-06-03', artikel: 'Kaffee', menge: 1, gesamtpreis: 5.00, status: 'Versendet'}
     ];
 
-    getraenke: Getraenk[] = [
-        {id: 1, name: 'Wasser Classic', kategorie: 'Wasser', lagerbestand: 100},
-        {id: 2, name: 'Coca Cola', kategorie: 'Säfte', lagerbestand: 50},
-        {id: 3, name: 'Tee', kategorie: 'Tee', lagerbestand: 200}
-    ];
 
+    getraenke: Getraenk[] = [];
+    
     kunden: Kunde[] = [];
 
     constructor(private http: HttpClient) {}
@@ -62,6 +59,9 @@ export class MitarbeiterComponent implements OnInit{
     ngOnInit(): void {
         this.http.get<Kunde[]>('http://localhost:3000/api/kunden').subscribe((daten) => {
             this.kunden = daten;
+        });
+        this.http.get<Getraenk[]>('http://localhost:3000/api/produkt').subscribe((daten) => {
+            this.getraenke = daten;
         });
     }
 
@@ -84,8 +84,16 @@ export class MitarbeiterComponent implements OnInit{
         if(getraenk.lagerbestand < 0){
             getraenk.lagerbestand = 0;
         }
-        alert('Lagerbestand von ' + getraenk.name + ' wurde auf ' + getraenk.lagerbestand + ' aktualisiert.');
-    }
+            this.http.put('http://localhost:3000/api/produkt/' + getraenk.id + '/lagerbestand', {lagerbestand: getraenk.lagerbestand}).subscribe({
+                next: () => {
+                    alert('Lagerbestand von ' + getraenk.name + ' wurde gespeichert.');
+                },
+                error: (fehler) => {
+                    console.log(fehler);
+                    alert('Fehler beim Speichern vom Lagerbestand.');
+                }
+            });
+ }
 
     rechnungDrucken(bestellung: Bestellung): void{
         const rechnung = `Rechnung Getränkeversand

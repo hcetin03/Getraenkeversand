@@ -1,3 +1,191 @@
+.mitarbeiter-page{
+    min-height: 100vh;
+    padding: 40px 6%;
+    background: #f7f7f7;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.portal-hero{
+    background: linear-gradient(135deg, #4f94c4, #2f965f);
+    color: white;
+    padding: 55px;
+    border-radius: 28px;
+    margin-bottom: 35px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.portal-hero h1{
+    font-size: 48px;
+    margin: 0 0 12px;
+}
+
+.portal-hero p{
+    font-size: 20px;
+    margin: 0;
+}
+
+.login-card, .portal-card{
+    background: white;
+    border-radius: 24px;
+    padding: 30px;
+    margin-bottom: 28px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.login-card{
+    max-width: 430px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.login-card h2, .portal-card h2{
+    color: #555;
+    margin-top: 0;
+}
+
+input{
+    border: 1px solit #ddd;
+    border-radius: 14px;
+    padding: 12px 14px;
+    font-size: 16px;
+    outline: none;
+}
+
+.login-card input{
+    width: 100%;
+    margin: 15px 0;
+}
+
+button{
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #4f94c4, #2f965f);
+    color: white;
+    padding: 12px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+button:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+.error{
+    color: #b00020;
+    font-weight: bold;
+}
+
+.portal-grid{
+    display: grid;
+    gap: 28px;
+}
+
+.order-row,
+.stock-row,
+.customer-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr auto;
+    gap: 18px;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.order-row:last-child,
+.stock-row:last-child,
+.customer-row:last-child {
+    border-bottom: none;
+}
+
+.order-row p,
+.stock-row p {
+    margin: 6px 0;
+    color: #777;
+}
+
+.order-row small {
+    color: #999;
+}
+
+.order-price {
+    font-weight: bold;
+    color: #2f965f;
+}
+
+.stock-row {
+    grid-template-columns: 1.5fr 120px auto auto;
+}
+
+.stock-row input {
+    width: 100px;
+}
+
+.small-btn {
+    padding: 10px 16px;
+}
+
+.newsletter-card {
+    background: linear-gradient(135deg, #ffffff, #eef8f3);
+}
+
+.newsletter-preview {
+    background: #f4f7f7;
+    border-left: 5px solid #2f965f;
+    padding: 20px;
+    border-radius: 18px;
+    margin: 20px 0;
+}
+
+.customer-row {
+    grid-template-columns: 1fr 1.5fr;
+}
+
+.customer-row span {
+    color: #666;
+}
+
+.newsletter-btn {
+    margin-top: 25px;
+}
+
+.empty-text {
+    color: #888;
+    font-style: italic;
+}
+
+@media (max-width: 800px) {
+    .portal-hero {
+        padding: 35px;
+    }
+
+    .portal-hero h1 {
+        font-size: 36px;
+    }
+
+.order-row, .stock-row, .customer-row{
+    grid-template-columns: 1fr;
+}
+
+.stock-row input{
+    width: 100%;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .mitarbeiter-container{
     padding: 30px;
     max-width: 1200px;

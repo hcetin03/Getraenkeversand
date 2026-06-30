@@ -1,114 +1,107 @@
-<section class ="mitarbeiter-container">
+<section class ="mitarbeiter-page">
 
-<h1>Mitarbeiter-Portal</h1>
+    <div class="portall-hero">
+        <h1>Mitarbeiterportal</h1>
+        <p> Versand • Lagerbestand • Werbekampagne</p>
+    </div>
 
     @if(!istEingeloggt){
-        <div class = "login-box">
+        <div class = "login-card">
             <h2>Login für Mitarbeiter</h2>
 
             <input
             type="password"
             placeholder="Passwort eingeben"
-            [(ngModel)]="passwort" >
+            [(ngModel)]="passwort" />
 
             <button (click) = "login()">Einloggen</button>
 
             @if(loginFehler){
-                <p class="fehler">{{loginFehler}}</p>
+                <p class="error">{{loginFehler}}</p>
             }
         </div>
     }
 
 
     @if(istEingeloggt){
-        <div class="bereich">
-            <h2>Versand & Logistik</h2>
+        <div class="portal-grid">
 
-            <table>
-                <tr>
-                    <th>Nr.</th>
-                    <th>Kunde</th>
-                    <th>Datum</th>
-                    <th>Artikel</th>
-                    <th>Menge</th>
-                    <th>Gesamtpreis</th>
-                    <th>Status</th>
-                    <th>Aktion</th>                   
-                </tr>
+            <div class="portal-card">
+                <h2>📦 Eingehende Bestellungen</h2>
 
-                @for(bestellung of bestellungen; track bestellung.id){
-                    <tr>
-                        <td>{{bestellung.id}}</td>
-                        <td>{{bestellung.kunde}}</td>
-                        <td>{{bestellung.datum | date: 'dd.MM.yyyy'}}</td>
-                        <td>{{bestellung.artikel}}</td>
-                        <td>{{bestellung.menge}}</td>
-                        <td>{{bestellung.gesamtpreis | currency: 'EUR'}}</td>
-                        <td>{{bestellung.status}}</td>
-                        <td>
-                            <button (click) = "rechnungDrucken(bestellung)">Rechnung drucken</button>
-                        </td>
-                    </tr>
+                @for (bestellung of bestellungen; track bestellung.id){
+                    <div class="order-row">
+                        <div>
+                            <strong>{{bestellung.kunde}}</strong>
+                            <p>{{bestellung.artikel}} • {{bestellung.menge}} Stück</p>
+                            <small> {{bestellung.datum}} • {{bestellung.status}}</small>
+                        </div>
+                    
+                        <div class="order-price">
+                            {{bestellung.gesamtpreis | currency: 'EUR'}}
+                        </div>
+
+                        <button (click) ="rechnungDrucken(bestellung)">
+                            Rechnung drucken
+                        </button>
+                        </div>
                 }
-            </table>
-        </div>
-
-        <div class="bereich">
-            <h2>Lagerbestand anpassen</h2>
-
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Getränk</th>
-                    <th>Kategorie</th>
-                    <th>Aktueller Bestand</th>
-                    <th>Bestand bearbeiten</th>
-                    <th>Aufstocken</th>
-                    <th>Speichern</th>
-                </tr>
-
-            @for (getraenk of getraenke; track getraenk.id){
-                <tr>
-                    <td>{{getraenk.id}}</td>
-                    <td>{{getraenk.name}}</td>
-                    <td>{{getraenk.kategorie}}</td>
-                    <td>{{getraenk.lagerbestand}}</td>
-                    <td>
-                        <input type="number" [(ngModel)]="getraenk.lagerbestand"></td>
-
-                    <td>
-                        <button (click) = "bestandErhoehen(getraenk, 10)">+10</button></td>
-                    <td>
-                        <button (click) = "bestandSpeichern(getraenk)">Änderung speichern</button></td>
-                </tr>
-            }
-            </table>
             </div>
 
-            <div class="bereich">
-                <h2>Werbekampagne</h2>
+            <div class="portal-card">
+                <h2>🥤 Lagerbestand bearbeiten</h2>
 
-                <p>Stammkunden: {{stammkunden.length}}</p>
+                @for (getraenk of getraenke; track getraenk.id){
+                    <div class="stock-row">
+                        <div>
+                            <strong>{{getraenk.name}}</strong>
+                            <p>{{getraenk.kategorie}}</p>
+                        </div>
 
-                <ul>
-                    @for(kunde of stammkunden; track kunde.id){
-                        <li>{{kunde.vorname}} {{kunde.nachname}} - {{kunde.email}}</li>
-                    }
-                </ul>
+                        <input
+                        type="number"
+                        [(ngModel)]="getraenk.lagerbestand"/>
 
-                <h3>Newsletter-Vorschau</h3>
+                        <button class="small-btn" (click)="bestandErhoehen(getraenk,10)">+10
+                        </button>
+                    </div>
+                }
 
-                <textarea rows="8">
-                    Liebe Stammkunden,
+                @if(getraenke.length === 0){
+                    <p class="empty-text">
+                        Keine Getränke geladen. Wahrscheinlich ist die Datenbank gerade nicht erreichbar.
+                    </p>
+                }
+            </div>
 
-                    wir haben neue Angebote für Sie! Besuchen Sie unseren Shop und entdecken Sie unsere neuesten Getränke und Aktionen.
+            <div class="portal-card newsletter-card">
+                <h2>📧 Werbekampagne</h2>
+                <p>
+                    Stammkunden für Newsletter:
+                    <strong>{{stammkunden.length}}</strong>
+                </p>
 
-                    Mit freundlichen Grüßen,
-                    Ihr Getränkeversand-Team
-                </textarea>
+                <div class="newsletter-preview">
+                    <h3>Newsletter-Vorschau</h3>
+                    <p>Hallo liebe Stammkunden,</p>
+                    <p>hiermit informieren wir Sie über unsere neuesten Angebote und Sonderaktionen! Entdecken Sie jetzt unsere aktuellen Aktionen und sichern Sie sich Ihre Lieblingsgetränke.</p>
+                <p>Ihr Getraenkeversand-Team</p>
+                </div>
 
-                <br>
-                <button (click)="newsletterSenden()">Newsletter senden</button>
+                <h3>Empfänger</h3>
+
+                @for(kunde of stammkunden; track kunde.id){
+                    <div class="customer-row">
+                        {{kunde.vorname}} {{kunde.nachname}}
+                        <span>{{kunde.email}}</span>
+                    </div>
+                }
+
+                <button class="newsletter-btn" (click)="newsletterSenden()">
+                    Newsletter senden
+                </button>"
+            </div>
+
             </div>
         }
-</section>
+        </section>

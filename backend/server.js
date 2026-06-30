@@ -69,6 +69,27 @@ app.get('/api/produkt', (req, res) => {
 
 });
 
+// ======================================================
+// LAGERBESTAND
+// ======================================================
+
+app.put('/api/produkt/:id/lagerbestand', (req, res) => {
+    const id = req.params.id;
+    const{lagerbestand} = req.body;
+
+    const sql = `UPDATE produkt SET lagerbestand = ? WHERE id = ?`;
+
+    db.query(sql, [lagerbestand, id], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json(err);
+        }
+        res.json({
+            message: 'Lagerbestand wurde gespeichert.'
+        });
+    });
+});
+
 
 // ======================================================
 // BESTELLUNG
@@ -140,7 +161,7 @@ app.get('/api/kunden', (req, res) => {
     k.vorname,
     k.nachname,
     k.email
-    COUNT(b.id) AS anzahl_bestellungen,
+    COUNT(b.id) AS anzahlBestellungen,
     COUNT(b.id) >= 3 AS stammkunde
 
     FROM kunde k
@@ -151,7 +172,7 @@ app.get('/api/kunden', (req, res) => {
     db.query(sql, (err, result) => {
         if (err) {
             console.log(err);
-            res.status(500).json(err);
+            return res.status(500).json(err);
         } 
             res.json(result);
     });
