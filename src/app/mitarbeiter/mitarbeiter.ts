@@ -43,12 +43,7 @@ export class MitarbeiterComponent implements OnInit{
     istEingeloggt = false;
     loginFehler= '';
 
-    bestellungen: Bestellung[] = [
-        {id: 1, kunde: 'Max Mustermann', datum: '2024-06-01', artikel: 'Bier', menge: 2, gesamtpreis: 10.00, status: 'In Bearbeitung'},
-        {id: 2, kunde: 'Erika Musterfrau', datum: '2024-06-02', artikel: 'Wein', menge: 3, gesamtpreis: 30.00, status: 'Abgeschlossen'},
-        {id: 3, kunde: 'Mia Schmidt', datum: '2024-06-03', artikel: 'Kaffee', menge: 1, gesamtpreis: 5.00, status: 'Versendet'}
-    ];
-
+    bestellungen: Bestellung[] = [];
 
     getraenke: Getraenk[] = [];
     
@@ -57,6 +52,10 @@ export class MitarbeiterComponent implements OnInit{
     constructor(private http: HttpClient) {}
 
     ngOnInit(): void {
+        this.http.get<Bestellung[]>('http://localhost:3000/api/bestellungen').subscribe((daten) => {
+            this.bestellungen = daten;
+        });
+
         this.http.get<Kunde[]>('http://localhost:3000/api/kunden').subscribe((daten) => {
             this.kunden = daten;
         });
@@ -123,7 +122,10 @@ export class MitarbeiterComponent implements OnInit{
     }
 
     newsletterSenden(): void{
-        alert('Newsletter wurde an ' + this.stammkunden.length + ' Stammkunden gesendet.');
-    }
-    }
+       console.log("Newsletter an: ", this.stammkunden);
 
+       alert(
+        this.stammkunden.length + "Newsletter wurden an die Stammkunden versendet."
+       );
+    }
+}

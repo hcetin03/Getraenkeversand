@@ -150,6 +150,32 @@ app.post('/api/bestellung', (req, res) => {
 
 });
 
+app.get('/api/bestellunge', (req, res) => {
+    const sql = `
+    SELECT
+        b.id,
+        'Gastkunde' AS kunde,
+        b.datum,
+        GROUP_CONCAT(p.name SEPARATOR ', ') AS artikel,
+        SUM(bp.menge) AS menge,
+        b.gesamtpreis,
+        'Eingegangen' AS status
+    FROM bestellung b
+    LEFT JOIN bestellposition bp ON bp.bestellung_id = b.id
+    LEFT JOIN produkt p ON bp.produkt_id = p.id
+    GROUP BY b.id, b.datum, b.gesamtpreis
+    ORDER BY b.datum DESC
+    `;
+
+    db.query(sql, (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json(err);
+        }
+        res.json(result);
+    });
+});
+
 // ======================================================
 // KUNDEN / STAMMKUNDEN
 // ======================================================
