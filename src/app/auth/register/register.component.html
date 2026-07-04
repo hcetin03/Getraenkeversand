@@ -1,0 +1,35 @@
+<div class="register-container">
+  <div class="register-card">
+    <div clas="brand-mark">Getränke-Versand</div>
+
+    <h1>Konto erstellen</h1>
+    <p class="subtitle">Werde Teil von Getränke-Versand und starte durch</p>
+
+    <div *ngIf="fehler" class="fehler-meldung">{{ fehler }}</div>
+    <div *ngIf="erfolg" class="erfolg-meldung">{{ erfolg }}</div>
+
+    <div class="form-group">
+      <label for="E-Mail"></label>
+      <input id="email" type="email" [(ngModel)]="email" placeholder="deine@email.de" />
+    </div>
+
+    <div class="form-group">
+      <label for="password"></label>
+      <input id="password" type="password" [(ngModel)]="password" placeholder="Passwort" />
+    </div>
+
+    <div class="form-group">
+      <label for="passwordWiederholung"></label>
+      <input id="passwordWiederholung" type="password" [(ngModel)]="passwordWiederholung"
+        placeholder="Passwort bestätigen" />
+    </div>
+
+    <button (click)="onRegister()" class="btn-register">
+      Konto erstellen
+    </button>
+
+    <p class="link-text">
+      Bereits registriert? <a routerLink="/login">Jetzt einloggen</a>
+    </p>
+  </div>
+</div>

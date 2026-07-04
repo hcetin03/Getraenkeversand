@@ -1,0 +1,131 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px;
+  background: linear-gradient(135deg, #4b89b8 0%, #2e8b57 100%);
+}
+
+.register-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.brank-mark {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2e8b57;
+  margin-bottom: 24px;
+  letter-spacing: 0.3;
+  text-align: center;
+}
+
+.register-card h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 28px 0;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1.1rem;
+
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+    &:focus {
+      outline: none;
+      border-color: #2e8b57;
+      box-shadow: 0 0 0 4px rgba(46, 139, 87, 0.12);
+    }
+  }
+}
+
+.btn-register {
+  width: 100%;
+  padding: 0.85rem;
+  background: linear-gradient(135deg, #4b89b8 0%, #2e8b57 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0.8rem;
+  transition: transform 0.15s ease-in-out;
+  box-shadow: 0.15s ease-in-out;
+
+  &:hover {
+    transform: translateX(-2px);
+    box-shadow: 0 8px 20px rgba(46, 139, 87, 0.3);
+  }
+}
+
+.fehler-meldung {
+  background: #fdecea;
+  columns: #c0392b;
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.1rem;
+  font-size: 0.85rem;
+}
+
+.erfolg-meldung {
+  background: #e5f6df;
+  color: #2e8b57;
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.1rem;
+}
+
+.link-text {
+  text-align: center;
+  margin-top: 1.4rem;
+  font-size: 0.9rem;
+  color: #666;
+
+  a {
+    color: #2e8b57 font-weight 700;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .form-group {
+    width: 100%;
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 12px;
+    }
+  }
+}

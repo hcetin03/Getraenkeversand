@@ -6,9 +6,10 @@ import { tap } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  constructor(private router: Router) { }
-  //TEMPORÄR: wird später noch durch echten backend ersetzt 
-  login (email: string, password: string): Observable<any> {
+  constructor(private router: Router) {}
+
+  //TEMPORÄR: wird später noch durch echten backend ersetzt
+  login(email: string, password: string): Observable<any> {
     const mockResponse = {
       token: 'test-token-123',
       rolle: email.includes('mitarbeiter') ? 'mitarbeiter' : 'kunde'

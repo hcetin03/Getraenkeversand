@@ -1,20 +1,40 @@
-<div class="login-container">
-  <div class="login-card">
-    <h2>Anmelden</h2>
+<div class="login-split">
 
-  <div *ngIf="fehler" class="fehler-meldung">
-  {{ fehler }}
-</div>
+  <div class="login-form-side">
+    <div class="login-content">
+      <div class="brand-mark">Getränke-Versand</div>
+
+      <h1>Schön, dass du<br>wieder da bist</h1>
+      <p class="subtitle">Melde dich an und entdecke deine Lieblingsgetränke</p>
+
+      <div *ngIf="fehler" class="fehler-meldung">{{ fehler }}</div>
 
       <div class="form-group">
         <label for="email">E-Mail</label>
         <input id="email" type="email" [(ngModel)]="email" placeholder="deine@email.de" />
       </div>
 
-      <button (click)="onLogin" class="btn-primary">Einloggen</button>
+      <div class="form-group">
+        <label for="password">Passwort</label>
+        <input id="password" type="password" [(ngModel)]="password" placeholder="Passwort" />
+      </div>
+
+      <button (click)="onLogin()" class="btn-login">
+        Einloggen
+        <span class="arrow">-></span>
+      </button>
 
       <p class="link-text">
         Noch kein Konto? <a routerLink="/register">Jetzt registrieren</a>
       </p>
     </div>
   </div>
+  <div class="login-image-side">
+    <div class="image-overlay"></div>
+    <div class="floating-badge">
+      <span class="badge-icon"></span>
+      <span>Über 500 Getränke im Sortiment</span>
+    </div>
+  </div>
+
+</div>
