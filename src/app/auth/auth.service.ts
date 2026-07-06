@@ -1,20 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private apiUrl = 'http://localhost:3000/api';
 
-  constructor(private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   //TEMPORÄR: wird später noch durch echten backend ersetzt
   login(email: string, password: string): Observable<any> {
-    const mockResponse = {
-      token: 'test-token-123',
-      rolle: email.includes('mitarbeiter') ? 'mitarbeiter' : 'kunde'
-    };
-    return of(mockResponse).pipe(
+    return this.http.post(`${this.apiUrl}/login`, { email, password }).pipe(
       tap((res: any) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('rolle', res.rolle);
@@ -23,7 +20,7 @@ export class AuthService {
   }
 
   register(email: string, password: string): Observable<any> {
-    return of({ success: true });
+    return this.http.post(`${this.apiUrl}/register`, { email, password });
   }
 
   logout(): void {

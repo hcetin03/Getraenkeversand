@@ -2,6 +2,10 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken');
+const SECRET = 'getraenkeversand_secret';
+
 const app = express();
 
 app.use(cors());
@@ -75,7 +79,7 @@ app.get('/api/produkt', (req, res) => {
 
 app.put('/api/produkt/:id/lagerbestand', (req, res) => {
     const id = req.params.id;
-    const{lagerbestand} = req.body;
+    const { lagerbestand } = req.body;
 
     const sql = `UPDATE produkt SET lagerbestand = ? WHERE id = ?`;
 
@@ -199,12 +203,59 @@ app.get('/api/kunden', (req, res) => {
         if (err) {
             console.log(err);
             return res.status(500).json(err);
-        } 
-            res.json(result);
+        }
+        res.json(result);
     });
 });
 
+// =====================================================
+// AUTH - LOGIN - Register
+// =====================================================
 
+app.post('/api/register', async (req, res) => {
+    const { email, password } = req.body;
+    if (!email || !password)
+        return res.status(400).json({ message: 'E-mail und Passwort erforderlich.' });
+
+    const hash = await bcrypt.hash(password, 10);
+
+    db.query(
+        'INSERT INTO kunde (email, password_hash, rolle) VALUES (?, ?, ?)',
+        [email, hash, 'kunde'],
+        (err) => {
+            if (err) return res.status(500).json({ message: 'Registrierung fehlgeschlagen.' });
+            res.json({ message: 'Konto erstellt.' });
+        }
+    );
+});
+
+app.post('/api/login', (req, res) => {
+    const { email, password } = req.body;
+    db.query('SELECT * FROM kunde WHERE email =?', [email], async (err, result) => {
+        if (err) return res.status(500), json({ message: 'Serverfehler.' });
+
+        if (result.length > 0) {
+            const user = result[0];
+            const ol = await bcrypt.compare(password, user.password_hash);
+            if (!ok) return res.status(406).json({ message: 'Falsches Passwort.' });
+
+            const token = jwt.sign({ id: user.id, rolle: 'kunde' }, SECRET, { expiresIn: '8h' });
+            return res.json({ token, rolle: 'kunde' });
+        }
+
+        db.query('SELECT * FROM mitarbeiter WHERE email = ?', [email], async (err2, result2) => {
+            if (err2) return res.status(500).json({ message: 'Serverfehler.' });
+            if (result2.length === 0) return res.status(401).json({ message: 'Benutzer nicht gefunden.' });
+
+            const user = result2[0];
+            const ok = await bcrypt.compare(password, user.password_hash);
+            if (!ok) return res.status(401).json({ message: 'Falsches Passwort.' });
+
+            const token = jwt.sign({ id: user.id, rolle: 'mitarbeiter' }, SECRET, { expiresIn: '8h' });
+            return res.json({ token, rolle: 'mitarbeiter' });
+        });
+    });
+});
 
 // ======================================================
 // SERVER STARTEN
@@ -213,3 +264,4 @@ app.get('/api/kunden', (req, res) => {
 app.listen(3000, () => {
     console.log('Server läuft auf Port 3000');
 });
+
