@@ -154,7 +154,7 @@ app.post('/api/bestellung', (req, res) => {
 
 });
 
-app.get('/api/bestellunge', (req, res) => {
+app.get('/api/bestellung', (req, res) => {
     const sql = `
     SELECT
         b.id,
