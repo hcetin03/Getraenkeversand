@@ -150,7 +150,7 @@ app.post('/api/bestellung', (req, res) => {
 
 });
 
-app.get('/api/bestellunge', (req, res) => {
+app.get('/api/bestellungen', (req, res) => {
     const sql = `
     SELECT
         b.id,
@@ -179,6 +179,40 @@ app.get('/api/bestellunge', (req, res) => {
 // ======================================================
 // KUNDEN / STAMMKUNDEN
 // ======================================================
+app.post('/api/kunden', (req, res) => {
+
+    const { vorname, nachname, email, adresse, telefon } = req.body;
+
+    if (!vorname || !nachname || !email) {
+        return res.status(400).json({
+            message: 'Vorname, Nachname und Email sind erforderlich.'
+        });
+    }
+
+    const sql = `
+        INSERT INTO kunde (vorname, nachname, email, adresse, telefon)
+        VALUES (?, ?, ?, ?, ?)
+    `;
+
+    db.query(sql, [vorname, nachname, email, adresse, telefon], (err, result) => {
+
+        if (err) {
+            console.log(err);
+            return res.status(500).json(err);
+        }
+
+        res.json({
+            message: 'Kunde erfolgreich registriert.',
+            kunden_id: result.insertId
+        });
+
+    });
+
+});
+
+
+
+
 
 app.get('/api/kunden', (req, res) => {
     const sql = `
@@ -186,7 +220,7 @@ app.get('/api/kunden', (req, res) => {
     k.id,
     k.vorname,
     k.nachname,
-    k.email
+    k.email,
     COUNT(b.id) AS anzahlBestellungen,
     COUNT(b.id) >= 3 AS stammkunde
 
