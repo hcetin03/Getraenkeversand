@@ -1,12 +1,15 @@
+
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+const bcrypt = require('bcrypt'); // Für die sichere Passwort-Verschlüsselung
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+// Datenbank-Verbindung zu eurer Gruppen-DB
 const db = mysql.createConnection({
     host: '192.168.110.94',
     user: '26_IT_Grp2',
@@ -32,60 +35,105 @@ db.connect((err) => {
 
 // Route zum Laden aller Produkte oder einer Kategorie
 app.get('/api/produkt', (req, res) => {
-
     const kategorie = req.query.kategorie;
 
     if (kategorie) {
-
         db.query(
             'SELECT * FROM produkt WHERE hauptkategorie = ?',
             [kategorie],
             (err, result) => {
-
                 if (err) {
                     console.log(err);
                     res.status(500).json(err);
                 } else {
                     res.json(result);
                 }
-
             }
         );
-
     } else {
-
         db.query('SELECT * FROM produkt', (err, result) => {
-
             if (err) {
                 console.log(err);
                 res.status(500).json(err);
             } else {
                 res.json(result);
             }
-
         });
-
     }
-
 });
 
+
 // ======================================================
-// LAGERBESTAND
+// AUTHENTIFIZIERUNG (REGISTRIERUNG & LOGIN)
 // ======================================================
 
-app.put('/api/produkt/:id/lagerbestand', (req, res) => {
-    const id = req.params.id;
-    const{lagerbestand} = req.body;
+// 1. REGISTRIEREN
+app.post('/api/register', (req, res) => {
+    const { email, password } = req.body; 
 
-    const sql = `UPDATE produkt SET lagerbestand = ? WHERE id = ?`;
+    if (!email || !password) {
+        return res.status(400).json({ message: 'Bitte E-Mail und Passwort angeben.' });
+    }
 
-    db.query(sql, [lagerbestand, id], (err, result) => {
+    bcrypt.hash(password, 10, (err, hash) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json({ message: 'Fehler bei der Verschlüsselung.' });
+        }
+
+        const sqlRegister = 'INSERT INTO kunde (email, password) VALUES (?, ?)';
+        
+        db.query(sqlRegister, [email, hash], (dbErr, result) => {
+            if (dbErr) {
+                console.log(dbErr);
+                if (dbErr.errno === 1062) {
+                    return res.status(400).json({ message: 'Diese E-Mail-Adresse wird bereits verwendet.' });
+                }
+                return res.status(500).json(dbErr);
+            }
+
+            res.status(201).json({ message: 'Registrierung erfolgreich!', kundeId: result.insertId });
+        });
+    });
+});
+
+// 2. EINLOGGEN
+app.post('/api/login', (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ message: 'Bitte E-Mail und Passwort angeben.' });
+    }
+
+    const sqlLogin = 'SELECT * FROM kunde WHERE email = ?';
+    db.query(sqlLogin, [email], (err, results) => {
         if (err) {
             console.log(err);
             return res.status(500).json(err);
         }
-        res.json({
-            message: 'Lagerbestand wurde gespeichert.'
+
+        if (results.length === 0) {
+            return res.status(401).json({ message: 'Falsche E-Mail-Adresse oder Passwort.' });
+        }
+
+        const user = results[0];
+
+        bcrypt.compare(password, user.password, (bcryptErr, isMatch) => {
+            if (bcryptErr) {
+                return res.status(500).json({ message: 'Fehler beim Passwort-Vergleich.' });
+            }
+
+            if (!isMatch) {
+                return res.status(401).json({ message: 'Falsche E-Mail-Adresse oder Passwort.' });
+            }
+
+            res.json({
+                message: 'Login erfolgreich!',
+                user: {
+                    id: user.id,
+                    email: user.email
+                }
+            });
         });
     });
 });
@@ -96,8 +144,8 @@ app.put('/api/produkt/:id/lagerbestand', (req, res) => {
 // ======================================================
 
 app.post('/api/bestellung', (req, res) => {
-
-    const { bestellteProdukte, gesamtpreis, datum } = req.body;
+    // ANPASSUNG: kundenId wird jetzt optional aus Angular mitgelesen
+    const { bestellteProdukte, gesamtpreis, datum, kundenId } = req.body;
 
     if (!bestellteProdukte || bestellteProdukte.length === 0) {
         return res.status(400).json({
@@ -110,8 +158,8 @@ app.post('/api/bestellung', (req, res) => {
         VALUES (?, ?, ?)
     `;
 
-    db.query(sqlBestellung, [null, gesamtpreis, datum], (err, result) => {
-
+    // ANPASSUNG: Nutzt die kundenId falls eingeloggt, andernfalls null (Gast)
+    db.query(sqlBestellung, [kundenId || null, gesamtpreis, datum], (err, result) => {
         if (err) {
             console.log(err);
             return res.status(500).json(err);
@@ -133,7 +181,6 @@ app.post('/api/bestellung', (req, res) => {
         `;
 
         db.query(sqlPositionen, [positionen], (err) => {
-
             if (err) {
                 console.log(err);
                 return res.status(500).json(err);
@@ -143,101 +190,9 @@ app.post('/api/bestellung', (req, res) => {
                 message: 'Bestellung erfolgreich gespeichert.',
                 bestellung_id: bestellungId
             });
-
         });
-
-    });
-
-});
-
-app.get('/api/bestellungen', (req, res) => {
-    const sql = `
-    SELECT
-        b.id,
-        'Gastkunde' AS kunde,
-        b.datum,
-        GROUP_CONCAT(p.name SEPARATOR ', ') AS artikel,
-        SUM(bp.menge) AS menge,
-        b.gesamtpreis,
-        'Eingegangen' AS status
-    FROM bestellung b
-    LEFT JOIN bestellposition bp ON bp.bestellung_id = b.id
-    LEFT JOIN produkt p ON bp.produkt_id = p.id
-    GROUP BY b.id, b.datum, b.gesamtpreis
-    ORDER BY b.datum DESC
-    `;
-
-    db.query(sql, (err, result) => {
-        if (err) {
-            console.log(err);
-            return res.status(500).json(err);
-        }
-        res.json(result);
     });
 });
-
-// ======================================================
-// KUNDEN / STAMMKUNDEN
-// ======================================================
-app.post('/api/kunden', (req, res) => {
-
-    const { vorname, nachname, email, adresse, telefon } = req.body;
-
-    if (!vorname || !nachname || !email) {
-        return res.status(400).json({
-            message: 'Vorname, Nachname und Email sind erforderlich.'
-        });
-    }
-
-    const sql = `
-        INSERT INTO kunde (vorname, nachname, email, adresse, telefon)
-        VALUES (?, ?, ?, ?, ?)
-    `;
-
-    db.query(sql, [vorname, nachname, email, adresse, telefon], (err, result) => {
-
-        if (err) {
-            console.log(err);
-            return res.status(500).json(err);
-        }
-
-        res.json({
-            message: 'Kunde erfolgreich registriert.',
-            kunden_id: result.insertId
-        });
-
-    });
-
-});
-
-
-
-
-
-app.get('/api/kunden', (req, res) => {
-    const sql = `
-    SELECT
-    k.id,
-    k.vorname,
-    k.nachname,
-    k.email,
-    COUNT(b.id) AS anzahlBestellungen,
-    COUNT(b.id) >= 3 AS stammkunde
-
-    FROM kunde k
-    LEFT JOIN bestellung b ON b.kunden_id = k.id
-    GROUP BY k.id
-    `;
-
-    db.query(sql, (err, result) => {
-        if (err) {
-            console.log(err);
-            return res.status(500).json(err);
-        } 
-            res.json(result);
-    });
-});
-
 
 
 // ======================================================
