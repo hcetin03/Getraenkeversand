@@ -24,7 +24,6 @@ export const routes: Routes = [
   { path: 'limo-und-saft', component: LimoUndSaft },
   { path: 'warenkorb', component: WarenkorbComponent },
   { path: 'login', component: Login },
-  { path: 'register', component: RegisterComponent },
   { path: 'mitarbeiter', component: MitarbeiterComponent },
   { path: 'favoriten', component: Favoriten },
   { path: 'jubilaeum', component: Jubilaeum },
