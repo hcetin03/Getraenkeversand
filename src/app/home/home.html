@@ -1,80 +1,21 @@
 <app-header></app-header>
 
-<div class="banner-container">
-  <div class="banner-text">
-    <h1 class="banner-title">Willkommen im Getränkeversand!</h1>
-    <p class="banner-subtitle">Hier findest du die besten Deals</p>
-    <button class="banner-btn">Mehr erfahren</button>
-  </div>
-</div>
-
-<section class="themenwelten-section">
-  <h2>Deine Themenwelten</h2>
+<div class="welcome-banner-split">
   
-  <main class="grid-container-modern">
-    <a routerLink="/angebote" class="themen-kachel">
-      <div class="kachel-bild-wrapper">
-        <img src="images/angebote.jpg" alt="Angebote">
-      </div>
-      <div class="kachel-footer">
-        <span>Angebote</span>
-        <span class="pfeil">›</span>
-      </div>
-    </a>
+  <div class="banner-gradient-side">
+    <h1>
+      Willkommen bei<br>
+      <span>Getränke-Versand</span>
+    </h1>
+    <p>Hier findest du dein Lieblingsgetränk!</p>
+    <a href="#themenwelten" class="btn-more">Mehr erfahren</a>
+  </div>
 
-    <a routerLink="/jubilaeum" class="themen-kachel">
-      <div class="kachel-bild-wrapper">
-        <img src="images/jubilaeum.jpg" alt="Jubiläum">
-      </div>
-      <div class="kachel-footer">
-        <span>Jubiläum</span>
-        <span class="pfeil">›</span>
-      </div>
-    </a>
+  <div class="banner-image-side">
+    <img src="/images/Erfrischung.jpg" alt="Getränke-Auswahl">
+  </div>
 
-    <a routerLink="/wein" class="themen-kachel">
-      <div class="kachel-bild-wrapper">
-        <img src="images/BremerRatskellerWein.jpg" alt="Weinwelt">
-      </div>
-      <div class="kachel-footer">
-        <span>Weinwelt</span>
-        <span class="pfeil">›</span>
-      </div>
-    </a>
-
-      <a routerLink="/kaffee" class="themen-kachel">
-      <div class="kachel-bild-wrapper">
-        <img src="images/kaffeeliebe.jpg" alt="Kaffeewelt">
-      </div>
-      <div class="kachel-footer">
-        <span>Kaffeewelt</span>
-        <span class="pfeil">›</span>
-      </div>
-    </a>
-    <a routerLink="/limo-und-saft" class="themen-kachel">
-      <div class="kachel-bild-wrapper">
-        <img src="images/sakura.jpg" alt="Säfte">
-      </div>
-      <div class="kachel-footer">
-        <span>Säfte</span>
-        <span class="pfeil">›</span>
-      </div>
-    </a>
-
-    <a routerLink="/bier" class="themen-kachel mehr-entdecken-kachel">
-      <div class="kachel-bild-wrapper">
-        <img src="images/Bierwelt.jpg" alt="Bierwelt">
-        <div class="plus-overlay">
-          <span class="plus-icon">+</span>
-        </div>
-      </div>
-      <div class="kachel-footer">
-        <span>Bierwelt</span>
-        <span class="pfeil">›</span>
-      </div>
-    </a>
-  </main>
-</section>
+</div>
 
 <section class="voucher-outer-container">
   <div class="voucher-section">
@@ -104,6 +45,55 @@
       <button class="btn-redeem">Jetzt Code einlösen</button>
     </div>
   </div>
+</section>
+
+<section class="themenwelten-section">
+  <h2>Deine Themenwelten</h2>
+  
+  <main class="grid-container-modern">
+    <a routerLink="/angebote" class="themen-kachel">
+      <div class="kachel-bild-wrapper">
+        <img src="images/angebote.jpg" alt="Angebote">
+      </div>
+      <div class="kachel-footer">
+        <span>Angebote</span>
+        <span class="pfeil">›</span>
+      </div>
+    </a>
+
+    <a routerLink="/jubilaeum" class="themen-kachel">
+      <div class="kachel-bild-wrapper">
+        <img src="images/jubilaeum.jpg" alt="Jubiläum">
+      </div>
+      <div class="kachel-footer">
+        <span>Jubiläum</span>
+        <span class="pfeil">›</span>
+      </div>
+    </a>
+
+    <a routerLink="/wein" class="themen-kachel">
+      <div class="kachel-bild-wrapper">
+        <img src="images/wine.png" alt="Weinwelt">
+      </div>
+      <div class="kachel-footer">
+        <span>Weinwelt</span>
+        <span class="pfeil">›</span>
+      </div>
+    </a>
+
+    <a routerLink="/bier" class="themen-kachel mehr-entdecken-kachel">
+      <div class="kachel-bild-wrapper">
+        <img src="images/Bierwelt.jpg" alt="Bierwelt">
+        <div class="plus-overlay">
+          <span class="plus-icon">+</span>
+        </div>
+      </div>
+      <div class="kachel-footer">
+        <span>Bierwelt</span>
+        <span class="pfeil">›</span>
+      </div>
+    </a>
+  </main>
 </section>
 
 <div class="diet-outer-container">
