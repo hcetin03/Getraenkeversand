@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Header } from '../header/header';
 
 @Component({
   selector: 'app-angebote',
@@ -8,7 +9,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [
     CommonModule,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    Header
   ],
   templateUrl: './angebote.html',
   styleUrl: './angebote.css'
