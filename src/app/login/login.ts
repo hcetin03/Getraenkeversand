@@ -1,75 +1,97 @@
-import { Component, inject } from '@angular/core'; 
-import { FormsModule } from '@angular/forms'; 
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http'; 
-import { RouterLink, RouterLinkActive } from '@angular/router'; 
+import { HttpClient } from '@angular/common/http';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive], 
-  templateUrl: './login.html', 
-  styleUrls: ['./login.css']   
+  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive],
+  templateUrl: './login.html',
+  styleUrls: ['./login.css']
 })
-export class Login { 
-  // Objekt zur Speicherung der Formulardaten
+export class Login {
+
+  // ANPASSUNG: plz und wohnort als leere Strings hinzugefügt
   loginData = {
+    vorname: '',
+    nachname: '',
     email: '',
+    adresse: '',
+    plz: '',        // <-- NEU
+    wohnort: '',    // <-- NEU
+    telefon: '',
     password: '',
     rememberMe: false
   };
 
   showPassword = false;
-  isLoginMode = true; // <-- NEU: true bedeutet Login, false bedeutet Registrierung
+  isLoginMode = true;
 
-  // HttpClient injizieren für die Server-Anfragen
   private http = inject(HttpClient);
 
-  // Schaltet die Passwort-Sichtbarkeit um
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
 
-  // NEU: Schaltet zwischen Login und Registrierung um
   toggleMode() {
     this.isLoginMode = !this.isLoginMode;
   }
 
-  // Wird aufgerufen, wenn das Formular abgeschickt wird
-  onSubmit() { // <-- Umbenannt von onLogin zu onSubmit
-    
+  onSubmit() {
     if (this.isLoginMode) {
-      // ======================================================
-      // 1. LOGIN MODUS
-      // ======================================================
-      console.log('Login-Daten werden an Server gesendet:', this.loginData);
+      const loginPayload = {
+        email: this.loginData.email,
+        password: this.loginData.password,
+        rememberMe: this.loginData.rememberMe
+      };
 
-      this.http.post('http://localhost:3000/api/login', this.loginData)
+      this.http.post('http://localhost:3000/api/login', loginPayload)
         .subscribe({
           next: (response: any) => {
             console.log('Server-Antwort:', response);
             alert('Erfolgreich eingeloggt!');
-            // Hier könntest du den Nutzer später weiterleiten (z.B. zum Dashboard/Shop)
           },
           error: (error) => {
             console.error('Fehler beim Login:', error);
-            // Nutzt die Fehlermeldung vom Express-Server, falls vorhanden
             alert(error.error?.message || 'Login fehlgeschlagen. Bitte überprüfe deine Daten.');
           }
         });
 
     } else {
-      // ======================================================
-      // 2. REGISTRIERUNGS MODUS
-      // ======================================================
-      console.log('Registrierungs-Daten werden an Server gesendet:', this.loginData);
+      // ANPASSUNG: registerPayload um plz und wohnort erweitert, passend zur server.js
+      const registerPayload = {
+        vorname: this.loginData.vorname,
+        nachname: this.loginData.nachname,
+        email: this.loginData.email,
+        adresse: this.loginData.adresse,
+        plz: this.loginData.plz,            // <-- NEU
+        wohnort: this.loginData.wohnort,    // <-- NEU
+        telefon: this.loginData.telefon,
+        password: this.loginData.password
+      };
 
-      this.http.post('http://localhost:3000/api/register', this.loginData)
+      this.http.post('http://localhost:3000/api/register', registerPayload)
         .subscribe({
           next: (response: any) => {
             console.log('Server-Antwort:', response);
             alert('Registrierung erfolgreich! Du kannst dich jetzt einloggen.');
-            this.isLoginMode = true; // Schaltet nach Erfolg automatisch zur Anmeldung um
+
+            this.isLoginMode = true;
+
+            // ANPASSUNG: Beim Zurücksetzen der Felder auch plz und wohnort leeren
+            this.loginData = {
+              vorname: '',
+              nachname: '',
+              email: '',
+              adresse: '',
+              plz: '',      // <-- NEU
+              wohnort: '',  // <-- NEU
+              telefon: '',
+              password: '',
+              rememberMe: false
+            };
           },
           error: (error) => {
             console.error('Fehler bei der Registrierung:', error);
@@ -77,6 +99,5 @@ export class Login {
           }
         });
     }
-
   }
 }

@@ -7,33 +7,93 @@
     <h2>{{ isLoginMode ? 'Anmeldung' : 'Registrierung' }}</h2>
 
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-      
+
+      <div class="input-group" *ngIf="!isLoginMode">
+        <input
+          type="text"
+          name="vorname"
+          [(ngModel)]="loginData.vorname"
+          placeholder="Vorname"
+          required>
+      </div>
+
+      <div class="input-group" *ngIf="!isLoginMode">
+        <input
+          type="text"
+          name="nachname"
+          [(ngModel)]="loginData.nachname"
+          placeholder="Nachname"
+          required>
+      </div>
+
       <div class="input-group">
+        <input
+          type="email"
+          name="email"
+          [(ngModel)]="loginData.email"
+          placeholder="E-Mail-Adresse"
+          required>
+      </div>
+
+      <div class="input-group" *ngIf="!isLoginMode">
+        <input
+          type="text"
+          name="adresse"
+          [(ngModel)]="loginData.adresse"
+          placeholder="Adresse"
+          required>
+      </div>
+
+      <div class="input-group" *ngIf="!isLoginMode">
         <input 
-          type="email" 
-          id="email" 
-          name="email" 
-          [(ngModel)]="loginData.email" 
-          placeholder="E-Mail-Adresse" 
+          type="text" 
+          name="plz" 
+          [(ngModel)]="loginData.plz" 
+          placeholder="Postleitzahl (PLZ)" 
+          required>
+      </div>
+
+      <div class="input-group" *ngIf="!isLoginMode">
+        <input 
+          type="text" 
+          name="wohnort" 
+          [(ngModel)]="loginData.wohnort" 
+          placeholder="Wohnort" 
+          required>
+      </div>
+
+      <div class="input-group" *ngIf="!isLoginMode">
+        <input
+          type="tel"
+          name="telefon"
+          [(ngModel)]="loginData.telefon"
+          placeholder="Telefonnummer"
           required>
       </div>
 
       <div class="input-group password-group">
-        <input 
-          [type]="showPassword ? 'text' : 'password'" 
-          id="password" 
-          name="password" 
-          [(ngModel)]="loginData.password" 
-          placeholder="Passwort" 
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          name="password"
+          [(ngModel)]="loginData.password"
+          placeholder="Passwort"
           required>
+
         <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
           {{ showPassword ? 'Verbergen' : 'Anzeigen' }}
         </button>
       </div>
 
       <div class="checkbox-group" *ngIf="isLoginMode">
-        <input type="checkbox" id="rememberMe" name="rememberMe" [(ngModel)]="loginData.rememberMe">
-        <label for="rememberMe">Angemeldet bleiben - <a href="#">Was ist das?</a></label>
+        <input
+          type="checkbox"
+          id="rememberMe"
+          name="rememberMe"
+          [(ngModel)]="loginData.rememberMe">
+
+        <label for="rememberMe">
+          Angemeldet bleiben - <a href="#">Was ist das?</a>
+        </label>
       </div>
 
       <div class="forgot-password" *ngIf="isLoginMode">
@@ -43,10 +103,11 @@
       <button type="submit" class="btn-submit" [disabled]="!loginForm.form.valid">
         {{ isLoginMode ? 'Anmelden' : 'Registrieren' }}
       </button>
-      
+
       <button type="button" class="btn-register" (click)="toggleMode()">
         {{ isLoginMode ? 'Neu bei Getränkeversand? Jetzt registrieren' : 'Bereits ein Konto? Zum Login' }}
       </button>
+
     </form>
   </div>
 </div>

@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
-const bcrypt = require('bcrypt'); // Für die sichere Passwort-Verschlüsselung
+const bcrypt = require('bcryptjs'); // Für die sichere Passwort-Verschlüsselung
 
 const app = express();
 
@@ -66,33 +66,43 @@ app.get('/api/produkt', (req, res) => {
 // AUTHENTIFIZIERUNG (REGISTRIERUNG & LOGIN)
 // ======================================================
 
-// 1. REGISTRIEREN
+// 1. REGISTRIEREN (Jetzt mit PLZ und Wohnort)
 app.post('/api/register', (req, res) => {
-    const { email, password } = req.body; 
+    // Alle Felder aus dem Angular-Frontend entgegennehmen
+    const { vorname, nachname, email, adresse, plz, wohnort, telefon, password } = req.body; 
 
     if (!email || !password) {
         return res.status(400).json({ message: 'Bitte E-Mail und Passwort angeben.' });
     }
 
+    // Passwort verschlüsseln
     bcrypt.hash(password, 10, (err, hash) => {
         if (err) {
             console.log(err);
             return res.status(500).json({ message: 'Fehler bei der Verschlüsselung.' });
         }
 
-        const sqlRegister = 'INSERT INTO kunde (email, password) VALUES (?, ?)';
+        // SQL-Befehl um 'plz' und 'wohnort' erweitert
+        const sqlRegister = `
+            INSERT INTO kunde (vorname, nachname, email, adresse, plz, wohnort, telefon, password) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        `;
         
-        db.query(sqlRegister, [email, hash], (dbErr, result) => {
-            if (dbErr) {
-                console.log(dbErr);
-                if (dbErr.errno === 1062) {
-                    return res.status(400).json({ message: 'Diese E-Mail-Adresse wird bereits verwendet.' });
+        db.query(
+            sqlRegister, 
+            [vorname, nachname, email, adresse, plz, wohnort, telefon, hash], 
+            (dbErr, result) => {
+                if (dbErr) {
+                    console.log('Datenbank-Fehler:', dbErr);
+                    if (dbErr.errno === 1062) {
+                        return res.status(400).json({ message: 'Diese E-Mail-Adresse wird bereits verwendet.' });
+                    }
+                    return res.status(500).json(dbErr);
                 }
-                return res.status(500).json(dbErr);
-            }
 
-            res.status(201).json({ message: 'Registrierung erfolgreich!', kundeId: result.insertId });
-        });
+                res.status(201).json({ message: 'Registrierung erfolgreich!', kundeId: result.insertId });
+            }
+        );
     });
 });
 
@@ -143,7 +153,6 @@ app.post('/api/login', (req, res) => {
 // ======================================================
 
 app.post('/api/bestellung', (req, res) => {
-    // ANPASSUNG: kundenId wird jetzt optional aus Angular mitgelesen
     const { bestellteProdukte, gesamtpreis, datum, kundenId } = req.body;
 
     if (!bestellteProdukte || bestellteProdukte.length === 0) {
@@ -157,7 +166,6 @@ app.post('/api/bestellung', (req, res) => {
         VALUES (?, ?, ?)
     `;
 
-    // ANPASSUNG: Nutzt die kundenId falls eingeloggt, andernfalls null (Gast)
     db.query(sqlBestellung, [kundenId || null, gesamtpreis, datum], (err, result) => {
         if (err) {
             console.log(err);

@@ -18,76 +18,90 @@
    WILLKOMMENS-BANNER
 ========================================================= */
 
-.welcome-banner-split {
+/* Haupt-Container des Banners */
+.banner-container {
   display: flex;
-  width: calc(100% - 10%);
-  max-width: 1200px;
-  height: 380px;
-  margin: 30px auto;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-}
-
-.banner-gradient-side {
-  flex: 1.1;
-  background: linear-gradient(135deg, #4b89b8 0%, #2e8b57 100%);
-  padding: 50px;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  color: #ffffff;
-}
-
-.banner-gradient-side h1 {
-  font-size: 36px;
-  font-weight: 800;
-  line-height: 1.2;
-  margin: 0 0 15px 0;
-}
-
-.banner-gradient-side h1 span {
-  font-weight: 400;
-  opacity: 0.95;
-}
-
-.banner-gradient-side p {
-  font-size: 16px;
-  opacity: 0.85;
-  margin: 0 0 30px 0;
-}
-
-.btn-more {
-  display: inline-block;
-  background-color: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 600;
-  padding: 12px 28px;
-  border-radius: 25px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  transition: all 0.2s ease-in-out;
-}
-
-.btn-more:hover {
-  background-color: #ffffff;
-  color: #2e8b57;
-  transform: translateY(-2px);
-}
-
-.banner-image-side {
-  flex: 0.9;
-  background-color: #f7f7f7;
-}
-
-.banner-image-side img {
+  align-items: center;
+  /* Sanfter Verlauf von softem Blau zu softem Grün */
+  background: linear-gradient(135deg, #e6f0fa 0%, #e8f5e9 100%); 
+  padding: 60px 40px; /* Mehr vertikaler Platz, da die Flaschen fehlen */
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  box-sizing: border-box;
+  min-height: 280px;
 }
 
+/* Gemeinsame Styles für die Bild-Gruppen links und rechts */
+.product-group {
+  display: flex;
+  align-items: flex-end; /* Richtet die Flaschen unten bündig aus */
+  gap: 15px; 
+  flex: 0 1 auto;
+}
+
+/* Styles für die einzelnen Produktbilder */
+.product-img {
+  display: block;
+  max-height: 200px; /* Einheitliche Höhe für alle Flaschen */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Zentraler Textbereich */
+.banner-text {
+  text-align: center;
+  flex: 1; 
+  padding: 0 30px;
+}
+
+.banner-title {
+  font-size: 2.2rem;
+  color: #333333;
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+
+.banner-subtitle {
+  font-size: 1.3rem;
+  color: #555555;
+  margin: 0 0 24px 0;
+}
+
+/* Der "Jetzt sparen" Button */
+.banner-btn {
+  background-color: #3a3a3a;
+  color: #ffffff;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 25px; /* Verleiht dem Button die abgerundete Form */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.banner-btn:hover {
+  background-color: #1a1a1a;
+}
+
+/* Responsive Design für kleinere Bildschirme (Tablets/Smartphones) */
+@media (max-width: 768px) {
+  .banner-container {
+    flex-direction: column; /* Stapelt die Elemente untereinander */
+    text-align: center;
+    padding: 30px 20px;
+    gap: 30px;
+  }
+  
+  .product-group {
+    justify-content: center;
+  }
+  
+  .banner-text {
+    order: -1; /* Setzt den Text auf dem Handy ganz nach oben */
+  }
+}
 
 /* =========================================================
    GUTSCHEIN-BANNER
@@ -228,7 +242,7 @@
 
 
 /* =========================================================
-   THEMENWELTEN
+   THEMENWELTEN (ANGEPASST: GRÖSSER & LÄNGER)
 ========================================================= */
 
 .themenwelten-section {
@@ -246,7 +260,8 @@
 
 .grid-container-modern {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  /* Mindestbreite von 270px auf 360px erhöht -> Kacheln werden breiter/länger */
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   gap: 24px;
 }
 
@@ -270,7 +285,8 @@
 .kachel-bild-wrapper {
   position: relative;
   width: 100%;
-  height: 290px;
+  /* Höhe von 290px auf 380px erhöht -> Kacheln werden höher */
+  height: 380px;
   overflow: hidden;
 }
 
@@ -337,13 +353,6 @@
   color: #333;
   line-height: 1;
 }
-
-
-
-
-
-
-
 
 
 /* =========================================================

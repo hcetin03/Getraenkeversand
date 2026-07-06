@@ -7,8 +7,7 @@ import { Wein } from './wein/wein';
 import { Kaffee } from './kaffee/kaffee';
 import { LimoUndSaft } from './limo-und-saft/limo-und-saft';
 import { WarenkorbComponent } from './warenkorb/warenkorb';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
+import { Login } from './login/login';
 import { MitarbeiterComponent } from './mitarbeiter/mitarbeiter';
 import { Favoriten } from './favoriten/favoriten';
 import { Jubilaeum } from './jubilaeum/jubilaeum';
@@ -24,7 +23,7 @@ export const routes: Routes = [
   { path: 'kaffee', component: Kaffee },
   { path: 'limo-und-saft', component: LimoUndSaft },
   { path: 'warenkorb', component: WarenkorbComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: Login },
   { path: 'register', component: RegisterComponent },
   { path: 'mitarbeiter', component: MitarbeiterComponent },
   { path: 'favoriten', component: Favoriten },

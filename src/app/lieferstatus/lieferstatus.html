@@ -1,0 +1,32 @@
+<app-header></app-header>
+
+<div class="status-container">
+  <h2>Deine Bestellung</h2>
+  <p>Bestellnummer: #GETRAENKE-2026</p> <div class="timeline">
+    @for (schritt of schritte; track schritt.id) {
+      <div class="timeline-step" 
+           [class.active]="schritt.id <= aktuellerStatusId">
+        
+        <div class="circle">
+          @if (schritt.id < aktuellerStatusId) {
+            ✓
+          } @else {
+            {{ schritt.id }}
+          }
+        </div>
+        
+        <div class="step-title">{{ schritt.titel }}</div>
+        
+        @if (schritt.id < schritte.length) {
+          <div class="line" [class.filled]="schritt.id < aktuellerStatusId"></div>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="sim-box" style="margin-top: 40px;">
+    <button (click)="naechsterSchritt()" class="sim-btn">
+      Lieferstatus aktualisieren (Simulieren)
+    </button>
+  </div>
+</div>
