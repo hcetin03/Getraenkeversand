@@ -41,7 +41,7 @@
                             {{bestellung.gesamtpreis | currency: 'EUR'}}
                         </div>
 
-                        <button (click) ="rechnungDrucken(bestellung)">
+                        <button (click) ="rechnungDrucken(bestellung.id)">
                             Rechnung drucken
                         </button>
                         </div>

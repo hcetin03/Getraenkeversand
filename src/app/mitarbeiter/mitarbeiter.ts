@@ -94,29 +94,12 @@ export class MitarbeiterComponent implements OnInit{
             });
  }
 
-    rechnungDrucken(bestellung: Bestellung): void{
-        const rechnung = `Rechnung Getränkeversand
-
-        Rechnungsnummer: ${bestellung.id}
-        Kunde: ${bestellung.kunde}
-        Datum: ${bestellung.datum}
-        Artikel: ${bestellung.artikel}
-        Menge: ${bestellung.menge}
-        Gesamtpreis: ${bestellung.gesamtpreis.toFixed(2)} €
-        Status: ${bestellung.status}
-
-        Vielen Dank für Ihre Bestellung.
-        `;
-
-        console.log(rechnung);
-
-        const fenster = window.open('', '_blank');
-        if(fenster){
-            fenster.document.write('<pre>' + rechnung + '</pre>');
-            fenster.document.close();
-            fenster.print();
-        }
+    rechnungDrucken(bestellung: Bestellung): void {
+        window.open(
+            `http://localhost:3000/api/rechnung/pdf/${bestellung.id}`, '_blank'
+        );
     }
+
     get stammkunden(): Kunde[]{
         return this.kunden.filter(kunde => kunde.stammkunde);
     }

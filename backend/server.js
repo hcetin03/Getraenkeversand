@@ -232,6 +232,41 @@ app.post('/api/bestellung', (req, res) => {
     });
 });
 
+// ======================================================
+// ALLE BESTELLUNGEN FÜR MITARBEITERPORTAL LADEN
+// ======================================================
+
+app.get('/api/bestellungen', (req,res) => {
+    const sql = `
+    SELECT 
+            b.id,
+            CONCAT(k.vorname, ' ', k.nachname) AS kunde,
+            DATE_FORMAT(b.datum, '%d.%m.%Y') AS datum,
+            GROUP_CONCAT(CONCAT(p.name, ' (', bp.menge, 'x)') SEPARATOR ', ') AS artikel,
+            SUM(bp.menge) AS menge,
+            b.gesamtpreis,
+            'Eingegangen' AS status
+        FROM bestellung b
+        LEFT JOIN kunde k ON b.kunden_id = k.id
+        LEFT JOIN bestellposition bp ON bp.bestellung_id = b.id
+        LEFT JOIN produkt p ON bp.produkt_id = p.id
+        GROUP BY b.id, k.vorname, k.nachname, b.datum, b.gesamtpreis
+        ORDER BY b.datum DESC
+    `;
+    
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Fehler beim Laden der Bestellungen:', err);
+            return res.status(500).json({
+                message: 'Fehler beim Laden der Bestellungen',
+                error: err
+            });
+        }
+
+        res.json(results);
+    });
+});
+
 
 // ======================================================
 // RECHNUNGS-PDF GENERIEREN & DOWNLOAD (VERSCHÖNERT)

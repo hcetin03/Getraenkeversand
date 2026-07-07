@@ -108,6 +108,15 @@
         {{ isLoginMode ? 'Neu bei Getränkeversand? Jetzt registrieren' : 'Bereits ein Konto? Zum Login' }}
       </button>
 
+      <div *ngIf="isLoginMode" class="mitarbeiter-login">
+
+        <p>Oder als Mitarbeiter anmelden</p>
+
+        <button type="button" routerLink="/mitarbeiter" class="btn-mitarbeiter">
+          👤 Zum Mitarbeiterportal
+        </button>
+      </div>
+
     </form>
   </div>
 </div>
