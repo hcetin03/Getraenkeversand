@@ -2,7 +2,6 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const bcrypt = require('bcryptjs'); // Für die sichere Passwort-Verschlüsselung
-const PDFDocument = require('pdfkit'); // Für die PDF-Generierung
 
 const app = express();
 
@@ -184,7 +183,10 @@ app.post('/api/bestellung', (req, res) => {
    
     const { bestellteProdukte, gesamtpreis, datum, kundenId } = req.body;
     
+        // ======================================================
     // Prüfen, ob der Kunde eingeloggt ist
+    // ======================================================
+
     if (!kundenId) {
         return res.status(401).json({
             message: 'Bitte zuerst anmelden.'
@@ -203,7 +205,7 @@ app.post('/api/bestellung', (req, res) => {
         VALUES (?, ?, ?)
     `;
 
-    db.query(sqlBestellung, [kundenId, gesamtpreis, datum], (err, result) => {
+    db.query(sqlBestellung, [kundenId || null, gesamtpreis, datum], (err, result) => {
         if (err) {
             console.log(err);
             return res.status(500).json(err);

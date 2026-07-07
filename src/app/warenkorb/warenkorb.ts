@@ -35,53 +35,90 @@ export class WarenkorbComponent implements OnInit {
     console.log('Warenkorb geöffnet. Aktuelle Artikel im Service-Signal:', this.items());
   }
 
-  // ======================================================
-  // BESTELLUNG ABSCHICKEN
-  // ======================================================
-  onCheckout() {
-    if (this.items().length === 0) {
-      alert('Dein Warenkorb ist leer!');
-      return;
-    }
+// ======================================================
+// BESTELLUNG ABSCHICKEN (CHECKOUT)
+// ======================================================
+onCheckout() {
 
-    const kundeId = localStorage.getItem('kundeId');
-    if (!kundeId) {
-      alert('Bitte melde dich zuerst an, bevor du eine Bestellung aufgeben kannst.');
-      return;
-    }
-
-    const gemappteProdukte = this.items().map(item => ({
-      getraenk: {
-        id: item.id,
-        preis: item.preis
-      },
-      menge: item.menge
-    }));
-
-    const bestellDaten = {
-      bestellteProdukte: gemappteProdukte,
-      gesamtpreis: this.gesamtsumme(),
-      datum: new Date().toISOString().slice(0, 10),
-      kundenId: Number(kundeId)
-    };
-
-    this.http.post('http://localhost:3000/api/bestellung', bestellDaten)
-      .subscribe({
-        next: (response: any) => {
-          alert('Vielen Dank für deine Bestellung!\n\nBestellnummer: #' + response.bestellung_id);
-          
-          // Öffnet die schicke, neue PDF-Rechnung aus dem Backend
-          window.open(`http://localhost:3000/api/rechnung/pdf/${response.bestellung_id}`, '_blank');
-
-          // Warenkorb im Service leeren
-          this.cartService.cartItems.set([]);
-        },
-        error: (error) => {
-          console.error(error);
-          alert(error.error?.message || 'Die Bestellung konnte nicht abgeschlossen werden.');
-        }
-      });
+  // ------------------------------------------------------
+  // 1. Prüfen, ob überhaupt Produkte im Warenkorb sind
+  // ------------------------------------------------------
+  if (this.items().length === 0) {
+    alert('Dein Warenkorb ist leer!');
+    return;
   }
+
+  // ------------------------------------------------------
+  // 2. Prüfen, ob ein Kunde eingeloggt ist
+  // Nur registrierte Kunden dürfen bestellen.
+  // ------------------------------------------------------
+  const kundeId = localStorage.getItem('kundeId');
+
+  if (!kundeId) {
+    alert('Bitte melde dich zuerst an, bevor du eine Bestellung aufgeben kannst.');
+    return;
+  }
+
+  // ------------------------------------------------------
+  // 3. Produkte in das Format bringen,
+  // das die server.js erwartet
+  // ------------------------------------------------------
+  const gemappteProdukte = this.items().map(item => ({
+    getraenk: {
+      id: item.id,
+      preis: item.preis
+    },
+    menge: item.menge
+  }));
+
+
+  // ------------------------------------------------------
+  // 4. Bestelldaten zusammenstellen
+  // ------------------------------------------------------
+  const bestellDaten = {
+    bestellteProdukte: gemappteProdukte,
+    gesamtpreis: this.gesamtsumme(),
+    datum: new Date().toISOString().slice(0, 10),
+    kundenId: Number(kundeId)
+  };
+
+
+  console.log('Sende folgende Bestelldaten:', bestellDaten);
+
+
+  // ------------------------------------------------------
+  // 5. Bestellung an das Backend senden
+  // ------------------------------------------------------
+  this.http.post('http://localhost:3000/api/bestellung', bestellDaten)
+    .subscribe({
+
+      next: (response: any) => {
+
+        console.log('Bestellung erfolgreich:', response);
+
+        alert(
+          'Vielen Dank für deine Bestellung!\n\nBestellnummer: #' +
+          response.bestellung_id
+        );
+
+        // Warenkorb leeren
+        this.items.set([]);
+      },
+
+      error: (error) => {
+
+        console.error(error);
+
+        alert(
+          error.error?.message ||
+          'Die Bestellung konnte nicht abgeschlossen werden.'
+        );
+
+      }
+
+    });
+
+}
 
   // ======================================================
   // WARENKORB-STEUERUNG
