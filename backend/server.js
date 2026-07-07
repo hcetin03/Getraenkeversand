@@ -1,8 +1,8 @@
-
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const bcrypt = require('bcryptjs'); // Für die sichere Passwort-Verschlüsselung
+const PDFDocument = require('pdfkit'); // Für die PDF-Generierung
 
 const app = express();
 
@@ -150,11 +150,19 @@ app.post('/api/login', (req, res) => {
 
 
 // ======================================================
-// BESTELLUNG
+// BESTELLUNG & RECHNUNG GENERIEREN
 // ======================================================
 
 app.post('/api/bestellung', (req, res) => {
+   
     const { bestellteProdukte, gesamtpreis, datum, kundenId } = req.body;
+    
+    // Prüfen, ob der Kunde eingeloggt ist
+    if (!kundenId) {
+        return res.status(401).json({
+            message: 'Bitte zuerst anmelden.'
+        });
+    }
 
     if (!bestellteProdukte || bestellteProdukte.length === 0) {
         return res.status(400).json({
@@ -162,12 +170,13 @@ app.post('/api/bestellung', (req, res) => {
         });
     }
 
+    // 1. Bestellung in die DB eintragen
     const sqlBestellung = `
         INSERT INTO bestellung (kunden_id, gesamtpreis, datum)
         VALUES (?, ?, ?)
     `;
 
-    db.query(sqlBestellung, [kundenId || null, gesamtpreis, datum], (err, result) => {
+    db.query(sqlBestellung, [kundenId, gesamtpreis, datum], (err, result) => {
         if (err) {
             console.log(err);
             return res.status(500).json(err);
@@ -175,6 +184,7 @@ app.post('/api/bestellung', (req, res) => {
 
         const bestellungId = result.insertId;
 
+        // Positionen für das Insert-Array vorbereiten
         const positionen = bestellteProdukte.map(produkt => [
             bestellungId,
             produkt.getraenk.id,
@@ -188,17 +198,148 @@ app.post('/api/bestellung', (req, res) => {
             VALUES ?
         `;
 
+        // 2. Bestellpositionen eintragen
         db.query(sqlPositionen, [positionen], (err) => {
             if (err) {
                 console.log(err);
                 return res.status(500).json(err);
             }
 
-            res.json({
-                message: 'Bestellung erfolgreich gespeichert.',
-                bestellung_id: bestellungId
+            // 3. RECHNUNG AUTOMATISCH ERSTELLEN
+            const rechnungsNummer = `RE-2026-${bestellungId}`;
+
+            const sqlRechnung = `
+                INSERT INTO rechnung (rechnungs_nummer, bestellung_id, rechnungs_datum, gesamtbetrag)
+                VALUES (?, ?, ?, ?)
+            `;
+
+            db.query(sqlRechnung, [rechnungsNummer, bestellungId, datum, gesamtpreis], (rechnungErr) => {
+                if (rechnungErr) {
+                    console.log("Fehler beim Erstellen der Rechnung in der DB:", rechnungErr);
+                }
+
+                // 4. Erfolg an Angular zurückmelden
+                res.json({
+                    message: 'Bestellung und Rechnung erfolgreich gespeichert.',
+                    bestellung_id: bestellungId,
+                    rechnungs_nummer: rechnungsNummer
+                });
             });
+
         });
+    });
+});
+
+
+// ======================================================
+// RECHNUNGS-PDF GENERIEREN & DOWNLOAD (VERSCHÖNERT)
+// ======================================================
+
+app.get('/api/rechnung/pdf/:bestellungId', (req, res) => {
+    const { bestellungId } = req.params;
+
+    // Daten mit SQL JOIN holen
+    const sqlRechnungsDaten = `
+        SELECT r.rechnungs_nummer, DATE_FORMAT(r.rechnungs_datum, '%d.%m.%Y') AS rechnungs_datum, r.gesamtbetrag,
+               b.id AS bestellung_id,
+               bp.menge, bp.einzelpreis,
+               p.name AS produkt_name
+        FROM rechnung r
+        JOIN bestellung b ON r.bestellung_id = b.id
+        JOIN bestellposition bp ON b.id = bp.bestellung_id
+        JOIN produkt p ON bp.produkt_id = p.id
+        WHERE r.bestellung_id = ?
+    `;
+
+    db.query(sqlRechnungsDaten, [bestellungId], (err, results) => {
+        if (err || results.length === 0) {
+            console.log(err || "Keine Rechnungsdaten gefunden");
+            return res.status(404).json({ message: 'Rechnung nicht gefunden.' });
+        }
+
+        const ersteZeile = results[0];
+        const doc = new PDFDocument({ margin: 50 });
+
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `attachment; filename=Rechnung_${ersteZeile.rechnungs_nummer}.pdf`);
+
+        doc.pipe(res);
+
+        // Header: Moderner Firmenname und Absender-Info
+        doc.fillColor('#2c3e50')
+           .fontSize(26)
+           .text('DEIN GETRÄNKESHOP', { bold: true });
+        
+        doc.fontSize(10)
+           .fillColor('#7f8c8d')
+           .text('Musterstraße 123, 28195 Bremen | support@getraenkeshop.de', { align: 'left' });
+        
+        doc.moveDown(2);
+
+        // Titel "RECHNUNG"
+        doc.fillColor('#2c3e50').fontSize(20).text('RECHNUNG', { bold: true });
+        
+        // Elegante Trennlinie unter dem Header
+        doc.strokeColor('#bdc3c7').lineWidth(1).moveTo(50, 135).lineTo(550, 135).stroke();
+        doc.moveDown(1.5);
+
+        // Rechnungsmetadaten im sauberen Key-Value-Format
+        doc.fontSize(10).fillColor('#34495e');
+        doc.text(`Rechnungsnummer: `, { bold: true, continued: true }).text(ersteZeile.rechnungs_nummer, { bold: false });
+        doc.text(`Rechnungsdatum: `, { bold: true, continued: true }).text(ersteZeile.rechnungs_datum, { bold: false });
+        doc.text(`Bestellnummer: `, { bold: true, continued: true }).text(`#${ersteZeile.bestellung_id}`, { bold: false });
+        
+        doc.moveDown(2);
+
+        // Strukturierte Tabelle: Spaltenüberschriften definieren
+        const tableTop = 220;
+        doc.fontSize(11).fillColor('#2c3e50');
+        
+        doc.text('Pos.', 50, tableTop, { bold: true });
+        doc.text('Artikelbeschreibung', 100, tableTop, { bold: true });
+        doc.text('Menge', 320, tableTop, { bold: true, width: 50, align: 'right' });
+        doc.text('Einzelpreis', 390, tableTop, { bold: true, width: 70, align: 'right' });
+        doc.text('Gesamt', 480, tableTop, { bold: true, width: 70, align: 'right' });
+
+        // Kräftige Trennlinie unter der Tabellenkopfzeile
+        doc.strokeColor('#2c3e50').lineWidth(1.5).moveTo(50, tableTop + 15).lineTo(550, tableTop + 15).stroke();
+
+        // Dynamische Tabellenzeilen für die Produkte rendern
+        let currentY = tableTop + 25;
+        doc.fontSize(10).fillColor('#34495e');
+
+        results.forEach((item, index) => {
+            const zeilenBetrag = (item.menge * item.einzelpreis).toFixed(2);
+            
+            doc.text(`${index + 1}`, 50, currentY);
+            doc.text(item.produkt_name, 100, currentY);
+            doc.text(`${item.menge}`, 320, currentY, { width: 50, align: 'right' });
+            doc.text(`${item.einzelpreis.toFixed(2)} €`, 390, currentY, { width: 70, align: 'right' });
+            doc.text(`${zeilenBetrag} €`, 480, currentY, { width: 70, align: 'right' });
+
+            // Dezente Trennlinie zwischen den Posten
+            doc.strokeColor('#ecf0f1').lineWidth(1).moveTo(50, currentY + 15).lineTo(550, currentY + 15).stroke();
+            
+            currentY += 25;
+        });
+
+        currentY += 10;
+
+        // Gesamtsummen-Block formatiert auf der rechten Seite ausrichten
+        doc.strokeColor('#2c3e50').lineWidth(1.5).moveTo(350, currentY).lineTo(550, currentY).stroke();
+        currentY += 10;
+
+        doc.fontSize(14)
+           .fillColor('#2c3e50')
+           .text(`Gesamtsumme:`, 320, currentY, { bold: true, width: 150, align: 'right' })
+           .text(`${Number(ersteZeile.gesamtbetrag).toFixed(2)} €`, 480, currentY, { bold: true, width: 70, align: 'right' });
+
+        // Footer-Hinweis ganz unten platzieren
+        doc.fontSize(9)
+           .fillColor('#95a5a6')
+           .text('Vielen Dank für Ihren Einkauf! Bitte überweisen Sie den Betrag innerhalb von 14 Tagen.', 50, 700, { align: 'center' });
+
+        doc.end();
     });
 });
 

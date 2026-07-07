@@ -12,6 +12,7 @@ import { MitarbeiterComponent } from './mitarbeiter/mitarbeiter';
 import { Favoriten } from './favoriten/favoriten';
 import { Jubilaeum } from './jubilaeum/jubilaeum';
 import { Angebote } from './angebote/angebote';
+import { Lieferstatus } from './lieferstatus/lieferstatus';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'limo-und-saft', component: LimoUndSaft },
   { path: 'warenkorb', component: WarenkorbComponent },
   { path: 'login', component: Login },
+  { path: 'lieferstatus', component: Lieferstatus },
   { path: 'mitarbeiter', component: MitarbeiterComponent },
   { path: 'favoriten', component: Favoriten },
   { path: 'jubilaeum', component: Jubilaeum },

@@ -1,9 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef, inject} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Header } from '../header/header';
-import { Warenkorb } from '../services/warenkorb.service';
-import { Getraenk } from '../model/getraenk.model';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-limo-und-saft',
@@ -13,51 +12,48 @@ import { Getraenk } from '../model/getraenk.model';
   styleUrl: './limo-und-saft.css',
 })
 export class LimoUndSaft implements OnInit {
-
-  private warenkorbService = inject(Warenkorb);
+  // Hier speichern wir alle Produkte aus der DB ab
   alleProdukte: any[] = [];
+  // Hier landen die gefilterten Produkte, die im HTML angezeigt werden
   produkte: any[] = [];
-
+  
+  // Diese Variablen hat dein HTML vermisst:
   aktiveKategorie: string = 'alle';
 
-  constructor(
-    private http: HttpClient,
-    private cdr: ChangeDetectorRef
-  ) {}
+  private cartService = inject(CartService);
+
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    console.log('Limo-und-Saft-Seite wurde geöffnet');
-
-    this.http
-      .get<any[]>('http://localhost:3000/api/produkt?kategorie=Limo-und-Saft')
+    this.http.get<any[]>('http://localhost:3000/api/produkt?kategorie=Limo')
       .subscribe({
         next: (data) => {
           this.alleProdukte = data;
-          this.produkte = data;
-
+          this.produkte = data; // Am Anfang zeigen wir alle an
           this.cdr.detectChanges();
-
-          console.log('Limo-und-Saft Produkte:', this.produkte);
         },
-        error: (error) => {
-          console.error('Fehler beim Laden:', error);
-        }
+        error: (error) => console.error('Fehler beim Laden von Limo:', error)
       });
   }
 
-  inDenWarenkorb(produkt : Getraenk){
-      this.warenkorbService.produktHinzufuegen(produkt);
-  }
-
-  setKategorie(kategorie: string): void {
+  // Diese Methode steuert eure Filter-Buttons im HTML
+  setKategorie(kategorie: string) {
     this.aktiveKategorie = kategorie;
-
+    
     if (kategorie === 'alle') {
       this.produkte = this.alleProdukte;
     } else {
-      this.produkte = this.alleProdukte.filter((produkt) =>
-        produkt.unterkategorie?.toLowerCase() === kategorie.toLowerCase()
+      // Filtert die Produkte nach Unterkategorie (z. B. 'cola', 'limonade', 'eistee', 'energy')
+      // Hinweis: Falls eure DB-Spalte anders heißt (z.B. unterkategorie), passe "item.typ" an
+      this.produkte = this.alleProdukte.filter(item => 
+        item.typ?.toLowerCase() === kategorie.toLowerCase() || 
+        item.unterkategorie?.toLowerCase() === kategorie.toLowerCase()
       );
     }
+    this.cdr.detectChanges();
+  }
+
+  inDenWarenkorb(produkt: any) {
+    this.cartService.addToCart(produkt);
   }
 }

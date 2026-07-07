@@ -14,51 +14,46 @@
   </div>
 
   <div class="product-grid">
-  <div class="product-card" *ngFor="let produkt of produkte">
+    <div class="product-card" *ngFor="let produkt of produkte">
 
-    <div class="badge-tiefpreis" *ngIf="produkt.badge">
-      {{ produkt.badge }}
-    </div>
+      <div class="badge-tiefpreis" *ngIf="produkt.badge">
+        {{ produkt.badge }}
+      </div>
 
-    <img [src]="produkt.bild" [alt]="produkt.name" class="p-img">
+      <img [src]="produkt.Bild || produkt.bild" [alt]="produkt.Name || produkt.name" class="p-img">
 
-    <div class="p-info">
+      <div class="p-info">
 
-      <!-- Marke -->
-      <p class="brand">
-        {{ produkt.marke }}
-      </p>
+        <p class="brand">
+          {{ produkt.marke }}
+        </p>
 
-      <!-- Produktname -->
-      <p class="name">
-        {{ produkt.name }}
-      </p>
+        <p class="name">
+          {{ produkt.Name || produkt.name }}
+        </p>
 
-      <!-- Inhalt + Verpackung -->
-      <p class="details">
-        {{ produkt.inhalt }} ({{ produkt.verpackung }})
-      </p>
+        <p class="details">
+          {{ produkt.inhalt }} ({{ produkt.verpackung }})
+        </p>
 
-      <!-- Pfandart -->
-      <p class="pfandart">
-        {{ produkt.pfandart }}
-      </p>
+        <p class="pfandart">
+          {{ produkt.pfandart }}
+        </p>
 
-      <!-- Pfand -->
-      <p class="pfand">
-        zzgl. {{ produkt.pfand }} € Pfand
-      </p>
+        <p class="pfand">
+          zzgl. {{ produkt.pfand }} € Pfand
+        </p>
 
-      <!-- Preis -->
-      <div class="card-footer">
-        <span class="price">
-          {{ produkt.preis }} €
-        </span>
+        <div class="card-footer">
+          <span class="price">
+            {{ produkt.Preis || produkt.preis }} €
+          </span>
 
-        <button class="add-btn" (click)="inDenWarenkorb(produkt)">+</button>
+          <button class="add-btn" (click)="inDenWarenkorb(produkt)">+</button>
+        </div>
+
       </div>
 
     </div>
-
   </div>
-</div>
+</main>

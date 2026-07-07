@@ -1,6 +1,7 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, computed, signal, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../services/cart.service'; // WICHTIG: Pfad zum CartService
 
 @Component({
   selector: 'app-warenkorb',
@@ -9,33 +10,19 @@ import { CommonModule } from '@angular/common';
   templateUrl: './warenkorb.html',
   styleUrls: ['./warenkorb.css']
 })
-export class WarenkorbComponent {
+export class WarenkorbComponent implements OnInit {
   private http = inject(HttpClient);
-  // private cartService = inject(CartService); // <-- Falls ihr einen CartService habt, hier aktivieren!
+  private cartService = inject(CartService); // Service aktivieren
 
-  // ======================================================
-  // WARENKORB-DATEN (SIGNALS)
-  // ======================================================
-  
-  // Hier landen deine Produkte. Zum Testen habe ich dir direkt ein Beispiel-Getränk reingepackt,
-  // damit du sofort siehst, ob das Bild und die Berechnung klappen!
-  items = signal<any[]>([
-    {
-      id: 1,                 // Wichtig für die Datenbank!
-      name: 'Gerolsteiner',
-      typ: 'wasser',
-      preis: 1.99,
-      menge: 3,
-      bild: 'gerolsteiner.png' // Muss im Ordner src/assets/images/ liegen
-    }
-  ]); 
+  // Hier verknüpfen wir uns direkt mit dem Live-Signal aus dem Service!
+  items = this.cartService.cartItems; 
 
-  // Berechnet die Zwischensumme automatisch, sobald sich die Menge oder die Items ändern
+  // Berechnet die Zwischensumme automatisch anhand der tatsächlichen Artikel
   zwischensumme = computed(() => {
     return this.items().reduce((sum, item) => sum + (item.preis * item.menge), 0);
   });
 
-  // Feste Lieferkosten (kannst du anpassen)
+  // Feste Lieferkosten
   lieferkosten = signal<number>(4.50);
 
   // Berechnet die Gesamtsumme automatisch
@@ -44,9 +31,12 @@ export class WarenkorbComponent {
     return this.zwischensumme() + this.lieferkosten();
   });
 
+  ngOnInit() {
+    console.log('Warenkorb geöffnet. Aktuelle Artikel im Service-Signal:', this.items());
+  }
 
   // ======================================================
-  // BESTELLUNG ABSCHICKEN (CHECKOUT)
+  // BESTELLUNG ABSCHICKEN
   // ======================================================
   onCheckout() {
     if (this.items().length === 0) {
@@ -54,60 +44,56 @@ export class WarenkorbComponent {
       return;
     }
 
-    // Wandelt deine flachen Warenkorb-Items in das Format um, das deine server.js erwartet
+    const kundeId = localStorage.getItem('kundeId');
+    if (!kundeId) {
+      alert('Bitte melde dich zuerst an, bevor du eine Bestellung aufgeben kannst.');
+      return;
+    }
+
     const gemappteProdukte = this.items().map(item => ({
       getraenk: {
-        id: item.id,       // Die ID aus der DB-Tabelle 'produkt'
-        preis: item.preis  // Der Einzelpreis
+        id: item.id,
+        preis: item.preis
       },
-      menge: item.menge    // Die ausgewählte Menge
+      menge: item.menge
     }));
 
-    // Das fertige Datenpaket für das Backend schnüren
     const bestellDaten = {
       bestellteProdukte: gemappteProdukte,
       gesamtpreis: this.gesamtsumme(),
-      datum: new Date().toISOString().slice(0, 10), // Heutiges Datum (YYYY-MM-DD)
-      kundenId: localStorage.getItem('kundeId') ? Number(localStorage.getItem('kundeId')) : null 
-      // ^ Falls du beim Login die ID im localStorage gespeichert hast, wird sie hier automatisch mitgeschickt!
+      datum: new Date().toISOString().slice(0, 10),
+      kundenId: Number(kundeId)
     };
 
-    console.log('Sende folgende Bestelldaten ans Backend:', bestellDaten);
-
-    // POST-Anfrage an deine server.js senden
     this.http.post('http://localhost:3000/api/bestellung', bestellDaten)
       .subscribe({
         next: (response: any) => {
-          console.log('Erfolg vom Server:', response);
-          alert('Vielen Dank für deine Bestellung! Bestellnummer: #' + response.bestellung_id);
+          alert('Vielen Dank für deine Bestellung!\n\nBestellnummer: #' + response.bestellung_id);
           
-          // Nach erfolgreicher Bestellung den Warenkorb leeren
-          this.items.set([]);
+          // Öffnet die schicke, neue PDF-Rechnung aus dem Backend
+          window.open(`http://localhost:3000/api/rechnung/pdf/${response.bestellung_id}`, '_blank');
+
+          // Warenkorb im Service leeren
+          this.cartService.cartItems.set([]);
         },
         error: (error) => {
-          console.error('Fehler beim Absenden der Bestellung:', error);
-          alert('Bestellung fehlgeschlagen. Bitte prüfe das VS-Code-Terminal deines Backends.');
+          console.error(error);
+          alert(error.error?.message || 'Die Bestellung konnte nicht abgeschlossen werden.');
         }
       });
   }
 
-
   // ======================================================
-  // WARENKORB-LOGIK (MÜLLEIMER & MENGENÄNDERUNG)
+  // WARENKORB-STEUERUNG
   // ======================================================
 
-  // Löscht einen Artikel komplett aus dem Warenkorb (Mülleimer-Button)
   onRemove(name: string) {
-    const aktuelleItems = this.items();
-    const gefilterteItems = aktuelleItems.filter(item => item.name !== name);
-    this.items.set(gefilterteItems);
+    const gefilterteItems = this.items().filter(item => item.name !== name);
+    this.cartService.cartItems.set(gefilterteItems);
   }
 
-  // Ändert die Menge live, wenn du im Input-Feld eine andere Zahl eintippst
   onQuantityChange(name: string, event: any) {
     const neueMenge = parseInt(event.target.value, 10);
-    
-    // Falls der Nutzer eine 0 oder ein Minuszeichen eintippt, setzen wir es auf mindestens 1
     if (isNaN(neueMenge) || neueMenge < 1) return;
 
     const aktualisierteItems = this.items().map(item => {
@@ -117,10 +103,9 @@ export class WarenkorbComponent {
       return item;
     });
 
-    this.items.set(aktualisierteItems);
+    this.cartService.cartItems.set(aktualisierteItems);
   }
 
-  // Zurück-Button
   goBack() { 
     window.history.back(); 
   }

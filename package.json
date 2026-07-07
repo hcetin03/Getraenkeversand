@@ -24,6 +24,7 @@
     "express": "^5.1.0",
     "lucide-angular": "^1.0.0",
     "mongoose": "^9.6.3",
+    "pdfkit": "^0.19.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

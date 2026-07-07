@@ -16,7 +16,7 @@
     </div>
 
     <div class="user-nav">
-      <span>Lieferstatus</span>
+      <a routerLink="/lieferstatus" style="color: white; text-decoration: none; cursor: pointer;">Lieferstatus</a>
       <a routerLink="/favoriten" style="color: white; text-decoration: none; cursor: pointer;">Favoriten</a>
       <a routerLink="/login" style="color: white; text-decoration: none; cursor: pointer;">Konto</a>
       <a routerLink="/warenkorb" class="cart-icon">🛒</a>
@@ -24,7 +24,10 @@
   </div>
 
   <nav class="category-bar">
-    <a routerLink="/home" routerLinkActive="active" class="cat-item">Home</a>
+    <a routerLink="/home" routerLinkActive="active" class="cat-item">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+  Home
+</a>
 
     <a routerLink="/wasser" routerLinkActive="active" class="cat-item">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"/></svg>
@@ -57,7 +60,7 @@
     </a>
 
     <a routerLink="/angebote" routerLinkActive="active" class="cat-item">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8M5 8h14M7 15h10M12 8V2m0 0 2 2m-2-2-2 2"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
       Angebote
     </a>
   </nav>

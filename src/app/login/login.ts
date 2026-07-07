@@ -49,10 +49,22 @@ export class Login {
 
       this.http.post('http://localhost:3000/api/login', loginPayload)
         .subscribe({
-          next: (response: any) => {
-            console.log('Server-Antwort:', response);
-            alert('Erfolgreich eingeloggt!');
-          },
+next: (response: any) => {
+
+    console.log('Server-Antwort:', response);
+
+    // ======================================================
+    // KUNDENDATEN SPEICHERN
+    // ======================================================
+    // Die ID wird benötigt, damit Bestellungen
+    // später dem richtigen Kunden zugeordnet werden können.
+
+    localStorage.setItem('kundeId', response.user.id);
+    localStorage.setItem('kunde', JSON.stringify(response.user));
+
+    alert('Erfolgreich eingeloggt!');
+
+},
           error: (error) => {
             console.error('Fehler beim Login:', error);
             alert(error.error?.message || 'Login fehlgeschlagen. Bitte überprüfe deine Daten.');

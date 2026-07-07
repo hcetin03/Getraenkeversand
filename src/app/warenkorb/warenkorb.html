@@ -2,10 +2,9 @@
   
   <div *ngIf="items().length === 0" class="empty-cart-view">
     <button class="back-link" (click)="goBack()">
-  ← Weiter einkaufen
-</button>
+      ← Weiter einkaufen
+    </button>
 
-<h1>Warenkorb</h1>
     <h1>Warenkorb</h1>
     <p class="subtitle">Noch etwas vergessen? Suche nach Produkten und lege sie in den Warenkorb.</p>
     
@@ -24,9 +23,9 @@
   </div>
 
   <div *ngIf="items().length > 0">
-     <button class="back-link" (click)="goBack()">
-    ← Weiter einkaufen
-  </button>
+    <button class="back-link" (click)="goBack()">
+      ← Weiter einkaufen
+    </button>
 
     <h1>Dein Warenkorb 🛒</h1>
     
@@ -42,7 +41,8 @@
 
         <div class="cart-item" *ngFor="let item of items()">
           <div class="item-main">
-            <img [src]="item.bildUrl" [alt]="item.name" class="item-img">
+            <img [src]="item.bild" [alt]="item.name" class="item-img">
+            
             <div class="item-details">
               <h3>{{ item.name }}</h3>
               <p class="item-type">{{ item.typ | titlecase }}</p>
@@ -81,11 +81,11 @@
           <span>Gesamtsumme:</span>
           <span>{{ gesamtsumme() | number:'1.2-2' }} €</span>
         </div>
-        <button class="checkout-btn">Jetzt bestellen</button>
-        
+        <button class="checkout-btn" (click)="onCheckout()">
+          Jetzt bestellen
+        </button>
       </div>
 
     </div>
   </div>
-
 </div>
