@@ -64,6 +64,33 @@ app.get('/api/produkt', (req, res) => {
 
 
 // ======================================================
+// LAGERBESTAND SPEICHERN
+// ======================================================
+
+app.put('/api/produkt/:id/lagerbestand', (req, res) => {
+    const id = req.params.id;
+    const { lagerbestand } = req.body;
+
+    const sql = `
+        UPDATE produkt
+        SET bestand = ?
+        WHERE id = ?
+    `;
+
+    db.query(sql, [lagerbestand, id], (err, result) => {
+        if (err) {
+            console.log('Fehler beim Speichern des Lagerbestands:', err);
+            return res.status(500).json(err);
+        }
+
+        res.json({
+            message: 'Lagerbestand wurde gespeichert.'
+        });
+    });
+});
+
+
+// ======================================================
 // AUTHENTIFIZIERUNG (REGISTRIERUNG & LOGIN)
 // ======================================================
 
@@ -349,7 +376,7 @@ app.get('/api/rechnung/pdf/:bestellungId', (req, res) => {
             doc.text(`${index + 1}`, 50, currentY);
             doc.text(item.produkt_name, 100, currentY);
             doc.text(`${item.menge}`, 320, currentY, { width: 50, align: 'right' });
-            doc.text(`${item.einzelpreis.toFixed(2)} €`, 390, currentY, { width: 70, align: 'right' });
+            doc.text(`${Number(item.einzelpreis).toFixed(2)} €`, 390, currentY, { width: 70, align: 'right' });
             doc.text(`${zeilenBetrag} €`, 480, currentY, { width: 70, align: 'right' });
 
             // Dezente Trennlinie zwischen den Posten

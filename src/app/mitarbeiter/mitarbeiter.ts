@@ -17,7 +17,9 @@ type Getraenk = {
     id: number;
     name: string;
     kategorie: string;
+    hauptkategorie?: string;
     lagerbestand: number;
+    bestand?: number;
 };
 
 type Kunde = {
@@ -60,8 +62,11 @@ export class MitarbeiterComponent implements OnInit{
             this.kunden = daten;
         });
         this.http.get<Getraenk[]>('http://localhost:3000/api/produkt').subscribe((daten) => {
-            this.getraenke = daten;
-        });
+    this.getraenke = daten.map(getraenk => ({
+        ...getraenk,
+        lagerbestand: getraenk.bestand ?? 0
+    }));
+});
     }
 
     login(): void{
@@ -94,9 +99,36 @@ export class MitarbeiterComponent implements OnInit{
             });
  }
 
-    rechnungDrucken(bestellung: Bestellung): void {
+kategorien = ['Wasser', 'Wein', 'Limo & Saft', 'Kaffee', 'Milch', 'Bier'];
+
+ausgewaehlteKategorie = 'Wasser';
+ausgewaehltesGetraenk: Getraenk | null = null;
+
+get produkteDerKategorie(): Getraenk[] {
+    return this.getraenke.filter(getraenk => {
+        const kategorie = (
+            getraenk.hauptkategorie ||
+            getraenk.kategorie ||
+            ''
+        ).toLowerCase();
+
+        const ausgewaehlt = this.ausgewaehlteKategorie.toLowerCase();
+
+        if (ausgewaehlt === 'limo & saft') {
+            return kategorie.includes('limo') || kategorie.includes('saft');
+        }
+
+        return kategorie.includes(ausgewaehlt);
+    });
+}
+
+    kategorieWechseln(): void{
+        this.ausgewaehltesGetraenk = null;
+    }
+
+    rechnungDrucken(bestellungId: number): void {
         window.open(
-            `http://localhost:3000/api/rechnung/pdf/${bestellung.id}`, '_blank'
+            `http://localhost:3000/api/rechnung/pdf/${bestellungId}`, '_blank'
         );
     }
 

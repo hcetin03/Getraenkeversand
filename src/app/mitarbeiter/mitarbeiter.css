@@ -266,3 +266,49 @@ button:hover{
         overflow-x: auto;
     }
 }
+
+
+
+.lager-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.lager-form label {
+    font-weight: bold;
+    color: #555;
+}
+
+.lager-form select,
+.lager-form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+.lager-detail {
+    margin-top: 20px;
+    padding: 22px;
+    border-radius: 18px;
+    background: #f6f8f8;
+    border-left: 5px solid #2f965f;
+}
+
+.lager-detail h3 {
+    margin-top: 0;
+    color: #555;
+}
+
+.lager-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.lager-actions button {
+    flex: 1;
+}
