@@ -136,3 +136,29 @@ h2 {
 .btn-register:hover {
   background-color: #d5d5d5;
 }
+
+.mitarbeiter-login{
+  margin: 20px 0;
+  text-align:center;
+}
+
+.mitarbeiter-login p{
+  color:#666;
+  margin-bottom: 10px;
+}
+
+.btn-mitarbeiter{
+  width: 100%;
+  padding: 12px;
+  border:none;
+  border-radius: 12px;
+  background: #2f965f;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-mitarbeiter:hover{
+  background:#25794c;
+}
