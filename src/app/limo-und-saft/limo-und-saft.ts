@@ -17,7 +17,7 @@ export class LimoUndSaft implements OnInit {
   // Hier landen die gefilterten Produkte, die im HTML angezeigt werden
   produkte: any[] = [];
   
-  // Diese Variablen hat dein HTML vermisst:
+  // Steuert, welcher Button im HTML als aktiv markiert ist
   aktiveKategorie: string = 'alle';
 
   private cartService = inject(CartService);
@@ -25,30 +25,40 @@ export class LimoUndSaft implements OnInit {
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:3000/api/produkt?kategorie=Limo')
+    // Hier nutzen wir jetzt exakt die Schreibweise mit den Bindestrichen aus deiner DB!
+    const dbKategorieName = 'Limo-und-Saft'; 
+
+    this.http.get<any[]>(`http://localhost:3000/api/produkt?kategorie=${dbKategorieName}`)
       .subscribe({
         next: (data) => {
+          console.log('Erfolgreich geladene Limo-Produkte:', data);
+          
           this.alleProdukte = data;
           this.produkte = data; // Am Anfang zeigen wir alle an
           this.cdr.detectChanges();
         },
-        error: (error) => console.error('Fehler beim Laden von Limo:', error)
+        error: (error) => {
+          console.error('Fehler beim Laden der Produkte vom Server:', error);
+        }
       });
   }
 
-  // Diese Methode steuert eure Filter-Buttons im HTML
+  // Diese Methode steuert die Filter-Buttons im HTML (Cola, Limonade, Eistee, Energy)
   setKategorie(kategorie: string) {
     this.aktiveKategorie = kategorie;
     
     if (kategorie === 'alle') {
       this.produkte = this.alleProdukte;
     } else {
-      // Filtert die Produkte nach Unterkategorie (z. B. 'cola', 'limonade', 'eistee', 'energy')
-      // Hinweis: Falls eure DB-Spalte anders heißt (z.B. unterkategorie), passe "item.typ" an
-      this.produkte = this.alleProdukte.filter(item => 
-        item.typ?.toLowerCase() === kategorie.toLowerCase() || 
-        item.unterkategorie?.toLowerCase() === kategorie.toLowerCase()
-      );
+      // Filtert die Produkte passend nach der Spalte 'unterkategorie' aus deiner DB
+      this.produkte = this.alleProdukte.filter(item => {
+        const suchBegriff = kategorie.toLowerCase();
+        
+        return (
+          item.unterkategorie?.toLowerCase() === suchBegriff ||
+          item.typ?.toLowerCase() === suchBegriff
+        );
+      });
     }
     this.cdr.detectChanges();
   }

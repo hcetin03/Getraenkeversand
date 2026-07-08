@@ -29,4 +29,5 @@ export const routes: Routes = [
   { path: 'favoriten', component: Favoriten },
   { path: 'jubilaeum', component: Jubilaeum },
   { path: 'angebote', component: Angebote },
+  { path: 'lieferstatus', component: Lieferstatus },
 ];

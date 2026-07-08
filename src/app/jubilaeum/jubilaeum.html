@@ -1,15 +1,17 @@
 <div class="jubilee-container">
+  <div class="gradient-bar"></div>
+
   <header class="jubilee-header">
-    <span class="badge">Limierte Jubiläums-Edition</span>
+    <span class="badge">Limitierte Jubiläums-Edition</span>
     <h1>75 Jahre Erfrischung & Geschmack</h1>
     <p class="subtitle">Wir feiern unser Jubiläum mit exklusiven Kreationen!</p>
   </header>
 
-  <hr class="divider">
-
   <main class="jubilee-content">
     <div class="product-card">
-      <img [src]="anniversaryProduct.imageUrl" [alt]="anniversaryProduct.name" class="product-img">
+      <div class="img-container">
+        <img [src]="anniversaryProduct.imageUrl" [alt]="anniversaryProduct.name" class="product-img">
+      </div>
       
       <div class="product-info">
         <h2>{{ anniversaryProduct.name }}</h2>

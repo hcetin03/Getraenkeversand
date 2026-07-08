@@ -24,12 +24,13 @@ export class Angebote {
       produkte: [
         { 
           id: 1, 
-          name: 'Extaler Mineralquell Classic', 
-          alterPreis: '6.49', 
-          neuerPreis: '5.99', 
-          rabatt: 7, 
-          imageUrl: 'assets/wasser.jpg',
-          kategorie: '12 x 0,7L (Glas) | zzgl. Pfand'
+          name: 'Gerolsteiner Naturell 6er Pack', 
+          alterPreis: '6.99', 
+          neuerPreis: '5.59', 
+          rabatt: 20, 
+          imageUrl: '/images/GerolsteinerNaturell6.avif',
+          kategorie: '6 x 1,5L (PET) | zzgl. Pfand'
+          
         }
       ]
     },
@@ -38,12 +39,12 @@ export class Angebote {
       produkte: [
         { 
           id: 2, 
-          name: 'Pepsi Zero Zucker', 
-          alterPreis: '15.99', 
-          neuerPreis: '12.99', 
-          rabatt: 18, 
-          imageUrl: 'assets/pepsi.jpg',
-          kategorie: '12 x 1L (PET) | zzgl. Pfand'
+          name: 'Coca-Cola', 
+          alterPreis: '1.99', 
+          neuerPreis: '1.79', 
+          rabatt: 10, 
+          imageUrl: '/images/cocacola.webp',
+          kategorie: '1 x 1,5L (PET) | zzgl. Pfand'
         }
       ]
     }

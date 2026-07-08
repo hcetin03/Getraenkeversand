@@ -1,4 +1,4 @@
-<section class ="mitarbeiter-page">
+<section class="mitarbeiter-page">
 
     <div class="portall-hero">
         <h1>Mitarbeiterportal</h1>
@@ -6,7 +6,7 @@
     </div>
 
     @if(!istEingeloggt){
-        <div class = "login-card">
+        <div class="login-card">
             <h2>Login für Mitarbeiter</h2>
 
             <input
@@ -14,14 +14,13 @@
             placeholder="Passwort eingeben"
             [(ngModel)]="passwort" />
 
-            <button (click) = "login()">Einloggen</button>
+            <button (click)="login()">Einloggen</button>
 
             @if(loginFehler){
                 <p class="error">{{loginFehler}}</p>
             }
         </div>
     }
-
 
     @if(istEingeloggt){
         <div class="portal-grid">
@@ -41,10 +40,10 @@
                             {{bestellung.gesamtpreis | currency: 'EUR'}}
                         </div>
 
-                        <button (click) ="rechnungDrucken(bestellung.id)">
+                        <button (click)="rechnungDrucken(bestellung.id)">
                             Rechnung drucken
                         </button>
-                        </div>
+                    </div>
                 }
             </div>
 
@@ -68,42 +67,36 @@
                         }
                     </select>
 
+                    @if(ausgewaehltesGetraenk) {
+                        <div class="lager-detail">
+                            <h3>{{ ausgewaehltesGetraenk.name }}</h3>
 
+                            <label>Lagerbestand</label>
+                            <input
+                                type="number"
+                                [(ngModel)]="ausgewaehltesGetraenk.lagerbestand" />
 
-                     @if(ausgewaehltesGetraenk) {
-            <div class="lager-detail">
-                <h3>{{ ausgewaehltesGetraenk.name }}</h3>
+                            <div class="lager-actions">
+                                <button
+                                    class="small-btn"
+                                    (click)="bestandErhoehen(ausgewaehltesGetraenk, 10)">
+                                    +10
+                                </button>
 
-                <label>Lagerbestand</label>
-                <input
-                    type="number"
-                    [(ngModel)]="ausgewaehltesGetraenk.lagerbestand" />
+                                <button
+                                    (click)="bestandSpeichern(ausgewaehltesGetraenk)">
+                                    Speichern
+                                </button>
+                            </div>
+                        </div>
+                    }
 
-                <div class="lager-actions">
-                    <button
-                        class="small-btn"
-                        (click)="bestandErhoehen(ausgewaehltesGetraenk, 10)">
-                        +10
-                    </button>
-
-                    <button
-                        (click)="bestandSpeichern(ausgewaehltesGetraenk)">
-                        Speichern
-                    </button>
-                </div>
-            </div>
-        }
-
-        @if(produkteDerKategorie.length === 0) {
-            <p class="empty-text">
-                Keine Produkte in dieser Kategorie gefunden.
-            </p>
-        }
-
-    </div>
-
-
-            <div class="portal-card newsletter-card">
+                    @if(produkteDerKategorie.length === 0) {
+                        <p class="empty-text">
+                            Keine Produkte in dieser Kategorie gefunden.
+                        </p>
+                    }
+                </div> </div> <div class="portal-card newsletter-card">
                 <h2>📧 Werbekampagne</h2>
                 <p>
                     Stammkunden für Newsletter:
@@ -114,7 +107,7 @@
                     <h3>Newsletter-Vorschau</h3>
                     <p>Hallo liebe Stammkunden,</p>
                     <p>hiermit informieren wir Sie über unsere neuesten Angebote und Sonderaktionen! Entdecken Sie jetzt unsere aktuellen Aktionen und sichern Sie sich Ihre Lieblingsgetränke.</p>
-                <p>Ihr Getraenkeversand-Team</p>
+                    <p>Ihr Getraenkeversand-Team</p>
                 </div>
 
                 <h3>Empfänger</h3>
@@ -131,6 +124,5 @@
                 </button>
             </div>
 
-            </div>
-        }
-        </section>
+        </div> }
+</section>
