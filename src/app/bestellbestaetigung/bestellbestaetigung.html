@@ -1,0 +1,18 @@
+<div class="bestaetigung-container">
+  <div class="bestaetigung-card">
+
+    <h1>Danke für deine Bestellung, {{ kunde.vorname }}!</h1>
+
+    <p>Deine Bestellung wurde erfolgreich gespeichert.</p>
+
+    <div class="info-box">
+      <p><strong>Bestellnummer:</strong> #{{ bestellungId }}</p>
+      <p><strong>Rechnungsnummer:</strong> {{ rechnungsNummer }}</p>
+    </div>
+
+    <a routerLink="/home" class="home-btn">
+      Zurück zur Startseite
+    </a>
+
+  </div>
+</div>

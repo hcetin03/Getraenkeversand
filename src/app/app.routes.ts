@@ -12,6 +12,8 @@ import { MitarbeiterComponent } from './mitarbeiter/mitarbeiter';
 import { Favoriten } from './favoriten/favoriten';
 import { Jubilaeum } from './jubilaeum/jubilaeum';
 import { Angebote } from './angebote/angebote';
+import { Checkout } from './checkout/checkout';
+import { Bestellbestaetigung } from './bestellbestaetigung/bestellbestaetigung';
 import { Lieferstatus } from './lieferstatus/lieferstatus';
 
 export const routes: Routes = [
@@ -29,4 +31,7 @@ export const routes: Routes = [
   { path: 'favoriten', component: Favoriten },
   { path: 'jubilaeum', component: Jubilaeum },
   { path: 'angebote', component: Angebote },
+  { path: 'checkout', component: Checkout },
+  { path: 'bestellbestaetigung', component: Bestellbestaetigung }
+  
 ];

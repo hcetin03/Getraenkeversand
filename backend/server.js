@@ -165,10 +165,16 @@ app.post('/api/login', (req, res) => {
 
             res.json({
                 message: 'Login erfolgreich!',
-                user: {
-                    id: user.id,
-                    email: user.email
-                }
+               user: {
+    id: user.id,
+    vorname: user.vorname,
+    nachname: user.nachname,
+    email: user.email,
+    adresse: user.adresse,
+    plz: user.plz,
+    wohnort: user.wohnort,
+    telefon: user.telefon
+}
             });
         });
     });
@@ -180,12 +186,14 @@ app.post('/api/login', (req, res) => {
 // ======================================================
 
 app.post('/api/bestellung', (req, res) => {
-   
-    const { bestellteProdukte, gesamtpreis, datum, kundenId } = req.body;
-    
-        // ======================================================
-    // Prüfen, ob der Kunde eingeloggt ist
-    // ======================================================
+
+    const {
+        bestellteProdukte,
+        gesamtpreis,
+        datum,
+        kundenId,
+        lieferadresse
+    } = req.body;
 
     if (!kundenId) {
         return res.status(401).json({
@@ -199,64 +207,110 @@ app.post('/api/bestellung', (req, res) => {
         });
     }
 
-    // 1. Bestellung in die DB eintragen
+    if (
+        !lieferadresse ||
+        !lieferadresse.vorname ||
+        !lieferadresse.nachname ||
+        !lieferadresse.adresse ||
+        !lieferadresse.plz ||
+        !lieferadresse.wohnort ||
+        !lieferadresse.telefon
+    ) {
+        return res.status(400).json({
+            message: 'Bitte vollständige Lieferadresse angeben.'
+        });
+    }
+
+    const versandkosten = 4.50;
+    const status = 'Eingegangen';
+
     const sqlBestellung = `
-        INSERT INTO bestellung (kunden_id, gesamtpreis, datum)
-        VALUES (?, ?, ?)
+        INSERT INTO bestellung
+        (
+            kunden_id,
+            gesamtpreis,
+            datum,
+            status,
+            liefer_vorname,
+            liefer_nachname,
+            liefer_adresse,
+            liefer_plz,
+            liefer_wohnort,
+            liefer_telefon,
+            versandkosten
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    db.query(sqlBestellung, [kundenId || null, gesamtpreis, datum], (err, result) => {
-        if (err) {
-            console.log(err);
-            return res.status(500).json(err);
-        }
-
-        const bestellungId = result.insertId;
-
-        // Positionen für das Insert-Array vorbereiten
-        const positionen = bestellteProdukte.map(produkt => [
-            bestellungId,
-            produkt.getraenk.id,
-            produkt.menge,
-            produkt.getraenk.preis
-        ]);
-
-        const sqlPositionen = `
-            INSERT INTO bestellposition
-            (bestellung_id, produkt_id, menge, einzelpreis)
-            VALUES ?
-        `;
-
-        // 2. Bestellpositionen eintragen
-        db.query(sqlPositionen, [positionen], (err) => {
+    db.query(
+        sqlBestellung,
+        [
+            kundenId,
+            gesamtpreis,
+            datum,
+            status,
+            lieferadresse.vorname,
+            lieferadresse.nachname,
+            lieferadresse.adresse,
+            lieferadresse.plz,
+            lieferadresse.wohnort,
+            lieferadresse.telefon,
+            versandkosten
+        ],
+        (err, result) => {
             if (err) {
-                console.log(err);
+                console.log('Fehler beim Speichern der Bestellung:', err);
                 return res.status(500).json(err);
             }
 
-            // 3. RECHNUNG AUTOMATISCH ERSTELLEN
-            const rechnungsNummer = `RE-2026-${bestellungId}`;
+            const bestellungId = result.insertId;
 
-            const sqlRechnung = `
-                INSERT INTO rechnung (rechnungs_nummer, bestellung_id, rechnungs_datum, gesamtbetrag)
-                VALUES (?, ?, ?, ?)
+            const positionen = bestellteProdukte.map(produkt => [
+                bestellungId,
+                produkt.getraenk.id,
+                produkt.menge,
+                produkt.getraenk.preis
+            ]);
+
+            const sqlPositionen = `
+                INSERT INTO bestellposition
+                (bestellung_id, produkt_id, menge, einzelpreis)
+                VALUES ?
             `;
 
-            db.query(sqlRechnung, [rechnungsNummer, bestellungId, datum, gesamtpreis], (rechnungErr) => {
-                if (rechnungErr) {
-                    console.log("Fehler beim Erstellen der Rechnung in der DB:", rechnungErr);
+            db.query(sqlPositionen, [positionen], (err) => {
+                if (err) {
+                    console.log('Fehler beim Speichern der Bestellpositionen:', err);
+                    return res.status(500).json(err);
                 }
 
-                // 4. Erfolg an Angular zurückmelden
-                res.json({
-                    message: 'Bestellung und Rechnung erfolgreich gespeichert.',
-                    bestellung_id: bestellungId,
-                    rechnungs_nummer: rechnungsNummer
-                });
-            });
+                const rechnungsNummer = `RE-2026-${bestellungId}`;
 
-        });
-    });
+                const sqlRechnung = `
+                    INSERT INTO rechnung
+                    (rechnungs_nummer, bestellung_id, rechnungs_datum, gesamtbetrag)
+                    VALUES (?, ?, ?, ?)
+                `;
+
+                db.query(
+                    sqlRechnung,
+                    [rechnungsNummer, bestellungId, datum, gesamtpreis],
+                    (rechnungErr) => {
+                        if (rechnungErr) {
+                            console.log('Fehler beim Erstellen der Rechnung:', rechnungErr);
+                            return res.status(500).json(rechnungErr);
+                        }
+
+                        res.json({
+                            message: 'Bestellung und Rechnung erfolgreich gespeichert.',
+                            bestellung_id: bestellungId,
+                            rechnungs_nummer: rechnungsNummer
+                        });
+                    }
+                );
+            });
+        }
+    );
 });
 
 // ======================================================

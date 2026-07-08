@@ -1,0 +1,44 @@
+.bestaetigung-container {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.bestaetigung-card {
+  max-width: 600px;
+  width: 100%;
+  padding: 40px;
+  border-radius: 18px;
+  background-color: white;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  text-align: center;
+}
+
+.bestaetigung-card h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.bestaetigung-card p {
+  font-size: 18px;
+  color: #555;
+}
+
+.info-box {
+  margin: 30px 0;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #f5f5f5;
+}
+
+.home-btn {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 10px;
+  background-color: #0b7a34;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}

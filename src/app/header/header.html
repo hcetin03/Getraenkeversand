@@ -1,15 +1,16 @@
 <header class="main-header">
   <div class="top-nav">
-   <a class="logo-wrapper" routerLink="/home" style="display: flex !important; align-items: center !important; gap: 15px !important; text-decoration: none !important;">
-  <img class="brand-logo-img" 
-       src="/images/flaschenlogo.jpg" 
-       alt="Logo" 
-       style="height: 50px !important; width: auto !important; display: block !important; object-fit: contain !important; mix-blend-mode: multiply !important;">
-  
-  <span class="logo-text" style="font-size: 24px !important; font-weight: 300 !important; text-transform: none !important;">
-    Getränke<span class="logo-highlight" style="font-weight: 800 !important;">versand</span>
-</span>
-</a>
+
+    <a class="logo-wrapper" routerLink="/home" style="display: flex !important; align-items: center !important; gap: 15px !important; text-decoration: none !important;">
+      <img class="brand-logo-img"
+           src="/images/flaschenlogo.jpg"
+           alt="Logo"
+           style="height: 50px !important; width: auto !important; display: block !important; object-fit: contain !important; mix-blend-mode: multiply !important;">
+
+      <span class="logo-text" style="font-size: 24px !important; font-weight: 300 !important; text-transform: none !important;">
+        Getränke<span class="logo-highlight" style="font-weight: 800 !important;">versand</span>
+      </span>
+    </a>
 
     <div class="search-bar">
       <input type="text" placeholder="Was suchst du?">
@@ -18,16 +19,31 @@
     <div class="user-nav">
       <a routerLink="/lieferstatus" style="color: white; text-decoration: none; cursor: pointer;">Lieferstatus</a>
       <a routerLink="/favoriten" style="color: white; text-decoration: none; cursor: pointer;">Favoriten</a>
-      <a routerLink="/login" style="color: white; text-decoration: none; cursor: pointer;">Konto</a>
+
+      <ng-container *ngIf="!istEingeloggt(); else eingeloggt">
+        <a routerLink="/login" style="color: white; text-decoration: none; cursor: pointer;">Konto</a>
+      </ng-container>
+
+      <ng-template #eingeloggt>
+        <span style="color: white;">
+          Hallo, {{ kunde.vorname }}
+        </span>
+
+        <a (click)="logout()" style="color: white; text-decoration: none; cursor: pointer;">
+          Logout
+        </a>
+      </ng-template>
+
       <a routerLink="/warenkorb" class="cart-icon">🛒</a>
     </div>
   </div>
 
   <nav class="category-bar">
+
     <a routerLink="/home" routerLinkActive="active" class="cat-item">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-  Home
-</a>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </a>
 
     <a routerLink="/wasser" routerLinkActive="active" class="cat-item">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"/></svg>
@@ -63,5 +79,6 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
       Angebote
     </a>
+
   </nav>
 </header>

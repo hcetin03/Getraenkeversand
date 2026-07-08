@@ -126,9 +126,9 @@ get produkteDerKategorie(): Getraenk[] {
         this.ausgewaehltesGetraenk = null;
     }
 
-    rechnungDrucken(bestellungId: number): void {
+    rechnungDrucken(bestellung: Bestellung): void {
         window.open(
-            `http://localhost:3000/api/rechnung/pdf/${bestellungId}`, '_blank'
+            `http://localhost:3000/api/rechnung/pdf/${bestellung.id}`, '_blank'
         );
     }
 

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,14 +13,13 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class Login {
 
-  // ANPASSUNG: plz und wohnort als leere Strings hinzugefügt
   loginData = {
     vorname: '',
     nachname: '',
     email: '',
     adresse: '',
-    plz: '',        // <-- NEU
-    wohnort: '',    // <-- NEU
+    plz: '',
+    wohnort: '',
     telefon: '',
     password: '',
     rememberMe: false
@@ -30,6 +29,7 @@ export class Login {
   isLoginMode = true;
 
   private http = inject(HttpClient);
+  private router = inject(Router);
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
@@ -49,22 +49,18 @@ export class Login {
 
       this.http.post('http://localhost:3000/api/login', loginPayload)
         .subscribe({
-next: (response: any) => {
+          next: (response: any) => {
+            console.log('Server-Antwort:', response);
 
-    console.log('Server-Antwort:', response);
+            localStorage.setItem('kundeId', response.user.id);
+            localStorage.setItem('kunde', JSON.stringify(response.user));
 
-    // ======================================================
-    // KUNDENDATEN SPEICHERN
-    // ======================================================
-    // Die ID wird benötigt, damit Bestellungen
-    // später dem richtigen Kunden zugeordnet werden können.
+            alert('Erfolgreich eingeloggt!');
 
-    localStorage.setItem('kundeId', response.user.id);
-    localStorage.setItem('kunde', JSON.stringify(response.user));
-
-    alert('Erfolgreich eingeloggt!');
-
-},
+            this.router.navigate(['/home']).then(() => {
+              window.location.reload();
+            });
+          },
           error: (error) => {
             console.error('Fehler beim Login:', error);
             alert(error.error?.message || 'Login fehlgeschlagen. Bitte überprüfe deine Daten.');
@@ -72,14 +68,13 @@ next: (response: any) => {
         });
 
     } else {
-      // ANPASSUNG: registerPayload um plz und wohnort erweitert, passend zur server.js
       const registerPayload = {
         vorname: this.loginData.vorname,
         nachname: this.loginData.nachname,
         email: this.loginData.email,
         adresse: this.loginData.adresse,
-        plz: this.loginData.plz,            // <-- NEU
-        wohnort: this.loginData.wohnort,    // <-- NEU
+        plz: this.loginData.plz,
+        wohnort: this.loginData.wohnort,
         telefon: this.loginData.telefon,
         password: this.loginData.password
       };
@@ -92,14 +87,13 @@ next: (response: any) => {
 
             this.isLoginMode = true;
 
-            // ANPASSUNG: Beim Zurücksetzen der Felder auch plz und wohnort leeren
             this.loginData = {
               vorname: '',
               nachname: '',
               email: '',
               adresse: '',
-              plz: '',      // <-- NEU
-              wohnort: '',  // <-- NEU
+              plz: '',
+              wohnort: '',
               telefon: '',
               password: '',
               rememberMe: false

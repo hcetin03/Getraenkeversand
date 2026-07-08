@@ -1,0 +1,77 @@
+<div class="checkout-container">
+
+  <h1>Checkout</h1>
+  <p class="subtitle">Bitte überprüfe deine Lieferadresse und deine Bestellung.</p>
+
+  <div class="checkout-grid">
+
+    <div class="checkout-left">
+
+      <section class="checkout-card">
+        <h2>Lieferadresse</h2>
+
+        <label class="checkbox-row">
+          <input
+            type="checkbox"
+            [checked]="gespeicherteAdresseNutzen()"
+            (change)="adresseUmschalten()">
+          Gespeicherte Adresse verwenden
+        </label>
+
+        <div class="form-grid">
+          <input type="text" placeholder="Vorname" [(ngModel)]="lieferDaten.vorname">
+          <input type="text" placeholder="Nachname" [(ngModel)]="lieferDaten.nachname">
+          <input type="text" placeholder="Straße und Hausnummer" [(ngModel)]="lieferDaten.adresse">
+          <input type="text" placeholder="PLZ" [(ngModel)]="lieferDaten.plz">
+          <input type="text" placeholder="Wohnort" [(ngModel)]="lieferDaten.wohnort">
+          <input type="text" placeholder="Telefon" [(ngModel)]="lieferDaten.telefon">
+        </div>
+      </section>
+
+      <section class="checkout-card">
+        <h2>Bestellte Produkte</h2>
+
+        <div class="product-row" *ngFor="let produkt of produkte()">
+          <div>
+            <strong>{{ produkt.name }}</strong>
+            <p>{{ produkt.menge }} × {{ produkt.preis | number:'1.2-2' }} €</p>
+          </div>
+
+          <strong>
+            {{ produkt.menge * produkt.preis | number:'1.2-2' }} €
+          </strong>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="checkout-right">
+      <section class="checkout-card summary-card">
+        <h2>Bestellübersicht</h2>
+
+        <div class="summary-row">
+          <span>Zwischensumme:</span>
+          <span>{{ zwischensumme() | number:'1.2-2' }} €</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Versandkosten:</span>
+          <span>{{ versandkosten() | number:'1.2-2' }} €</span>
+        </div>
+
+        <hr>
+
+        <div class="summary-row total">
+          <span>Gesamtsumme:</span>
+          <span>{{ gesamtsumme() | number:'1.2-2' }} €</span>
+        </div>
+
+        <button class="order-btn" (click)="verbindlichBestellen()">
+          Jetzt verbindlich bestellen
+        </button>
+      </section>
+    </div>
+
+  </div>
+
+</div>
