@@ -5,25 +5,26 @@
     <p>Versand • Lagerbestand • Werbekampagne</p>
   </div>
 
-  @if (!istEingeloggt) {
-    <div class="login-card">
-      <h2>Login für Mitarbeiter</h2>
+    @if(!istEingeloggt){
+        <div class = "login-card">
+            <h2>Login für Mitarbeiter</h2>
 
       <input
         type="password"
         placeholder="Passwort eingeben"
         [(ngModel)]="passwort" />
 
-      <button (click)="login()">Einloggen</button>
+            <button (click) = "login()">Einloggen</button>
 
-      @if (loginFehler) {
-        <p class="error">{{ loginFehler }}</p>
-      }
-    </div>
-  }
+            @if(loginFehler){
+                <p class="error">{{loginFehler}}</p>
+            }
+        </div>
+    }
 
-  @if (istEingeloggt) {
-    <div class="portal-grid">
+
+    @if(istEingeloggt){
+        <div class="portal-grid">
 
       <div class="portal-card">
         <h2>📦 Eingehende Bestellungen</h2>
@@ -40,14 +41,12 @@
               {{ bestellung.gesamtpreis | currency:'EUR' }}
             </div>
 
-            <button
-              class="small-btn"
-              (click)="rechnungDrucken(bestellung)">
-              Rechnung drucken
-            </button>
-          </div>
-        }
-      </div>
+                        <button (click) ="rechnungDrucken(bestellung.id)">
+                            Rechnung drucken
+                        </button>
+                        </div>
+                }
+            </div>
 
       <div class="portal-card">
         <h2>🥤 Lagerbestand bearbeiten</h2>
@@ -60,66 +59,63 @@
             }
           </select>
 
-          <label>Produkt auswählen</label>
-          <select [(ngModel)]="ausgewaehltesGetraenk">
-            <option [ngValue]="null">Bitte Produkt auswählen</option>
+                    <label>Produkt auswählen</label>
+                    <select [(ngModel)]="ausgewaehltesGetraenk">
+                        <option [ngValue]="null">Bitte Produkt auswählen</option>
+                        
+                        @for (getraenk of produkteDerKategorie; track getraenk.id){
+                            <option [ngValue]="getraenk">{{getraenk.name}}</option>
+                        }
+                    </select>
 
-            @for (getraenk of produkteDerKategorie; track getraenk.id) {
-              <option [ngValue]="getraenk">{{ getraenk.name }}</option>
-            }
-          </select>
 
-          @if (ausgewaehltesGetraenk) {
+
+                     @if(ausgewaehltesGetraenk) {
             <div class="lager-detail">
-              <h3>{{ ausgewaehltesGetraenk.name }}</h3>
+                <h3>{{ ausgewaehltesGetraenk.name }}</h3>
 
-              <label>Lagerbestand</label>
-              <input
-                type="number"
-                [(ngModel)]="ausgewaehltesGetraenk.lagerbestand" />
+                <label>Lagerbestand</label>
+                <input
+                    type="number"
+                    [(ngModel)]="ausgewaehltesGetraenk.lagerbestand" />
 
-              <div class="lager-actions">
-                <button
-                  class="small-btn"
-                  (click)="bestandErhoehen(ausgewaehltesGetraenk, 10)">
-                  +10
-                </button>
+                <div class="lager-actions">
+                    <button
+                        class="small-btn"
+                        (click)="bestandErhoehen(ausgewaehltesGetraenk, 10)">
+                        +10
+                    </button>
 
-                <button
-                  class="small-btn"
-                  (click)="bestandSpeichern(ausgewaehltesGetraenk)">
-                  Speichern
-                </button>
-              </div>
+                    <button
+                        (click)="bestandSpeichern(ausgewaehltesGetraenk)">
+                        Speichern
+                    </button>
+                </div>
             </div>
-          }
+        }
 
-          @if (produkteDerKategorie.length === 0) {
+        @if(produkteDerKategorie.length === 0) {
             <p class="empty-text">
-              Keine Produkte in dieser Kategorie gefunden.
+                Keine Produkte in dieser Kategorie gefunden.
             </p>
-          }
-        </div>
-      </div>
+        }
 
-      <div class="portal-card newsletter-card">
-        <h2>📧 Werbekampagne</h2>
+    </div>
 
-        <p>
-          Stammkunden für Newsletter:
-          <strong>{{ stammkunden.length }}</strong>
-        </p>
 
-        <div class="newsletter-preview">
-          <h3>Newsletter-Vorschau</h3>
-          <p>Hallo liebe Stammkunden,</p>
-          <p>
-            Hiermit informieren wir Sie über unsere neuesten Angebote und
-            Sonderaktionen! Entdecken Sie jetzt unsere aktuellen Aktionen
-            und sichern Sie sich Ihre Lieblingsgetränke.
-          </p>
-          <p>Ihr Getränkeversand-Team</p>
-        </div>
+            <div class="portal-card newsletter-card">
+                <h2>📧 Werbekampagne</h2>
+                <p>
+                    Stammkunden für Newsletter:
+                    <strong>{{stammkunden.length}}</strong>
+                </p>
+
+                <div class="newsletter-preview">
+                    <h3>Newsletter-Vorschau</h3>
+                    <p>Hallo liebe Stammkunden,</p>
+                    <p>hiermit informieren wir Sie über unsere neuesten Angebote und Sonderaktionen! Entdecken Sie jetzt unsere aktuellen Aktionen und sichern Sie sich Ihre Lieblingsgetränke.</p>
+                <p>Ihr Getraenkeversand-Team</p>
+                </div>
 
         <h3>Empfänger</h3>
 
@@ -137,7 +133,6 @@
         </button>
       </div>
 
-    </div>
-  }
-
-</section>
+            </div>
+        }
+        </section>

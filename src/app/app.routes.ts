@@ -31,7 +31,11 @@ export const routes: Routes = [
   { path: 'favoriten', component: Favoriten },
   { path: 'jubilaeum', component: Jubilaeum },
   { path: 'angebote', component: Angebote },
+
   { path: 'checkout', component: Checkout },
-  { path: 'bestellbestaetigung', component: Bestellbestaetigung }
+  { path: 'bestellbestaetigung', component: Bestellbestaetigung },
   
+
+  { path: 'lieferstatus', component: Lieferstatus },
+
 ];

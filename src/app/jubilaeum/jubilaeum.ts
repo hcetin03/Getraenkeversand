@@ -1,13 +1,13 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { LucideAngularModule, Wine } from 'lucide-angular';
-import { Header } from '../header/header';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-jubilaeum',
   standalone: true,
-  imports: [],
+  // CommonModule hinzugefügt, damit @if und Property-Bindings ([src]) im HTML funktionieren
+  imports: [CommonModule, RouterLink, RouterLinkActive, LucideAngularModule],
   templateUrl: './jubilaeum.html',
   styleUrl: './jubilaeum.css'
 })
@@ -17,7 +17,12 @@ export class Jubilaeum {
     name: 'Classic Gold Edition',
     description: 'Feinste Zutaten, traditionell gebraut und edel gereift – unser exklusives Jubiläumsgetränk.',
     price: '4.99',
-    imageUrl: 'assets/images/jubilee-bottle.png', // Pfad zu deinem Bild
+    
+    /* WICHTIGER HINWEIS ZUM PFAD:
+       image: 
+    */
+    imageUrl: '/images/Rasgon.avif', 
+    
     isStockLow: true // Schaltet die Warnung im HTML an/aus
   };
 
