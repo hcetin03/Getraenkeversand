@@ -136,11 +136,43 @@ get produkteDerKategorie(): Getraenk[] {
         return this.kunden.filter(kunde => kunde.stammkunde);
     }
 
-    newsletterSenden(): void{
-       console.log("Newsletter an: ", this.stammkunden);
+    newsletterSenden(): void {
 
-       alert(
-        this.stammkunden.length + "Newsletter wurden an die Stammkunden versendet."
-       );
+    if (this.stammkunden.length === 0) {
+        alert('Es gibt momentan keine Stammkunden.');
+        return;
     }
-}
+
+   const newsletter = {
+    titel: 'Exklusives Angebot für unsere Stammkunden',
+    nachricht:
+        'Als Dank für Ihre Treue erhalten Sie bei Ihrer nächsten Bestellung 10 % Rabatt auf unser gesamtes Getränkesortiment. Die Aktion gilt bis zum 31.07.2026.'
+    };
+
+    this.http.post<{
+        message: string;
+        anzahlEmpfaenger: number;
+    }>(
+        'http://localhost:3000/api/newsletter/senden',
+        newsletter
+    ).subscribe({
+
+        next: (antwort) => {
+            alert(
+                'Die Nachricht wurde an ' +
+                antwort.anzahlEmpfaenger +
+                ' Stammkunde(n) gesendet.'
+            );
+        },
+
+        error: (fehler) => {
+            console.error(fehler);
+
+            alert(
+                fehler.error?.message ||
+                'Die Nachricht konnte nicht gesendet werden.'
+            );
+        }
+
+    });
+}}

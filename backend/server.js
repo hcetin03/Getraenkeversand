@@ -25,6 +25,27 @@ db.connect((err) => {
         console.log('Fehler bei der Verbindung:', err);
     } else {
         console.log('Mit MySQL verbunden');
+
+        const sql = `
+            CREATE TABLE IF NOT EXISTS kundennachricht (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                kunden_id INT NOT NULL,
+                titel VARCHAR(150) NOT NULL,
+                nachricht TEXT NOT NULL,
+                erstellt_am DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        `;
+
+        db.query(sql, (tableErr) => {
+            if (tableErr) {
+                console.error(
+                    'Fehler beim Erstellen der Nachrichtentabelle:',
+                    tableErr
+                );
+            } else {
+                console.log('Nachrichtentabelle ist bereit');
+            }
+        });
     }
 });
 
@@ -462,6 +483,179 @@ app.get('/api/rechnung/pdf/:bestellungId', (req, res) => {
     });
 });
 
+// ======================================================
+// KUNDEN UND STAMMKUNDEN LADEN
+// ======================================================
+
+app.get('/api/kunden', (req, res) => {
+    const sql = `
+        SELECT
+            k.id,
+            k.vorname,
+            k.nachname,
+            k.email,
+            COUNT(b.id) AS anzahlBestellungen,
+            CASE
+                WHEN COUNT(b.id) >= 3 THEN 1
+                ELSE 0
+            END AS stammkunde
+        FROM kunde k
+        LEFT JOIN bestellung b ON b.kunden_id = k.id
+        GROUP BY
+            k.id,
+            k.vorname,
+            k.nachname,
+            k.email
+        ORDER BY k.nachname, k.vorname
+    `;
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Fehler beim Laden der Kunden:', err);
+
+            return res.status(500).json({
+                message: 'Kunden konnten nicht geladen werden.'
+            });
+        }
+
+        const kunden = results.map(kunde => ({
+            ...kunde,
+            anzahlBestellungen: Number(kunde.anzahlBestellungen),
+            stammkunde: Number(kunde.stammkunde) === 1
+        }));
+
+        res.json(kunden);
+    });
+});
+
+// ======================================================
+// NEWSLETTER ALS INTERNE KUNDENNACHRICHT
+// ======================================================
+
+app.post('/api/newsletter/senden', (req, res) => {
+    const { titel, nachricht } = req.body;
+
+    if (!titel || !titel.trim() || !nachricht || !nachricht.trim()) {
+        return res.status(400).json({
+            message: 'Titel und Nachricht fehlen.'
+        });
+    }
+
+    // Zuerst alle vorherigen Newsletter löschen
+    const deleteSql = `
+        DELETE FROM kundennachricht
+    `;
+
+    db.query(deleteSql, (deleteErr) => {
+        if (deleteErr) {
+            console.error(
+                'Fehler beim Löschen der alten Nachricht:',
+                deleteErr
+            );
+
+            return res.status(500).json({
+                message: 'Die alte Nachricht konnte nicht gelöscht werden.'
+            });
+        }
+
+        // Danach die neue Nachricht für alle aktuellen Stammkunden speichern
+        const insertSql = `
+            INSERT INTO kundennachricht
+            (
+                kunden_id,
+                titel,
+                nachricht
+            )
+
+            SELECT
+                k.id,
+                ?,
+                ?
+
+            FROM kunde k
+
+            JOIN bestellung b
+                ON b.kunden_id = k.id
+
+            GROUP BY k.id
+
+            HAVING COUNT(DISTINCT b.id) >= 3
+        `;
+
+        db.query(
+            insertSql,
+            [
+                titel.trim(),
+                nachricht.trim()
+            ],
+            (insertErr, result) => {
+                if (insertErr) {
+                    console.error(
+                        'Fehler beim Speichern des Newsletters:',
+                        insertErr
+                    );
+
+                    return res.status(500).json({
+                        message:
+                            'Die neue Nachricht konnte nicht gespeichert werden.'
+                    });
+                }
+
+                res.status(201).json({
+                    message:
+                        'Die vorherige Nachricht wurde ersetzt.',
+                    anzahlEmpfaenger:
+                        result.affectedRows
+                });
+            }
+        );
+    });
+});
+
+// ======================================================
+// NEUESTE NACHRICHT EINES KUNDEN LADEN
+// ======================================================
+
+app.get('/api/kunden/:kundeId/nachrichten', (req, res) => {
+    const kundeId = Number(req.params.kundeId);
+
+    if (!Number.isInteger(kundeId) || kundeId <= 0) {
+        return res.status(400).json({
+            message: 'Ungültige Kunden-ID.'
+        });
+    }
+
+    const sql = `
+        SELECT
+            id,
+            titel,
+            nachricht,
+            DATE_FORMAT(
+                erstellt_am,
+                '%d.%m.%Y um %H:%i Uhr'
+            ) AS erstellt_am
+        FROM kundennachricht
+        WHERE kunden_id = ?
+        ORDER BY id DESC
+        LIMIT 1
+    `;
+
+    db.query(sql, [kundeId], (err, results) => {
+        if (err) {
+            console.error(
+                'Fehler beim Laden der Nachricht:',
+                err
+            );
+
+            return res.status(500).json({
+                message:
+                    'Die Nachricht konnte nicht geladen werden.'
+            });
+        }
+
+        res.json(results);
+    });
+});
 
 // ======================================================
 // SERVER STARTEN
