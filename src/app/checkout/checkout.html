@@ -11,10 +11,7 @@
         <h2>Lieferadresse</h2>
 
         <label class="checkbox-row">
-          <input
-            type="checkbox"
-            [checked]="gespeicherteAdresseNutzen()"
-            (change)="adresseUmschalten()">
+          <input type="checkbox" [checked]="gespeicherteAdresseNutzen()" (change)="adresseUmschalten()">
           Gespeicherte Adresse verwenden
         </label>
 
@@ -64,6 +61,42 @@
         <div class="summary-row total">
           <span>Gesamtsumme:</span>
           <span>{{ gesamtsumme() | number:'1.2-2' }} €</span>
+        </div>
+
+        <!-- Zahlungsmethode -->
+        <h3>Zahlungsmethode</h3>
+        <div class="zahlung-grid">
+
+          <label class="zahlung-option" [class.aktiv]="gewaehlteZahlung() === 'visa'">
+            <input type="radio" name="zahlung" value="visa" (change)="gewaehlteZahlung.set('visa')">
+            <img src="images/visa.png" alt="VISA">
+          </label>
+
+          <label class="zahlung-option" [class.aktiv]="gewaehlteZahlung() === 'paypal'">
+            <input type="radio" name="zahlung" value="paypal" (change)="gewaehlteZahlung.set('paypal')">
+            <img src="images/paypal.webp" alt="PayPal">
+          </label>
+
+          <label class="zahlung-option" [class.aktiv]="gewaehlteZahlung() === 'klarna'">
+            <input type="radio" name="zahlung" value="klarna" (change)="gewaehlteZahlung.set('klarna')">
+            <img src="images/klarna.png" alt="Klarna">
+          </label>
+
+          <label class="zahlung-option" [class.aktiv]="gewaehlteZahlung() === 'applepay'">
+            <input type="radio" name="zahlung" value="applepay" (change)="gewaehlteZahlung.set('applepay')">
+            <img src="images/applePay.png" alt="Apple Pay">
+          </label>
+
+          <label class="zahlung-option" [class.aktiv]="gewaehlteZahlung() === 'ec'">
+            <input type="radio" name="zahlung" value="ec" (change)="gewaehlteZahlung.set('ec')">
+            <img src="images/EC.png" alt="EC-Karte">
+          </label>
+
+          <label class="zahlung-option" [class.aktiv]="gewaehlteZahlung() === 'amazonpay'">
+            <input type="radio" name="zahlung" value="amazonpay" (change)="gewaehlteZahlung.set('amazonpay')">
+            <img src="images/amazonPay.png" alt="Amazon Pay">
+          </label>
+
         </div>
 
         <button class="order-btn" (click)="verbindlichBestellen()">
