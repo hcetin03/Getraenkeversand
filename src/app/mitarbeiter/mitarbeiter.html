@@ -5,22 +5,76 @@
     <p>Versand • Lagerbestand • Werbekampagne</p>
   </div>
 
-    @if(!istEingeloggt){
-        <div class = "login-card">
-            <h2>Login für Mitarbeiter</h2>
+    @if (!istEingeloggt) {
 
-      <input
-        type="password"
-        placeholder="Passwort eingeben"
-        [(ngModel)]="passwort" />
+  <div class="mitarbeiter-login-bereich">
 
-            <button (click) = "login()">Einloggen</button>
+    <div class="mitarbeiter-login-card">
 
-            @if(loginFehler){
-                <p class="error">{{loginFehler}}</p>
-            }
+      <div class="mitarbeiter-login-symbol">
+        👤
+      </div>
+
+      <div class="mitarbeiter-login-kopf">
+        <span class="mitarbeiter-login-label">
+          Interner Bereich
+        </span>
+
+        <h2>Mitarbeiter-Login</h2>
+
+        <p>
+          Melden Sie sich an, um Bestellungen,
+          Lagerbestand und Werbekampagnen zu verwalten.
+        </p>
+      </div>
+
+      <div class="mitarbeiter-login-formular">
+
+        <label for="mitarbeiterPasswortLogin">
+          Passwort
+        </label>
+
+        <div class="mitarbeiter-passwort-feld">
+
+          <span class="passwort-symbol">
+            🔒
+          </span>
+
+          <input
+            id="mitarbeiterPasswortLogin"
+            type="password"
+            placeholder="Passwort eingeben"
+            [(ngModel)]="passwort"
+            (keyup.enter)="login()">
+
         </div>
-    }
+
+        @if (loginFehler) {
+          <div class="mitarbeiter-login-fehler">
+            {{ loginFehler }}
+          </div>
+        }
+
+        <button
+          type="button"
+          class="mitarbeiter-login-button"
+          (click)="login()">
+
+          Im Mitarbeiterportal anmelden
+
+        </button>
+
+      </div>
+
+      <div class="mitarbeiter-login-hinweis">
+        Dieser Bereich ist ausschließlich für Mitarbeiter vorgesehen.
+      </div>
+
+    </div>
+
+  </div>
+
+}
 
 
     @if(istEingeloggt){
@@ -34,19 +88,57 @@
             <div>
               <strong>{{ bestellung.kunde }}</strong>
               <p>{{ bestellung.artikel }} • {{ bestellung.menge }} Stück</p>
-              <small>{{ bestellung.datum }} • {{ bestellung.status }}</small>
+              <small>Bestelldatum:  {{ bestellung.datum }} </small>
             </div>
 
             <div class="order-price">
               {{ bestellung.gesamtpreis | currency:'EUR' }}
             </div>
 
-                        <button (click) ="rechnungDrucken(bestellung)">
-                            Rechnung drucken
-                        </button>
-                        </div>
-                }
-            </div>
+                      <div class="status-bearbeiten">
+
+      <label [for]="'status-' + bestellung.id">
+        Lieferstatus
+      </label>
+
+      <select
+        [id]="'status-' + bestellung.id"
+        [(ngModel)]="bestellung.status">
+
+        @for (status of statusOptionen; track status) {
+          <option [value]="status">
+            {{ status }}
+          </option>
+        }
+
+      </select>
+
+      <button
+        type="button"
+        class="status-speichern-button"
+        [disabled]="statusWirdGespeichertId === bestellung.id"
+        (click)="statusSpeichern(bestellung)">
+
+        @if (statusWirdGespeichertId === bestellung.id) {
+          Wird gespeichert ...
+        } @else {
+          Status speichern
+        }
+
+      </button>
+
+    </div>
+
+    <button
+      type="button"
+      (click)="rechnungDrucken(bestellung)">
+      Rechnung drucken
+    </button>
+
+  </div>
+
+}
+</div>
 
       <div class="portal-card">
         <h2>🥤 Lagerbestand bearbeiten</h2>
@@ -101,8 +193,266 @@
         }
 
     </div>
+    </div>
+
+    <div class="portal-card mitarbeiterverwaltung-card">
+
+  <div class="mitarbeiterverwaltung-kopf">
+    <div>
+      <h2>👥 Mitarbeiterverwaltung</h2>
+      <p>
+        Mitarbeiter anlegen, bearbeiten oder löschen
+      </p>
+    </div>
+
+    <span class="mitarbeiter-anzahl">
+      {{ mitarbeiterListe.length }}
+    </span>
+  </div>
+
+  @if (mitarbeiterMeldung) {
+    <p class="mitarbeiter-erfolg">
+      {{ mitarbeiterMeldung }}
+    </p>
+  }
+
+  @if (mitarbeiterFehler) {
+    <p class="mitarbeiter-fehler">
+      {{ mitarbeiterFehler }}
+    </p>
+  }
+
+  <div class="mitarbeiter-formular">
+
+    <h3>
+      @if (mitarbeiterForm.id === null) {
+        Neuen Mitarbeiter anlegen
+      } @else {
+        Mitarbeiter bearbeiten
+      }
+    </h3>
+
+    <div class="mitarbeiter-formular-grid">
+
+      <div class="formular-feld">
+        <label for="mitarbeiterVorname">
+          Vorname
+        </label>
+
+        <input
+          id="mitarbeiterVorname"
+          type="text"
+          placeholder="Vorname"
+          [(ngModel)]="mitarbeiterForm.vorname">
+      </div>
+
+      <div class="formular-feld">
+        <label for="mitarbeiterNachname">
+          Nachname
+        </label>
+
+        <input
+          id="mitarbeiterNachname"
+          type="text"
+          placeholder="Nachname"
+          [(ngModel)]="mitarbeiterForm.nachname">
+      </div>
+
+      <div class="formular-feld">
+        <label for="mitarbeiterEmail">
+          E-Mail-Adresse
+        </label>
+
+        <input
+          id="mitarbeiterEmail"
+          type="email"
+          placeholder="name@unternehmen.de"
+          [(ngModel)]="mitarbeiterForm.email">
+      </div>
+
+      <div class="formular-feld">
+        <label for="mitarbeiterPasswort">
+          Passwort
+        </label>
+
+        <input
+          id="mitarbeiterPasswort"
+          type="password"
+          [placeholder]="
+            mitarbeiterForm.id === null
+              ? 'Passwort eingeben'
+              : 'Leer lassen, um es nicht zu ändern'
+          "
+          [(ngModel)]="mitarbeiterForm.passwort">
+      </div>
+
+      <div class="formular-feld">
+        <label for="mitarbeiterRolle">
+          Rolle
+        </label>
+
+        <select
+          id="mitarbeiterRolle"
+          [(ngModel)]="mitarbeiterForm.rolle">
+
+          <option value="Mitarbeiter">
+            Mitarbeiter
+          </option>
+
+          <option value="Administrator">
+            Administrator
+          </option>
+
+          <option value="Lager">
+            Lager
+          </option>
+
+          <option value="Versand">
+            Versand
+          </option>
+
+        </select>
+      </div>
+
+      <div class="formular-feld aktiv-feld">
+        <label>
+          Status
+        </label>
+
+        <label class="aktiv-checkbox">
+          <input
+            type="checkbox"
+            [(ngModel)]="mitarbeiterForm.aktiv">
+
+          Mitarbeiter ist aktiv
+        </label>
+      </div>
 
     </div>
+
+    <div class="mitarbeiter-formular-aktionen">
+
+      <button
+        type="button"
+        class="mitarbeiter-speichern-btn"
+        [disabled]="mitarbeiterWirdGespeichert"
+        (click)="mitarbeiterSpeichern()">
+
+        @if (mitarbeiterWirdGespeichert) {
+          Wird gespeichert ...
+        } @else if (mitarbeiterForm.id === null) {
+          Mitarbeiter anlegen
+        } @else {
+          Änderungen speichern
+        }
+
+      </button>
+
+      @if (mitarbeiterForm.id !== null) {
+        <button
+          type="button"
+          class="mitarbeiter-abbrechen-btn"
+          (click)="mitarbeiterFormZuruecksetzen()">
+
+          Bearbeitung abbrechen
+
+        </button>
+      }
+
+    </div>
+
+  </div>
+
+  <div class="mitarbeiter-liste">
+
+    <h3>Gespeicherte Mitarbeiter</h3>
+
+    @if (mitarbeiterListe.length === 0) {
+
+      <p class="empty-text">
+        Es wurden noch keine Mitarbeiter angelegt.
+      </p>
+
+    } @else {
+
+      @for (
+        mitarbeiter of mitarbeiterListe;
+        track mitarbeiter.id
+      ) {
+
+        <div class="mitarbeiter-zeile">
+
+          <div class="mitarbeiter-person">
+
+            <div class="mitarbeiter-avatar">
+              {{ mitarbeiter.vorname.charAt(0) }}
+              {{ mitarbeiter.nachname.charAt(0) }}
+            </div>
+
+            <div>
+              <strong>
+                {{ mitarbeiter.vorname }}
+                {{ mitarbeiter.nachname }}
+              </strong>
+
+              <p>{{ mitarbeiter.email }}</p>
+
+              <small>
+                {{ mitarbeiter.rolle }}
+
+                @if (mitarbeiter.erstellt_am) {
+                  • angelegt am
+                  {{ mitarbeiter.erstellt_am }}
+                }
+              </small>
+            </div>
+
+          </div>
+
+          <div class="mitarbeiter-status-aktionen">
+
+            <span
+              class="status-anzeige"
+              [class.status-aktiv]="mitarbeiter.aktiv"
+              [class.status-inaktiv]="!mitarbeiter.aktiv">
+
+              @if (mitarbeiter.aktiv) {
+                Aktiv
+              } @else {
+                Inaktiv
+              }
+
+            </span>
+
+            <button
+              type="button"
+              class="mitarbeiter-bearbeiten-btn"
+              (click)="mitarbeiterBearbeiten(mitarbeiter)">
+
+              Bearbeiten
+
+            </button>
+
+            <button
+              type="button"
+              class="mitarbeiter-loeschen-btn"
+              (click)="mitarbeiterLoeschen(mitarbeiter)">
+
+              Löschen
+
+            </button>
+
+          </div>
+
+        </div>
+
+      }
+
+    }
+
+  </div>
+
+</div>
 
 
             <div class="portal-card newsletter-card">
@@ -115,7 +465,7 @@
                 <div class="newsletter-preview">
                     <h3>Newsletter-Vorschau</h3>
                     <p>Hallo liebe Stammkunden,</p>
-                    <p>hiermit informieren wir Sie über unsere neuesten Angebote und Sonderaktionen! Entdecken Sie jetzt unsere aktuellen Aktionen und sichern Sie sich Ihre Lieblingsgetränke.</p>
+                    <p>als Dank für Ihre Treue erhalten Sie bei Ihrer nächsten Bestellung 10 % Rabatt auf unser gesamtes Getränkesortiment. Entdecken Sie jetzt unsere aktuellen Angebote und sichern Sie sich Ihre Lieblingsgetränke. Die Aktion gilt bis zum 31.07.2026.</p>
                 <p>Ihr Getraenkeversand-Team</p>
                 </div>
 
