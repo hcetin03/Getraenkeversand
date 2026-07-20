@@ -1,0 +1,177 @@
+<app-header></app-header>
+
+<main class="konto-seite">
+
+  @if (kunde) {
+
+    <section class="konto-kopf">
+
+      <div class="konto-avatar">
+        {{ kunde.vorname.charAt(0) }}
+        {{ kunde.nachname.charAt(0) }}
+      </div>
+
+      <div>
+        <span class="konto-label">
+          Kundenkonto
+        </span>
+
+        <h1>
+          Hallo, {{ kunde.vorname }}
+        </h1>
+
+        <p>
+          Verwalte hier dein Profil und deine Bestellungen.
+        </p>
+      </div>
+
+    </section>
+
+
+    <section class="konto-uebersicht">
+
+      <article class="konto-karte">
+
+        <div class="karten-symbol">
+          👤
+        </div>
+
+        <div class="karten-inhalt">
+
+          <h2>Meine Daten</h2>
+
+          <p>
+            {{ kunde.vorname }}
+            {{ kunde.nachname }}
+          </p>
+
+          <span>
+            {{ kunde.email }}
+          </span>
+
+        </div>
+
+        <a
+          routerLink="/profil"
+          class="konto-button">
+
+          Profil öffnen
+
+        </a>
+
+      </article>
+
+
+      <article class="konto-karte">
+
+        <div class="karten-symbol">
+          📦
+        </div>
+
+        <div class="karten-inhalt">
+
+          <h2>Meine Bestellungen</h2>
+
+          <p>
+            Bestellungen, Rechnungen und Lieferstatus
+            anzeigen.
+          </p>
+
+        </div>
+
+        <a
+          routerLink="/meine-bestellungen"
+          class="konto-button">
+
+          Bestellungen öffnen
+
+        </a>
+
+      </article>
+
+
+      <article class="konto-karte">
+
+        <div class="karten-symbol">
+          🛒
+        </div>
+
+        <div class="karten-inhalt">
+
+          <h2>Weiter einkaufen</h2>
+
+          <p>
+            Entdecke unser Getränkesortiment und
+            aktuelle Angebote.
+          </p>
+
+        </div>
+
+        <a
+          routerLink="/home"
+          class="konto-button">
+
+          Zur Startseite
+
+        </a>
+
+      </article>
+
+    </section>
+
+
+    <section class="konto-details">
+
+      <h2>Kontoinformationen</h2>
+
+      <div class="konto-details-grid">
+
+        <div>
+          <span>Name</span>
+
+          <strong>
+            {{ kunde.vorname }}
+            {{ kunde.nachname }}
+          </strong>
+        </div>
+
+        <div>
+          <span>E-Mail-Adresse</span>
+
+          <strong>
+            {{ kunde.email }}
+          </strong>
+        </div>
+
+        <div>
+          <span>Adresse</span>
+
+          <strong>
+            {{ kunde.adresse || 'Nicht angegeben' }}
+          </strong>
+        </div>
+
+        <div>
+          <span>Wohnort</span>
+
+          <strong>
+            {{ kunde.plz || '' }}
+            {{ kunde.wohnort || 'Nicht angegeben' }}
+          </strong>
+        </div>
+
+        <div>
+          <span>Telefon</span>
+
+          <strong>
+            {{ kunde.telefon || 'Nicht angegeben' }}
+          </strong>
+        </div>
+
+      </div>
+
+    </section>
+
+  }
+
+</main>

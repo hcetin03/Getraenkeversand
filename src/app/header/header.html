@@ -21,18 +21,133 @@
       <a routerLink="/favoriten" style="color: white; text-decoration: none; cursor: pointer;">Favoriten</a>
 
       <ng-container *ngIf="!istEingeloggt(); else eingeloggt">
-        <a routerLink="/login" style="color: white; text-decoration: none; cursor: pointer;">Konto</a>
-      </ng-container>
+  <a routerLink="/login"
+    style="color: white; text-decoration: none; cursor: pointer;">
+    Konto
+  </a>
+</ng-container>
 
-      <ng-template #eingeloggt>
-        <span style="color: white;">
-          Hallo, {{ kunde.vorname }}
+<ng-template #eingeloggt>
+
+  <div class="account-bereich">
+
+    <button
+      type="button"
+      class="account-button"
+      [class.account-button-aktiv]="accountMenueOffen"
+      (click)="accountMenueUmschalten()">
+
+      <span class="account-avatar">
+        {{ kunde.vorname?.charAt(0) }}
+        {{ kunde.nachname?.charAt(0) }}
+      </span>
+
+      <span class="account-informationen">
+
+        <small>Benutzerkonto</small>
+
+        <strong>
+          {{ kunde.vorname }}
+          {{ kunde.nachname }}
+        </strong>
+
+      </span>
+
+      <span
+        class="account-pfeil"
+        [class.account-pfeil-offen]="accountMenueOffen">
+        ▼
+      </span>
+
+    </button>
+
+    <div
+      *ngIf="accountMenueOffen"
+      class="account-dropdown">
+
+      <div class="account-dropdown-kopf">
+
+        <span class="account-dropdown-avatar">
+          {{ kunde.vorname?.charAt(0) }}
+          {{ kunde.nachname?.charAt(0) }}
         </span>
 
-        <a (click)="logout()" style="color: white; text-decoration: none; cursor: pointer;">
-          Logout
-        </a>
-      </ng-template>
+        <div>
+          <strong>
+            {{ kunde.vorname }}
+            {{ kunde.nachname }}
+          </strong>
+
+          <small>{{ kunde.email }}</small>
+        </div>
+
+      </div>
+
+      <div class="account-dropdown-trennlinie"></div>
+
+      <a
+        routerLink="/konto"
+        class="account-dropdown-eintrag"
+        (click)="accountMenueSchliessen()">
+
+        <span>🏠</span>
+
+        <div>
+          <strong>Mein Konto</strong>
+          <small>Kontoübersicht anzeigen</small>
+        </div>
+
+      </a>
+
+      <a
+        routerLink="/meine-bestellungen"
+        class="account-dropdown-eintrag"
+        (click)="accountMenueSchliessen()">
+
+        <span>📦</span>
+
+        <div>
+          <strong>Meine Bestellungen</strong>
+          <small>Bestellungen und Status ansehen</small>
+        </div>
+
+      </a>
+
+      <a
+        routerLink="/profil"
+        class="account-dropdown-eintrag"
+        (click)="accountMenueSchliessen()">
+
+        <span>👤</span>
+
+        <div>
+          <strong>Profil</strong>
+          <small>Persönliche Daten anzeigen</small>
+        </div>
+
+      </a>
+
+      <div class="account-dropdown-trennlinie"></div>
+
+      <button
+        type="button"
+        class="account-dropdown-eintrag account-abmelden"
+        (click)="logout()">
+
+        <span>↪</span>
+
+        <div>
+          <strong>Abmelden</strong>
+          <small>Kundenkonto verlassen</small>
+        </div>
+
+      </button>
+
+    </div>
+
+  </div>
+
+</ng-template>
 
       <a routerLink="/warenkorb" class="cart-icon">🛒</a>
     </div>

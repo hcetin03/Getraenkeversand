@@ -1,0 +1,249 @@
+<app-header></app-header>
+
+<main class="bestellungen-seite">
+
+  <section class="bestellungen-kopf">
+
+    <div>
+      <span class="bestellungen-label">
+        Kundenkonto
+      </span>
+
+      <h1>Meine Bestellungen</h1>
+
+      <p>
+        Hier findest du deine bisherigen Bestellungen,
+        Rechnungen und den aktuellen Lieferstatus.
+      </p>
+    </div>
+
+    <span class="bestellungen-symbol">
+      📦
+    </span>
+
+  </section>
+
+
+  @if (wirdGeladen) {
+
+    <section class="bestellungen-hinweis">
+
+      <div class="lade-symbol">
+        ⏳
+      </div>
+
+      <h2>Bestellungen werden geladen</h2>
+
+      <p>
+        Bitte einen Moment warten.
+      </p>
+
+    </section>
+
+  } @else if (fehler) {
+
+    <section class="bestellungen-hinweis fehler-hinweis">
+
+      <div class="hinweis-symbol">
+        ⚠️
+      </div>
+
+      <h2>Bestellungen konnten nicht angezeigt werden</h2>
+
+      <p>
+        {{ fehler }}
+      </p>
+
+      <button
+        type="button"
+        class="login-button"
+        (click)="zumLogin()">
+
+        Zum Login
+
+      </button>
+
+    </section>
+
+  } @else if (bestellungen.length === 0) {
+
+    <section class="bestellungen-hinweis">
+
+      <div class="hinweis-symbol">
+        🛒
+      </div>
+
+      <h2>Noch keine Bestellungen</h2>
+
+      <p>
+        Du hast mit diesem Kundenkonto bisher
+        noch keine Bestellung aufgegeben.
+      </p>
+
+      <a
+        routerLink="/home"
+        class="einkaufen-button">
+
+        Jetzt Getränke entdecken
+
+      </a>
+
+    </section>
+
+  } @else {
+
+    <section class="bestellungen-uebersicht">
+
+      <div class="bestellungen-zusammenfassung">
+
+        <div>
+          <span>Bestellungen</span>
+
+          <strong>
+            {{ bestellungen.length }}
+          </strong>
+        </div>
+
+        <p>
+          Deine zuletzt aufgegebenen Bestellungen
+          werden zuerst angezeigt.
+        </p>
+
+      </div>
+
+
+      <div class="bestellungen-liste">
+
+        @for (
+          bestellung of bestellungen;
+          track bestellung.id
+        ) {
+
+          <article class="bestellung-karte">
+
+            <div class="bestellung-karten-kopf">
+
+              <div>
+
+                <span class="bestellung-nummer">
+                  Bestellung #{{ bestellung.id }}
+                </span>
+
+                <h2>
+                  Bestellung vom {{ bestellung.datum }}
+                </h2>
+
+              </div>
+
+              <span
+                class="bestellung-status"
+                [ngClass]="statusKlasse(bestellung.status)">
+
+                {{ bestellung.status }}
+
+              </span>
+
+            </div>
+
+
+            <div class="bestellung-inhalt">
+
+              <div class="bestellung-artikel">
+
+                <span class="inhalt-label">
+                  Bestellte Artikel
+                </span>
+
+                <p>
+                  {{ bestellung.artikel }}
+                </p>
+
+              </div>
+
+
+              <div class="bestellung-details">
+
+                <div class="bestellung-detail">
+
+                  <span>Menge</span>
+
+                  <strong>
+                    {{ bestellung.menge }}
+                    Artikel
+                  </strong>
+
+                </div>
+
+                <div class="bestellung-detail">
+
+                  <span>Gesamtbetrag</span>
+
+                  <strong>
+                    {{
+                      bestellung.gesamtpreis
+                        | currency:'EUR':'symbol':'1.2-2'
+                    }}
+                  </strong>
+
+                </div>
+
+                <div class="bestellung-detail">
+
+                  <span>Rechnungsnummer</span>
+
+                  <strong>
+                    {{
+                      bestellung.rechnungs_nummer
+                      || 'Noch nicht verfügbar'
+                    }}
+                  </strong>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="bestellung-aktionen">
+
+              @if (bestellung.rechnungs_nummer) {
+
+                <button
+                  type="button"
+                  class="rechnung-button"
+                  (click)="rechnungOeffnen(bestellung.id)">
+
+                  Rechnung öffnen
+
+                </button>
+
+              }
+
+              <span class="status-hinweis">
+
+                @if (bestellung.status === 'Zugestellt') {
+                  Deine Bestellung wurde zugestellt.
+                } @else if (bestellung.status === 'Versendet') {
+                  Deine Bestellung ist unterwegs.
+                } @else if (bestellung.status === 'In Bearbeitung') {
+                  Deine Bestellung wird vorbereitet.
+                } @else {
+                  Deine Bestellung ist bei uns eingegangen.
+                }
+
+              </span>
+
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+    </section>
+
+  }
+
+</main>
