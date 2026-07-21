@@ -87,4 +87,16 @@ export class WarenkorbComponent implements OnInit {
   goBack() {
     window.history.back();
   }
+
+  // falls Warenkorb leer ist
+
+  aufEnterDrueckenSuche(event: any): void {
+  const begriff = event.target.value;
+
+  if (!begriff || begriff.trim() === '') {
+    return;
+  }
+
+  this.router.navigate(['/suche'], { queryParams: { q: begriff } });
+}
 }

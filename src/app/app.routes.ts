@@ -18,6 +18,7 @@ import { Lieferstatus } from './lieferstatus/lieferstatus';
 import {Bestellungen } from './bestellungen/bestellungen';
 import {Konto} from './konto/konto';
 import { Profil } from './profil/profil';
+import { Suche } from './suche/suche';
 
 
 export const routes: Routes = [
@@ -35,6 +36,8 @@ export const routes: Routes = [
   { path: 'favoriten', component: Favoriten },
   { path: 'jubilaeum', component: Jubilaeum },
   { path: 'angebote', component: Angebote },
+
+  { path: 'suche', component: Suche },
 
   { path: 'checkout', component: Checkout },
   { path: 'bestellbestaetigung', component: Bestellbestaetigung },

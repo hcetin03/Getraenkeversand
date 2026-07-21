@@ -109,6 +109,34 @@ app.get('/api/produkt', (req, res) => {
     }
 });
 
+// Produktsuche
+app.get('/api/produkt/suche', (req, res) => {
+    const suchbegriff = req.query.q;
+    const limit = req.query.limit ? Number(req.query.limit) : 5;
+
+    if (!suchbegriff || suchbegriff.trim() === '') {
+        return res.json([]);
+    }
+
+    const sql = `
+        SELECT * FROM produkt
+        WHERE name LIKE ?
+           OR hauptkategorie LIKE ?
+           OR unterkategorie LIKE ?
+        LIMIT ?
+    `;
+
+    const suchwert = `%${suchbegriff}%`;
+
+    db.query(sql, [suchwert, suchwert, suchwert, limit], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json(err);
+        }
+        res.json(result);
+    });
+});
+
 
 // ======================================================
 // LAGERBESTAND SPEICHERN

@@ -9,7 +9,8 @@
     <p class="subtitle">Noch etwas vergessen? Suche nach Produkten und lege sie in den Warenkorb.</p>
     
     <div class="search-bar-container">
-      <input type="text" placeholder="Suche" class="shop-search-input">
+      <input type="text" placeholder="Suche" class="shop-search-input"
+         (keydown.enter)="aufEnterDrueckenSuche($event)">
     </div>
 
     <div class="empty-status-card">

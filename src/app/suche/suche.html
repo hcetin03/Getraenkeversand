@@ -1,0 +1,45 @@
+<app-header></app-header>
+
+<main class="content-wrapper">
+  <nav class="breadcrumb">Startseite &gt; Suche &gt; <strong>"{{ suchbegriff }}"</strong></nav>
+  <h1 class="page-title">Suchergebnisse für "{{ suchbegriff }}"</h1>
+
+  <p *ngIf="!ladeVorgang" class="ergebnis-anzahl">{{ ergebnisse.length }} Produkte gefunden</p>
+
+  <div *ngIf="ladeVorgang">Lädt...</div>
+
+  <div *ngIf="!ladeVorgang && ergebnisse.length === 0" class="keine-ergebnisse">
+    <p>Keine Produkte für "{{ suchbegriff }}" gefunden.</p>
+  </div>
+
+  <div class="product-grid" *ngIf="!ladeVorgang && ergebnisse.length > 0">
+    <div class="product-card" *ngFor="let produkt of ergebnisse">
+
+      <div class="badge-tiefpreis" *ngIf="produkt.badge">
+        {{ produkt.badge }}
+      </div>
+
+      <img [src]="produkt.bild" [alt]="produkt.name" class="p-img">
+
+      <div class="p-info">
+
+        <p class="brand">{{ produkt.marke }}</p>
+
+        <p class="name">{{ produkt.name }}</p>
+
+        <p class="details">{{ produkt.inhalt }} ({{ produkt.verpackung }})</p>
+
+        <p class="pfandart" *ngIf="produkt.pfandart">{{ produkt.pfandart }}</p>
+
+        <p class="pfand" *ngIf="produkt.pfand > 0">zzgl. {{ produkt.pfand }} € Pfand</p>
+
+        <div class="card-footer">
+          <span class="price">{{ produkt.preis }} €</span>
+          <button class="add-btn" (click)="inDenWarenkorb(produkt)">+</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</main>
