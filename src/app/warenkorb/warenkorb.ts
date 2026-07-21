@@ -20,11 +20,15 @@ export class WarenkorbComponent implements OnInit {
     return this.items().reduce((sum, item) => sum + (item.preis * item.menge), 0);
   });
 
+  pfandsumme = computed(() => {
+    return this.items().reduce((sum, item) => sum + (item.pfand * item.menge), 0);
+  });
+
   lieferkosten = signal<number>(4.50);
 
   gesamtsumme = computed(() => {
     if (this.items().length === 0) return 0;
-    return this.zwischensumme() + this.lieferkosten();
+    return this.zwischensumme() + this.pfandsumme() + this.lieferkosten();
   });
 
   ngOnInit() {

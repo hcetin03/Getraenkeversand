@@ -57,11 +57,18 @@ export class CartService {
         console.log('-> Kein Preis-Feld im Objekt gefunden. Testpreis 12.99 gesetzt.');
       }
 
+      // Pfand ermitteln
+      let gefundenerPfand = 0;
+
+      if (produkt.Pfand !== undefined) gefundenerPfand = Number(produkt.Pfand);
+      else if (produkt.pfand !== undefined) gefundenerPfand = Number(produkt.pfand);
+
       const neuesItem = {
         id: produktId,
         name: produktName,
         typ: produkt.hauptkategorie || 'Kaffee',
         preis: gefundenerPreis,
+        pfand: gefundenerPfand,
         menge: 1,
         bild: bildName
       };

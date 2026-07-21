@@ -31,11 +31,12 @@
         <div class="product-row" *ngFor="let produkt of produkte()">
           <div>
             <strong>{{ produkt.name }}</strong>
-            <p>{{ produkt.menge }} × {{ produkt.preis | number:'1.2-2' }} €</p>
+            <p>{{ produkt.menge }} × {{ produkt.preis | number:'1.2-2' }} €
+              <span *ngIf="produkt.pfand > 0"> (+ {{ produkt.pfand | number:'1.2-2' }} € Pfand)</span>
+            </p>
           </div>
-
           <strong>
-            {{ produkt.menge * produkt.preis | number:'1.2-2' }} €
+            {{ produkt.menge * (produkt.preis + produkt.pfand) | number:'1.2-2' }} €
           </strong>
         </div>
       </section>
@@ -49,6 +50,11 @@
         <div class="summary-row">
           <span>Zwischensumme:</span>
           <span>{{ zwischensumme() | number:'1.2-2' }} €</span>
+        </div>
+
+        <div class="summary-row">
+          <span>zzgl. Pfand:</span>
+          <span>{{ pfandsumme() | number:'1.2-2' }} €</span>
         </div>
 
         <div class="summary-row">

@@ -9,4 +9,6 @@ export interface Getraenk {
   lagerbestand: number;
   alkoholgehalt?: number;
   bestand: number;
+  pfand: number;
+  pfandart: string;
 }

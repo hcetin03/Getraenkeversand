@@ -58,25 +58,32 @@
 
           <div class="price-single">
             {{ item.preis | number:'1.2-2' }} €
+            <span *ngIf="item.pfand > 0" class="pfand-hinweis">+ {{ item.pfand | number:'1.2-2' }} € Pfand</span>
           </div>
 
           <div class="price-total">
-            {{ (item.preis * item.menge) | number:'1.2-2' }} €
+            {{ ((item.preis + item.pfand) * item.menge) | number:'1.2-2' }} €
           </div>
+
         </div>
       </div>
 
-      <div class="cart-summary">
-        <h2>Zusammenfassung</h2>
-        <div class="summary-row">
-          <span>Zwischensumme:</span>
-          <span>{{ zwischensumme() | number:'1.2-2' }} €</span>
-        </div>
-        <div class="summary-row">
-          <span>Lieferkosten:</span>
-          <span>{{ lieferkosten() | number:'1.2-2' }} €</span>
-        </div>
-        <hr>
+        <div class="cart-summary">
+          <h2>Zusammenfassung</h2>
+          <div class="summary-row">
+            <span>Zwischensumme:</span>
+            <span>{{ zwischensumme() | number:'1.2-2' }} €</span>
+          </div>
+          <div class="summary-row">
+            <span>zzgl. Pfand:</span>
+            <span>{{ pfandsumme() | number:'1.2-2' }} €</span>
+          </div>
+          <div class="summary-row">
+            <span>Lieferkosten:</span>
+            <span>{{ lieferkosten() | number:'1.2-2' }} €</span>
+          </div>
+          <hr>
+
         <div class="summary-row total">
           <span>Gesamtsumme:</span>
           <span>{{ gesamtsumme() | number:'1.2-2' }} €</span>

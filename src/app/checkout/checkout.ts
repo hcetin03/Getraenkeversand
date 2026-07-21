@@ -41,8 +41,12 @@ export class Checkout {
     return this.produkte().reduce((sum, item) => sum + item.preis * item.menge, 0);
   });
 
+  pfandsumme = computed(() => {
+    return this.produkte().reduce((sum, item) => sum + item.pfand * item.menge, 0);
+  });
+
   gesamtsumme = computed(() => {
-    return this.zwischensumme() + this.versandkosten();
+    return this.zwischensumme() + this.pfandsumme() + this.versandkosten();
   });
 
   adresseUmschalten() {
@@ -102,7 +106,8 @@ export class Checkout {
     const bestellteProdukte = this.produkte().map(item => ({
       getraenk: {
         id: item.id,
-        preis: item.preis
+        preis: item.preis,
+        pfand: item.pfand
       },
       menge: item.menge
     }));

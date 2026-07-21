@@ -317,7 +317,7 @@ app.post('/api/bestellung', (req, res) => {
                 bestellungId,
                 produkt.getraenk.id,
                 produkt.menge,
-                produkt.getraenk.preis
+                produkt.getraenk.preis + produkt.getraenk.pfand
             ]);
 
             const sqlPositionen = `
