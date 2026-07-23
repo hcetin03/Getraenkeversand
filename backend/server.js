@@ -119,16 +119,17 @@ app.get('/api/produkt/suche', (req, res) => {
     }
 
     const sql = `
-        SELECT * FROM produkt
-        WHERE name LIKE ?
-           OR hauptkategorie LIKE ?
-           OR unterkategorie LIKE ?
-        LIMIT ?
-    `;
+    SELECT * FROM produkt
+    WHERE REPLACE(name, '''', '') LIKE REPLACE(?, '''', '')
+       OR REPLACE(marke, '''', '') LIKE REPLACE(?, '''', '')
+       OR hauptkategorie LIKE ?
+       OR unterkategorie LIKE ?
+    LIMIT ?
+`;
 
-    const suchwert = `%${suchbegriff}%`;
+const suchwert = `%${suchbegriff}%`;
 
-    db.query(sql, [suchwert, suchwert, suchwert, limit], (err, result) => {
+db.query(sql, [suchwert, suchwert, suchwert, suchwert, limit], (err, result) => {
         if (err) {
             console.log(err);
             return res.status(500).json(err);
