@@ -1,0 +1,132 @@
+<app-header></app-header>
+
+<main class="mitteilungen-seite">
+
+  <section class="mitteilungen-kopf">
+
+    <div class="mitteilungen-symbol">
+      🔔
+    </div>
+
+    <div>
+      <span class="mitteilungen-kategorie">
+        Benutzerkonto
+      </span>
+
+      <h1>Mitteilungen</h1>
+
+      <p>
+        Hier findest du aktuelle Nachrichten und persönliche
+        Angebote von unserem Getränkeversand.
+      </p>
+    </div>
+
+  </section>
+
+  <section class="mitteilungen-inhalt">
+
+    @if (nachrichtenWerdenGeladen) {
+
+      <div class="mitteilungen-status">
+        <span class="lade-symbol">⏳</span>
+
+        <p>
+          Deine Mitteilungen werden geladen ...
+        </p>
+      </div>
+
+    } @else if (nachrichtenFehler) {
+
+      <div class="mitteilungen-status fehler-status">
+        <span>⚠️</span>
+
+        <p>
+          {{ nachrichtenFehler }}
+        </p>
+      </div>
+
+    } @else if (nachrichten.length === 0) {
+
+      <div class="keine-mitteilungen">
+
+        <div class="leerer-briefkasten">
+          📭
+        </div>
+
+        <h2>Keine neuen Mitteilungen</h2>
+
+        <p>
+          Momentan liegen keine neuen Nachrichten oder Angebote
+          für dich vor.
+        </p>
+
+        <a
+          routerLink="/home"
+          class="zurueck-button">
+          Zurück zur Startseite
+        </a>
+
+      </div>
+
+    } @else {
+
+      <div class="mitteilungen-liste">
+
+        @for (
+          eintrag of nachrichten;
+          track eintrag.id
+        ) {
+
+          <article class="mitteilung">
+
+            <div class="mitteilung-kopf">
+
+              <div class="mitteilung-icon">
+                📨
+              </div>
+
+              <div class="mitteilung-titel">
+
+                <span class="neu-markierung">
+                  Neue Mitteilung
+                </span>
+
+                <h2>
+                  {{ eintrag.titel }}
+                </h2>
+
+              </div>
+
+              <time>
+                {{ eintrag.erstellt_am }}
+              </time>
+
+            </div>
+
+            <div class="mitteilung-text">
+
+              <p>
+                Hallo lieber Stammkunde,
+              </p>
+
+              <p>
+                {{ eintrag.nachricht }}
+              </p>
+
+              <p class="mitteilung-gruss">
+                Dein Getränkeversand-Team
+              </p>
+
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+    }
+
+  </section>
+
+</main>

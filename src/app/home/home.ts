@@ -6,12 +6,6 @@ import { HttpClient } from '@angular/common/http';
 import {LucideAngularModule, Wine} from 'lucide-angular';
 import { Header } from '../header/header';
 
-type Kundennachricht = {
-  id: number;
-  titel: string;
-  nachricht: string;
-  erstellt_am: string;
-};
 
 @Component({
   selector: 'app-home',
@@ -26,7 +20,7 @@ type Kundennachricht = {
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home implements OnInit {
+export class Home {
 
   // Das macht die cleane Flasche für dein Logo im HTML verfügbar!
   readonly LogoFlasche = Wine;
@@ -40,55 +34,6 @@ export class Home implements OnInit {
   MilchIcon = 'glass-water';
   WeinIcon = 'wine';
   KaffeeIcon = 'coffee';
-
-  kundeIstEingeloggt = false;
-
-  nachrichten: Kundennachricht[] = [];
-
-  nachrichtenWerdenGeladen = false;
-
-  nachrichtenFehler = '';
-
-  constructor(private http: HttpClient) {}
-
-  ngOnInit(): void {
-    this.nachrichtenLaden();
-  }
-
-  nachrichtenLaden(): void {
-
-    const kundeId =
-      localStorage.getItem('kundeId');
-
-    this.kundeIstEingeloggt =
-      kundeId !== null;
-
-    if (!kundeId) {
-      return;
-    }
-
-    this.nachrichtenWerdenGeladen = true;
-
-    this.http.get<Kundennachricht[]>(
-      `http://localhost:3000/api/kunden/${kundeId}/nachrichten`
-    ).subscribe({
-
-      next: (daten) => {
-        this.nachrichten = daten;
-        this.nachrichtenWerdenGeladen = false;
-      },
-
-      error: (fehler) => {
-        console.error(fehler);
-
-        this.nachrichtenFehler =
-          'Nachrichten konnten nicht geladen werden.';
-
-        this.nachrichtenWerdenGeladen = false;
-      }
-
-    });
-  }
 
   @ViewChild('brandSlider')
   brandSlider!: ElementRef;

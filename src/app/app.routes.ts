@@ -19,6 +19,7 @@ import {Bestellungen } from './bestellungen/bestellungen';
 import {Konto} from './konto/konto';
 import { Profil } from './profil/profil';
 import { Suche } from './suche/suche';
+import { Mitteilungen } from './mitteilungen/mitteilungen';
 
 
 export const routes: Routes = [
@@ -47,4 +48,5 @@ export const routes: Routes = [
   { path: 'meine-bestellungen', component: Bestellungen },
   {path: 'konto', component: Konto},
   {path: 'profil', component: Profil},
+  {path: 'mitteilungen', component: Mitteilungen}
 ];
