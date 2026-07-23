@@ -2,7 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const bcrypt = require('bcryptjs'); // Für die sichere Passwort-Verschlüsselung
-
+const PDFDocument = require('pdfkit'); // Für die PDF-Erstellung
 const app = express();
 
 app.use(cors());

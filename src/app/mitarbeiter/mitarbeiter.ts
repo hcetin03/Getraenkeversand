@@ -128,7 +128,7 @@ get produkteDerKategorie(): Getraenk[] {
 
     rechnungDrucken(bestellung: Bestellung): void {
         window.open(
-            `http://localhost:3000/api/rechnung/pdf/${bestellung.id}`, '_blank'
+            `http://localhost:3000/api/rechnung/pdf/${bestellung}`, '_blank'
         );
     }
 
