@@ -6,12 +6,6 @@ import { HttpClient } from '@angular/common/http';
 import {LucideAngularModule, Wine} from 'lucide-angular';
 import { Header } from '../header/header';
 
-type Kundennachricht = {
-  id: number;
-  titel: string;
-  nachricht: string;
-  erstellt_am: string;
-};
 
 type Gutschein = {
   id: number;
@@ -54,59 +48,20 @@ export class Home implements OnInit {
 
   kundeIstEingeloggt = false;
 
-  nachrichten: Kundennachricht[] = [];
-
-  nachrichtenWerdenGeladen = false;
-
-  nachrichtenFehler = '';
-
   gutschein: Gutschein | null = null;
   gutscheinVorhanden = true;
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-  this.nachrichtenLaden();
   this.gutscheinLaden();
   }
 
-  nachrichtenLaden(): void {
-
-    const kundeId =
-      localStorage.getItem('kundeId');
-
-    this.kundeIstEingeloggt =
-      kundeId !== null;
-
-    if (!kundeId) {
-      return;
-    }
-
-    this.nachrichtenWerdenGeladen = true;
-
-    this.http.get<Kundennachricht[]>(
-      `http://localhost:3000/api/kunden/${kundeId}/nachrichten`
-    ).subscribe({
-
-      next: (daten) => {
-        this.nachrichten = daten;
-        this.nachrichtenWerdenGeladen = false;
-      },
-
-      error: (fehler) => {
-        console.error(fehler);
-
-        this.nachrichtenFehler =
-          'Nachrichten konnten nicht geladen werden.';
-
-        this.nachrichtenWerdenGeladen = false;
-      }
-
-    });
-  }
 
   gutscheinLaden(): void {
   const kundeId = localStorage.getItem('kundeId');
+
+  this.kundeIstEingeloggt = kundeId !== null;
 
   if (!kundeId) {
     return;

@@ -1,0 +1,215 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f5f7f6;
+}
+
+.mitteilungen-seite {
+  width: min(1100px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 45px 0 80px;
+}
+
+.mitteilungen-kopf {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 30px;
+}
+
+.mitteilungen-symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  background: #163f35;
+  font-size: 32px;
+  box-shadow: 0 12px 25px rgba(22, 63, 53, 0.18);
+}
+
+.mitteilungen-kategorie {
+  display: block;
+  margin-bottom: 5px;
+  color: #648078;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.mitteilungen-kopf h1 {
+  margin: 0;
+  color: #173c33;
+  font-size: 36px;
+}
+
+.mitteilungen-kopf p {
+  margin: 8px 0 0;
+  color: #66736f;
+  line-height: 1.6;
+}
+
+.mitteilungen-inhalt {
+  min-height: 300px;
+}
+
+.mitteilungen-status,
+.keine-mitteilungen {
+  padding: 60px 30px;
+  border: 1px solid #e0e8e5;
+  border-radius: 18px;
+  background: white;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(30, 62, 54, 0.07);
+}
+
+.mitteilungen-status span,
+.leerer-briefkasten {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 45px;
+}
+
+.mitteilungen-status p,
+.keine-mitteilungen p {
+  margin: 0;
+  color: #6b7773;
+}
+
+.fehler-status {
+  border-color: #efcccc;
+  background: #fffafa;
+  color: #9f3333;
+}
+
+.keine-mitteilungen h2 {
+  margin: 0 0 12px;
+  color: #193f35;
+}
+
+.zurueck-button {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 12px 22px;
+  border-radius: 10px;
+  background: #173f35;
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.zurueck-button:hover {
+  background: #24594b;
+}
+
+.mitteilungen-liste {
+  display: grid;
+  gap: 20px;
+}
+
+.mitteilung {
+  overflow: hidden;
+  border: 1px solid #dce7e3;
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 8px 25px rgba(30, 62, 54, 0.07);
+}
+
+.mitteilung-kopf {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 26px;
+  border-bottom: 1px solid #e7eeeb;
+  background: #f9fbfa;
+}
+
+.mitteilung-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: #e5f2ed;
+  font-size: 23px;
+}
+
+.mitteilung-titel {
+  flex: 1;
+}
+
+.neu-markierung {
+  display: inline-block;
+  margin-bottom: 4px;
+  color: #29745e;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.mitteilung-titel h2 {
+  margin: 0;
+  color: #183f35;
+  font-size: 20px;
+}
+
+.mitteilung time {
+  color: #78847f;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.mitteilung-text {
+  padding: 26px;
+  color: #44534e;
+  line-height: 1.7;
+}
+
+.mitteilung-text p {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.mitteilung-gruss {
+  margin-bottom: 0 !important;
+  color: #173f35;
+  font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  .mitteilungen-seite {
+    width: min(100% - 24px, 1100px);
+    padding-top: 28px;
+  }
+
+  .mitteilungen-kopf {
+    align-items: flex-start;
+  }
+
+  .mitteilungen-symbol {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    font-size: 26px;
+  }
+
+  .mitteilungen-kopf h1 {
+    font-size: 29px;
+  }
+
+  .mitteilung-kopf {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .mitteilung time {
+    width: 100%;
+    padding-left: 64px;
+  }
+}
