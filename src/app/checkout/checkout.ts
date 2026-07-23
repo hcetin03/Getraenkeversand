@@ -35,6 +35,9 @@ export class Checkout {
 
   versandkosten = signal(4.50);
 
+  gutscheinRabatt = signal<number>(0);
+  gutscheinCode = signal<string>('');
+
   gewaehlteZahlung = signal<string>('');
 
   zwischensumme = computed(() => {
@@ -46,8 +49,24 @@ export class Checkout {
   });
 
   gesamtsumme = computed(() => {
-    return this.zwischensumme() + this.pfandsumme() + this.versandkosten();
+    const summe = this.zwischensumme() + this.pfandsumme() + this.versandkosten() - this.gutscheinRabatt();
+    return summe > 0 ? summe : 0;
   });
+
+  constructor() {
+    const vorgemerkterCode = localStorage.getItem('aktiverGutscheinCode');
+    const vorgemerkterBetrag = localStorage.getItem('aktiverGutscheinBetrag');
+    const vorgemerkterMindestwert = localStorage.getItem('aktiverGutscheinMindestwert');
+
+    if (vorgemerkterCode && vorgemerkterBetrag) {
+      const mindestwert = Number(vorgemerkterMindestwert || 0);
+
+      if (this.zwischensumme() >= mindestwert) {
+        this.gutscheinCode.set(vorgemerkterCode);
+        this.gutscheinRabatt.set(Number(vorgemerkterBetrag));
+      }
+    }
+  }
 
   adresseUmschalten() {
     this.gespeicherteAdresseNutzen.set(!this.gespeicherteAdresseNutzen());
@@ -88,7 +107,7 @@ export class Checkout {
 
     if (!this.gewaehlteZahlung()) {
       alert('Bitte wähle eine Zahlungsmethode aus.');
-    return;
+      return;
     }
 
     if (
@@ -124,6 +143,23 @@ export class Checkout {
     this.http.post('http://localhost:3000/api/bestellung', bestellDaten)
       .subscribe({
         next: (response: any) => {
+
+          // Falls ein Gutschein aktiv war: jetzt einlösen
+          if (this.gutscheinCode()) {
+            this.http.post('http://localhost:3000/api/gutschein/einloesen', {
+              code: this.gutscheinCode(),
+              kundenId: Number(kundeId),
+              bestellungId: response.bestellung_id
+            }).subscribe({
+              next: () => {
+                localStorage.removeItem('aktiverGutscheinCode');
+                localStorage.removeItem('aktiverGutscheinBetrag');
+                localStorage.removeItem('aktiverGutscheinMindestwert');
+              },
+              error: (err) => console.error('Fehler beim Einlösen des Gutscheins:', err)
+            });
+          }
+
           this.cartService.cartItems.set([]);
 
           this.router.navigate(['/bestellbestaetigung'], {

@@ -25,32 +25,32 @@ db.connect((err) => {
         console.log('Fehler bei der Verbindung:', err);
         return;
     }
-        console.log('Mit MySQL verbunden');
+    console.log('Mit MySQL verbunden');
 
-        //Nachrichtentabelle erstellen
-        const sql = `
-            CREATE TABLE IF NOT EXISTS kundennachricht (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                kunden_id INT NOT NULL,
-                titel VARCHAR(150) NOT NULL,
-                nachricht TEXT NOT NULL,
-                erstellt_am DATETIME DEFAULT CURRENT_TIMESTAMP
-            )
-        `;
+    //Nachrichtentabelle erstellen
+    const sql = `
+        CREATE TABLE IF NOT EXISTS kundennachricht (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            kunden_id INT NOT NULL,
+            titel VARCHAR(150) NOT NULL,
+            nachricht TEXT NOT NULL,
+            erstellt_am DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    `;
 
-        db.query(sql, (tableErr) => {
-            if (tableErr) {
-                console.error(
-                    'Fehler beim Erstellen der Nachrichtentabelle:',
-                    tableErr
-                );
-            } else {
-                console.log('Nachrichtentabelle ist bereit');
-            }
-        });
+    db.query(sql, (tableErr) => {
+        if (tableErr) {
+            console.error(
+                'Fehler beim Erstellen der Nachrichtentabelle:',
+                tableErr
+            );
+        } else {
+            console.log('Nachrichtentabelle ist bereit');
+        }
+    });
 
-          // Mitarbeitertabelle für die Mitarbeiterverwaltung erstellen
-        const sqlMitarbeiterTabelle = `
+    // Mitarbeitertabelle für die Mitarbeiterverwaltung erstellen
+    const sqlMitarbeiterTabelle = `
         CREATE TABLE IF NOT EXISTS mitarbeiter_verwaltung (
         id INT AUTO_INCREMENT PRIMARY KEY,
         vorname VARCHAR(100) NOT NULL,
@@ -63,16 +63,16 @@ db.connect((err) => {
          )
     `;
 
-db.query(sqlMitarbeiterTabelle, (mitarbeiterTableErr) => {
-    if (mitarbeiterTableErr) {
-        console.error(
-            'Fehler beim Erstellen der Mitarbeitertabelle:',
-            mitarbeiterTableErr
-        );
-    } else {
-        console.log('Mitarbeitertabelle ist bereit');
-    }
-});
+    db.query(sqlMitarbeiterTabelle, (mitarbeiterTableErr) => {
+        if (mitarbeiterTableErr) {
+            console.error(
+                'Fehler beim Erstellen der Mitarbeitertabelle:',
+                mitarbeiterTableErr
+            );
+        } else {
+            console.log('Mitarbeitertabelle ist bereit');
+        }
+    });
 });
 
 
@@ -172,7 +172,7 @@ app.put('/api/produkt/:id/lagerbestand', (req, res) => {
 // 1. REGISTRIEREN (Jetzt mit PLZ und Wohnort)
 app.post('/api/register', (req, res) => {
     // Alle Felder aus dem Angular-Frontend entgegennehmen
-    const { vorname, nachname, email, adresse, plz, wohnort, telefon, password } = req.body; 
+    const { vorname, nachname, email, adresse, plz, wohnort, telefon, password } = req.body;
 
     if (!email || !password) {
         return res.status(400).json({ message: 'Bitte E-Mail und Passwort angeben.' });
@@ -190,10 +190,10 @@ app.post('/api/register', (req, res) => {
             INSERT INTO kunde (vorname, nachname, email, adresse, plz, wohnort, telefon, password) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         `;
-        
+
         db.query(
-            sqlRegister, 
-            [vorname, nachname, email, adresse, plz, wohnort, telefon, hash], 
+            sqlRegister,
+            [vorname, nachname, email, adresse, plz, wohnort, telefon, hash],
             (dbErr, result) => {
                 if (dbErr) {
                     console.log('Datenbank-Fehler:', dbErr);
@@ -241,16 +241,120 @@ app.post('/api/login', (req, res) => {
 
             res.json({
                 message: 'Login erfolgreich!',
-               user: {
-    id: user.id,
-    vorname: user.vorname,
-    nachname: user.nachname,
-    email: user.email,
-    adresse: user.adresse,
-    plz: user.plz,
-    wohnort: user.wohnort,
-    telefon: user.telefon
-}
+                user: {
+                    id: user.id,
+                    vorname: user.vorname,
+                    nachname: user.nachname,
+                    email: user.email,
+                    adresse: user.adresse,
+                    plz: user.plz,
+                    wohnort: user.wohnort,
+                    telefon: user.telefon
+                }
+            });
+        });
+    });
+});
+
+// Gutschein laden (Home-Seite)
+
+app.get('/api/gutschein/:kundeId', (req, res) => {
+    const kundeId = Number(req.params.kundeId);
+
+    const sql = `
+        SELECT
+            g.id,
+            g.code,
+            g.beschreibung,
+            g.rabatt_betrag,
+            g.max_nutzungen_pro_kunde,
+            g.gueltig_bis,
+            g.mindestbestellwert,
+            COALESCE(COUNT(gn.id), 0) AS bereits_genutzt
+        FROM gutschein g
+        LEFT JOIN gutschein_nutzung gn
+            ON gn.gutschein_id = g.id AND gn.kunden_id = ?
+        WHERE g.aktiv = 1 AND g.gueltig_bis >= CURDATE()
+        GROUP BY g.id, g.code, g.beschreibung, g.rabatt_betrag, g.max_nutzungen_pro_kunde, g.gueltig_bis, g.mindestbestellwert
+        LIMIT 1
+    `;
+
+    db.query(sql, [kundeId], (err, results) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json(err);
+        }
+        res.json(results[0] || null);
+    });
+});
+
+// Gutschein einlösen
+
+app.post('/api/gutschein/einloesen', (req, res) => {
+    const { code, kundenId, bestellungId } = req.body;
+
+    if (!code || !kundenId || !bestellungId) {
+        return res.status(400).json({
+            message: 'Code, Kunden-ID und Bestellungs-ID sind erforderlich.'
+        });
+    }
+
+    // gültigen & aktiven Gutschein suchen
+    const sqlGutscheinFinden = `
+        SELECT * FROM gutschein
+        WHERE code = ? AND aktiv = 1 AND gueltig_bis >= CURDATE()
+    `;
+
+    db.query(sqlGutscheinFinden, [code], (err, gutscheinResults) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json(err);
+        }
+
+        if (gutscheinResults.length === 0) {
+            return res.status(404).json({
+                message: 'Ungültiger oder abgelaufener Gutscheincode.'
+            });
+        }
+
+        const gutschein = gutscheinResults[0];
+
+        // prüfen, wie oft dieser Kunde den Gutschein schon eingelöst hat
+        const sqlNutzungPruefen = `
+            SELECT COUNT(*) AS anzahl FROM gutschein_nutzung
+            WHERE gutschein_id = ? AND kunden_id = ?
+        `;
+
+        db.query(sqlNutzungPruefen, [gutschein.id, kundenId], (err, nutzungResults) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json(err);
+            }
+
+            const bereitsGenutzt = nutzungResults[0].anzahl;
+
+            if (bereitsGenutzt >= gutschein.max_nutzungen_pro_kunde) {
+                return res.status(400).json({
+                    message: 'Du hast diesen Gutschein bereits maximal oft genutzt.'
+                });
+            }
+
+            // Nutzungen des Kunden eintragen
+            const sqlNutzungEintragen = `
+                INSERT INTO gutschein_nutzung (gutschein_id, kunden_id, bestellung_id)
+                VALUES (?, ?, ?)
+            `;
+
+            db.query(sqlNutzungEintragen, [gutschein.id, kundenId, bestellungId], (err) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).json(err);
+                }
+
+                res.json({
+                    message: 'Gutschein erfolgreich eingelöst.',
+                    rabatt_betrag: gutschein.rabatt_betrag
+                });
             });
         });
     });
@@ -393,7 +497,7 @@ app.post('/api/bestellung', (req, res) => {
 // ALLE BESTELLUNGEN FÜR MITARBEITERPORTAL LADEN
 // ======================================================
 
-app.get('/api/bestellungen', (req,res) => {
+app.get('/api/bestellungen', (req, res) => {
     const sql = `
     SELECT 
             b.id,
@@ -410,7 +514,7 @@ app.get('/api/bestellungen', (req,res) => {
         GROUP BY b.id, k.vorname, k.nachname, b.datum, b.gesamtpreis, b.status
         ORDER BY b.datum DESC
     `;
-    
+
     db.query(sql, (err, results) => {
         if (err) {
             console.error('Fehler beim Laden der Bestellungen:', err);
@@ -461,18 +565,18 @@ app.get('/api/rechnung/pdf/:bestellungId', (req, res) => {
 
         // Header: Moderner Firmenname und Absender-Info
         doc.fillColor('#2c3e50')
-           .fontSize(26)
-           .text('DEIN GETRÄNKESHOP', { bold: true });
-        
+            .fontSize(26)
+            .text('DEIN GETRÄNKESHOP', { bold: true });
+
         doc.fontSize(10)
-           .fillColor('#7f8c8d')
-           .text('Musterstraße 123, 28195 Bremen | support@getraenkeshop.de', { align: 'left' });
-        
+            .fillColor('#7f8c8d')
+            .text('Musterstraße 123, 28195 Bremen | support@getraenkeshop.de', { align: 'left' });
+
         doc.moveDown(2);
 
         // Titel "RECHNUNG"
         doc.fillColor('#2c3e50').fontSize(20).text('RECHNUNG', { bold: true });
-        
+
         // Elegante Trennlinie unter dem Header
         doc.strokeColor('#bdc3c7').lineWidth(1).moveTo(50, 135).lineTo(550, 135).stroke();
         doc.moveDown(1.5);
@@ -482,13 +586,13 @@ app.get('/api/rechnung/pdf/:bestellungId', (req, res) => {
         doc.text(`Rechnungsnummer: `, { bold: true, continued: true }).text(ersteZeile.rechnungs_nummer, { bold: false });
         doc.text(`Rechnungsdatum: `, { bold: true, continued: true }).text(ersteZeile.rechnungs_datum, { bold: false });
         doc.text(`Bestellnummer: `, { bold: true, continued: true }).text(`#${ersteZeile.bestellung_id}`, { bold: false });
-        
+
         doc.moveDown(2);
 
         // Strukturierte Tabelle: Spaltenüberschriften definieren
         const tableTop = 220;
         doc.fontSize(11).fillColor('#2c3e50');
-        
+
         doc.text('Pos.', 50, tableTop, { bold: true });
         doc.text('Artikelbeschreibung', 100, tableTop, { bold: true });
         doc.text('Menge', 320, tableTop, { bold: true, width: 50, align: 'right' });
@@ -504,7 +608,7 @@ app.get('/api/rechnung/pdf/:bestellungId', (req, res) => {
 
         results.forEach((item, index) => {
             const zeilenBetrag = (item.menge * item.einzelpreis).toFixed(2);
-            
+
             doc.text(`${index + 1}`, 50, currentY);
             doc.text(item.produkt_name, 100, currentY);
             doc.text(`${item.menge}`, 320, currentY, { width: 50, align: 'right' });
@@ -513,7 +617,7 @@ app.get('/api/rechnung/pdf/:bestellungId', (req, res) => {
 
             // Dezente Trennlinie zwischen den Posten
             doc.strokeColor('#ecf0f1').lineWidth(1).moveTo(50, currentY + 15).lineTo(550, currentY + 15).stroke();
-            
+
             currentY += 25;
         });
 
@@ -524,14 +628,14 @@ app.get('/api/rechnung/pdf/:bestellungId', (req, res) => {
         currentY += 10;
 
         doc.fontSize(14)
-           .fillColor('#2c3e50')
-           .text(`Gesamtsumme:`, 320, currentY, { bold: true, width: 150, align: 'right' })
-           .text(`${Number(ersteZeile.gesamtbetrag).toFixed(2)} €`, 480, currentY, { bold: true, width: 70, align: 'right' });
+            .fillColor('#2c3e50')
+            .text(`Gesamtsumme:`, 320, currentY, { bold: true, width: 150, align: 'right' })
+            .text(`${Number(ersteZeile.gesamtbetrag).toFixed(2)} €`, 480, currentY, { bold: true, width: 70, align: 'right' });
 
         // Footer-Hinweis ganz unten platzieren
         doc.fontSize(9)
-           .fillColor('#95a5a6')
-           .text('Vielen Dank für Ihren Einkauf! Bitte überweisen Sie den Betrag innerhalb von 14 Tagen.', 50, 700, { align: 'center' });
+            .fillColor('#95a5a6')
+            .text('Vielen Dank für Ihren Einkauf! Bitte überweisen Sie den Betrag innerhalb von 14 Tagen.', 50, 700, { align: 'center' });
 
         doc.end();
     });
@@ -747,8 +851,8 @@ app.get('/api/mitarbeiter', (req, res) => {
             return res.status(500).json({
                 message:
                     'Die Mitarbeiter konnten nicht geladen werden.',
-                    fehler: err.sqlMessage,
-                    code: err.code
+                fehler: err.sqlMessage,
+                code: err.code
             });
         }
 

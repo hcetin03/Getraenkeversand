@@ -1,5 +1,5 @@
 <div class="cart-container">
-  
+
   <div *ngIf="items().length === 0" class="empty-cart-view">
     <button class="back-link" (click)="goBack()">
       ← Weiter einkaufen
@@ -7,16 +7,16 @@
 
     <h1>Warenkorb</h1>
     <p class="subtitle">Noch etwas vergessen? Suche nach Produkten und lege sie in den Warenkorb.</p>
-    
+
     <div class="search-bar-container">
-      <input type="text" placeholder="Suche" class="shop-search-input"
-         (keydown.enter)="aufEnterDrueckenSuche($event)">
+      <input type="text" placeholder="Suche" class="shop-search-input" (keydown.enter)="aufEnterDrueckenSuche($event)">
     </div>
 
     <div class="empty-status-card">
       <h2>Dein Warenkorb ist leer</h2>
-      <p>Du brauchst gerade nichts? Super – dann hast du Zeit für etwas anderes. Wir sind bereit, wenn dein nächster Einkauf ansteht.</p>
-      
+      <p>Du brauchst gerade nichts? Super – dann hast du Zeit für etwas anderes. Wir sind bereit, wenn dein nächster
+        Einkauf ansteht.</p>
+
       <button class="back-to-shop-btn" routerLink="/wasser">
         ← Zum Onlineshop
       </button>
@@ -29,9 +29,9 @@
     </button>
 
     <h1>Dein Warenkorb 🛒</h1>
-    
+
     <div class="cart-content">
-      
+
       <div class="cart-items">
         <div class="cart-labels">
           <span class="label-product">Produkt</span>
@@ -43,7 +43,7 @@
         <div class="cart-item" *ngFor="let item of items()">
           <div class="item-main">
             <img [src]="item.bild" [alt]="item.name" class="item-img">
-            
+
             <div class="item-details">
               <h3>{{ item.name }}</h3>
               <p class="item-type">{{ item.typ | titlecase }}</p>
@@ -54,7 +54,8 @@
             <button class="delete-btn" (click)="onRemove(item.name)" title="Artikel entfernen">
               🗑️
             </button>
-            <input type="number" [value]="item.menge" min="1" (input)="onQuantityChange(item.name, $event)" class="qty-input">
+            <input type="number" [value]="item.menge" min="1" (input)="onQuantityChange(item.name, $event)"
+              class="qty-input">
           </div>
 
           <div class="price-single">
@@ -69,30 +70,44 @@
         </div>
       </div>
 
-        <div class="cart-summary">
-          <h2>Zusammenfassung</h2>
-          <div class="summary-row">
-            <span>Zwischensumme:</span>
-            <span>{{ zwischensumme() | number:'1.2-2' }} €</span>
-          </div>
-          <div class="summary-row">
-            <span>zzgl. Pfand:</span>
-            <span>{{ pfandsumme() | number:'1.2-2' }} €</span>
-          </div>
-          <div class="summary-row">
-            <span>Lieferkosten:</span>
-            <span>{{ lieferkosten() | number:'1.2-2' }} €</span>
-          </div>
-          <hr>
+      <div class="cart-summary">
+        <h2>Zusammenfassung</h2>
+        <div class="summary-row">
+          <span>Zwischensumme:</span>
+          <span>{{ zwischensumme() | number:'1.2-2' }} €</span>
+        </div>
+        <div class="summary-row">
+          <span>zzgl. Pfand:</span>
+          <span>{{ pfandsumme() | number:'1.2-2' }} €</span>
+        </div>
+        <div class="summary-row">
+          <span>Lieferkosten:</span>
+          <span>{{ lieferkosten() | number:'1.2-2' }} €</span>
+        </div>
+
+        <div class="summary-row gutschein-zeile" *ngIf="gutscheinRabatt() > 0 && mindestbestellwertErreicht()">
+          <span>Gutschein ({{ gutscheinCode() }}):</span>
+          <span>
+            - {{ gutscheinRabatt() | number:'1.2-2' }} €
+            <button class="gutschein-entfernen-btn" (click)="gutscheinEntfernen()"
+              title="Gutschein entfernen">✕</button>
+          </span>
+        </div>
+
+        <div class="gutschein-hinweis" *ngIf="gutscheinRabatt() > 0 && !mindestbestellwertErreicht()">
+          <span>Gutschein ({{ gutscheinCode() }}) noch nicht anwendbar. Mindestbestellwert von 20,00 € noch nicht erreicht.</span>
+        </div>
+
+        <hr>
 
         <div class="summary-row total">
           <span>Gesamtsumme:</span>
           <span>{{ gesamtsumme() | number:'1.2-2' }} €</span>
         </div>
-<button class="checkout-btn" (click)="onCheckout()">
-  Jetzt bestellen
-</button>
-        
+        <button class="checkout-btn" (click)="onCheckout()">
+          Jetzt bestellen
+        </button>
+
       </div>
 
     </div>

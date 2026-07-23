@@ -91,32 +91,62 @@
 
 }
 
-<section class="voucher-outer-container">
+<section class="voucher-outer-container" *ngIf="gutschein">
+  <div class="voucher-section">
+    <div class="voucher-badge">
+      <div class="badge-circle">
+        <span class="amount">{{ gutschein.rabatt_betrag | number:'1.0-0' }}€</span>
+      </div>
+    </div>
+
+    <div class="voucher-details">
+      <div class="voucher-header-row">
+        <span class="tag-pink">Gutschein</span>
+        <span class="expiry-date">📅 gültig bis {{ gutschein.gueltig_bis | date:'dd.MM.yyyy' }}</span>
+      </div>
+      <h2 class="voucher-title">
+        Code: <span class="code-highlight">{{ gutschein.code }}</span> | {{ gutschein.beschreibung }}
+      </h2>
+      <div class="progress-container">
+        <span class="progress-text">Eingelöst: {{ gutschein.bereits_genutzt }} von {{ gutschein.max_nutzungen_pro_kunde }}</span>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill"
+               [style.width.%]="(gutschein.bereits_genutzt / gutschein.max_nutzungen_pro_kunde) * 100"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="voucher-action">
+      <button class="btn-redeem"
+              (click)="gutscheinEinloesen()"
+              [disabled]="gutschein.bereits_genutzt >= gutschein.max_nutzungen_pro_kunde">
+        {{ gutschein.bereits_genutzt >= gutschein.max_nutzungen_pro_kunde ? 'Code bereits eingelöst' : 'Jetzt Code einlösen' }}
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="voucher-outer-container" *ngIf="!kundeIstEingeloggt && gutscheinVorhanden">
   <div class="voucher-section">
     <div class="voucher-badge">
       <div class="badge-circle">
         <span class="amount">10€</span>
       </div>
     </div>
-    
+
     <div class="voucher-details">
       <div class="voucher-header-row">
         <span class="tag-pink">Gutschein</span>
-        <span class="expiry-date">📅 gültig bis 31.07.2026</span>
       </div>
       <h2 class="voucher-title">
-        Code: <span class="code-highlight">GETRAENKE020</span> | Sicher dir je 10 € auf deine ersten 3 Bestellungen*
+        Jetzt anmelden und 10 € Rabatt auf deine ersten 3 Bestellungen sichern!
       </h2>
-      <div class="progress-container">
-        <span class="progress-text">Eingelöst: 0 von 3</span>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill"></div>
-        </div>
-      </div>
     </div>
 
     <div class="voucher-action">
-      <button class="btn-redeem">Jetzt Code einlösen</button>
+      <button class="btn-redeem" routerLink="/login">
+        Jetzt anmelden
+      </button>
     </div>
   </div>
 </section>

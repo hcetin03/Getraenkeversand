@@ -260,6 +260,38 @@ hr {
   margin-bottom: 25px;
 }
 
+.gutschein-zeile {
+  color: #2c8c4c;
+  font-weight: 600;
+}
+
+.gutschein-entfernen-btn {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+.gutschein-entfernen-btn:hover {
+  color: #c0392b;
+}
+
+.gutschein-hinweis {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: #fdeaea;
+  color: #c0392b;
+  border: 1px solid #f5c6c6;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 8px 0;
+}
+
 /* Kassen-Buttons */
 .checkout-btn {
   width: 100%;
