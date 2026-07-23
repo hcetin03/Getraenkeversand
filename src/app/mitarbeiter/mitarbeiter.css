@@ -312,3 +312,251 @@ button:hover{
 .lager-actions button {
     flex: 1;
 }
+
+/* =====================================================
+   MITARBEITER-LOGIN
+===================================================== */
+
+.mitarbeiter-login-bereich {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 570px;
+    padding: 45px 20px 70px;
+}
+
+.mitarbeiter-login-card {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 480px;
+    padding: 38px 42px;
+    border: 1px solid #dce9e2;
+    border-radius: 26px;
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #f1faf6
+    );
+    box-shadow:
+        0 18px 45px rgba(25, 78, 53, 0.14);
+}
+
+.mitarbeiter-login-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 22px;
+    border-radius: 50%;
+    background: linear-gradient(
+        135deg,
+        #4d9ac4,
+        #319660
+    );
+    color: white;
+    font-size: 32px;
+    box-shadow:
+        0 8px 20px rgba(49, 150, 96, 0.24);
+}
+
+.mitarbeiter-login-kopf {
+    text-align: center;
+}
+
+.mitarbeiter-login-label {
+    display: inline-block;
+    margin-bottom: 9px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: #e6f5ed;
+    color: #27794e;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.mitarbeiter-login-kopf h2 {
+    margin: 5px 0 12px;
+    color: #2f3d35;
+    font-size: 29px;
+}
+
+.mitarbeiter-login-kopf p {
+    margin: 0;
+    color: #68736d;
+    line-height: 1.55;
+}
+
+.mitarbeiter-login-formular {
+    margin-top: 30px;
+}
+
+.mitarbeiter-login-formular > label {
+    display: block;
+    margin-bottom: 8px;
+    color: #3f4d45;
+    font-weight: 700;
+}
+
+.mitarbeiter-passwort-feld {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 15px;
+    border: 1px solid #cbd9d1;
+    border-radius: 13px;
+    background: white;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.mitarbeiter-passwort-feld:focus-within {
+    border-color: #319660;
+    box-shadow:
+        0 0 0 4px rgba(49, 150, 96, 0.12);
+}
+
+.passwort-symbol {
+    font-size: 17px;
+}
+
+.mitarbeiter-passwort-feld input {
+    width: 100%;
+    padding: 14px 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font: inherit;
+}
+
+.mitarbeiter-login-button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px 18px;
+    border: none;
+    border-radius: 13px;
+    background: linear-gradient(
+        135deg,
+        #4d9ac4,
+        #319660
+    );
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow:
+        0 8px 18px rgba(49, 150, 96, 0.22);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.mitarbeiter-login-button:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 11px 23px rgba(49, 150, 96, 0.28);
+}
+
+.mitarbeiter-login-button:active {
+    transform: translateY(0);
+}
+
+.mitarbeiter-login-fehler {
+    margin-top: 14px;
+    padding: 11px 13px;
+    border: 1px solid #efc4c9;
+    border-radius: 10px;
+    background: #fff0f2;
+    color: #a82434;
+    font-size: 14px;
+}
+
+.mitarbeiter-login-hinweis {
+    margin-top: 25px;
+    padding-top: 18px;
+    border-top: 1px solid #dce5e0;
+    color: #7a857f;
+    text-align: center;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+
+    .mitarbeiter-login-bereich {
+        min-height: auto;
+        padding: 30px 15px 50px;
+    }
+
+    .mitarbeiter-login-card {
+        padding: 30px 22px;
+        border-radius: 20px;
+    }
+
+    .mitarbeiter-login-kopf h2 {
+        font-size: 25px;
+    }
+}
+
+/* =====================================================
+   LIEFERSTATUS BEARBEITEN
+===================================================== */
+
+.status-bearbeiten {
+  display: flex;
+  min-width: 180px;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.status-bearbeiten label {
+  color: #66736c;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status-bearbeiten select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccd9d2;
+  border-radius: 10px;
+  background: white;
+  font: inherit;
+  cursor: pointer;
+}
+
+.status-bearbeiten select:focus {
+  border-color: #319660;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(49, 150, 96, 0.12);
+}
+
+.status-speichern-button {
+  padding: 9px 12px;
+  border: none;
+  border-radius: 10px;
+  background: #319660;
+  color: white;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.status-speichern-button:hover:not(:disabled) {
+  background: #277c50;
+}
+
+.status-speichern-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+@media (max-width: 900px) {
+  .status-bearbeiten {
+    width: 100%;
+  }
+}

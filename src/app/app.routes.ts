@@ -15,6 +15,11 @@ import { Angebote } from './angebote/angebote';
 import { Checkout } from './checkout/checkout';
 import { Bestellbestaetigung } from './bestellbestaetigung/bestellbestaetigung';
 import { Lieferstatus } from './lieferstatus/lieferstatus';
+import {Bestellungen } from './bestellungen/bestellungen';
+import {Konto} from './konto/konto';
+import { Profil } from './profil/profil';
+import { Suche } from './suche/suche';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -32,10 +37,14 @@ export const routes: Routes = [
   { path: 'jubilaeum', component: Jubilaeum },
   { path: 'angebote', component: Angebote },
 
+  { path: 'suche', component: Suche },
+
   { path: 'checkout', component: Checkout },
   { path: 'bestellbestaetigung', component: Bestellbestaetigung },
-  
 
   { path: 'lieferstatus', component: Lieferstatus },
 
+  { path: 'meine-bestellungen', component: Bestellungen },
+  {path: 'konto', component: Konto},
+  {path: 'profil', component: Profil},
 ];

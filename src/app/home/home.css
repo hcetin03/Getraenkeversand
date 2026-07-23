@@ -938,6 +938,131 @@
   justify-content: center;
 }
 
+/* =========================================================
+   KUNDENNACHRICHTEN AUF DER HOME-SEITE
+========================================================= */
+
+.kunden-nachrichten-bereich {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 24px 5% 0;
+}
+
+.kunden-nachrichten-box {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 26px 30px;
+  border: 1px solid #dce9e2;
+  border-left: 7px solid #319660;
+  border-radius: 20px;
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #f0faf5
+  );
+  box-shadow: 0 8px 24px
+    rgba(0, 0, 0, 0.08);
+}
+
+.nachrichten-ueberschrift {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.nachrichten-ueberschrift > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nachrichten-ueberschrift h2 {
+  margin: 0;
+  color: #303b35;
+  font-size: 25px;
+}
+
+.nachrichten-symbol {
+  font-size: 28px;
+}
+
+.nachrichten-anzahl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 7px;
+  border-radius: 50px;
+  background: #319660;
+  color: white;
+  font-weight: bold;
+}
+
+.nachrichten-liste {
+  display: grid;
+  gap: 16px;
+}
+
+.kunden-nachricht {
+  padding: 20px 22px;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0 4px 14px
+    rgba(0, 0, 0, 0.06);
+}
+
+.nachricht-kopf {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e1e8e4;
+}
+
+.nachricht-kopf strong {
+  color: #27794e;
+  font-size: 18px;
+}
+
+.nachricht-kopf span {
+  color: #758078;
+  font-size: 13px;
+}
+
+.kunden-nachricht p {
+  line-height: 1.55;
+}
+
+.nachricht-gruss {
+  margin-bottom: 0;
+  font-weight: bold;
+  color: #3d4942;
+}
+
+.nachrichten-hinweis {
+  margin: 0;
+  color: #657069;
+}
+
+.nachrichten-fehler {
+  margin: 0;
+  color: #b42332;
+}
+
+@media (max-width: 650px) {
+
+  .kunden-nachrichten-box {
+    padding: 22px 18px;
+  }
+
+  .nachricht-kopf {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+}
 
 /* =========================================================
    RESPONSIVE

@@ -212,6 +212,12 @@ h1 {
   color: #000;
 }
 
+.pfand-hinweis {
+  display: block;
+  font-size: 0.8em;
+  color: #7f8c8d;
+}
+
 
 /* ==========================================================================
    4. RECHTE SEITE: KASSE / ZUSAMMENFASSUNG

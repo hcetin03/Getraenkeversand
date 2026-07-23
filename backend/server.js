@@ -2,7 +2,8 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const bcrypt = require('bcryptjs'); // Für die sichere Passwort-Verschlüsselung
-const PDFDocument = require('pdfkit'); // Für die PDF-Erstellung
+const PDFDocument = require('pdfkit');
+
 const app = express();
 
 app.use(cors());
@@ -22,9 +23,56 @@ const db = mysql.createConnection({
 db.connect((err) => {
     if (err) {
         console.log('Fehler bei der Verbindung:', err);
-    } else {
-        console.log('Mit MySQL verbunden');
+        return;
     }
+        console.log('Mit MySQL verbunden');
+
+        //Nachrichtentabelle erstellen
+        const sql = `
+            CREATE TABLE IF NOT EXISTS kundennachricht (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                kunden_id INT NOT NULL,
+                titel VARCHAR(150) NOT NULL,
+                nachricht TEXT NOT NULL,
+                erstellt_am DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        `;
+
+        db.query(sql, (tableErr) => {
+            if (tableErr) {
+                console.error(
+                    'Fehler beim Erstellen der Nachrichtentabelle:',
+                    tableErr
+                );
+            } else {
+                console.log('Nachrichtentabelle ist bereit');
+            }
+        });
+
+          // Mitarbeitertabelle für die Mitarbeiterverwaltung erstellen
+        const sqlMitarbeiterTabelle = `
+        CREATE TABLE IF NOT EXISTS mitarbeiter_verwaltung (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        vorname VARCHAR(100) NOT NULL,
+        nachname VARCHAR(100) NOT NULL,
+        email VARCHAR(150) NOT NULL UNIQUE,
+        passwort VARCHAR(255) NOT NULL,
+        rolle VARCHAR(50) NOT NULL DEFAULT 'Mitarbeiter',
+        aktiv TINYINT(1) NOT NULL DEFAULT 1,
+        erstellt_am DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+         )
+    `;
+
+db.query(sqlMitarbeiterTabelle, (mitarbeiterTableErr) => {
+    if (mitarbeiterTableErr) {
+        console.error(
+            'Fehler beim Erstellen der Mitarbeitertabelle:',
+            mitarbeiterTableErr
+        );
+    } else {
+        console.log('Mitarbeitertabelle ist bereit');
+    }
+});
 });
 
 
@@ -59,6 +107,34 @@ app.get('/api/produkt', (req, res) => {
             }
         });
     }
+});
+
+// Produktsuche
+app.get('/api/produkt/suche', (req, res) => {
+    const suchbegriff = req.query.q;
+    const limit = req.query.limit ? Number(req.query.limit) : 5;
+
+    if (!suchbegriff || suchbegriff.trim() === '') {
+        return res.json([]);
+    }
+
+    const sql = `
+        SELECT * FROM produkt
+        WHERE name LIKE ?
+           OR hauptkategorie LIKE ?
+           OR unterkategorie LIKE ?
+        LIMIT ?
+    `;
+
+    const suchwert = `%${suchbegriff}%`;
+
+    db.query(sql, [suchwert, suchwert, suchwert, limit], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json(err);
+        }
+        res.json(result);
+    });
 });
 
 
@@ -269,7 +345,7 @@ app.post('/api/bestellung', (req, res) => {
                 bestellungId,
                 produkt.getraenk.id,
                 produkt.menge,
-                produkt.getraenk.preis
+                produkt.getraenk.preis + produkt.getraenk.pfand
             ]);
 
             const sqlPositionen = `
@@ -326,12 +402,12 @@ app.get('/api/bestellungen', (req,res) => {
             GROUP_CONCAT(CONCAT(p.name, ' (', bp.menge, 'x)') SEPARATOR ', ') AS artikel,
             SUM(bp.menge) AS menge,
             b.gesamtpreis,
-            'Eingegangen' AS status
+            COALESCE(NULLIF(b.status, ''), 'Eingegangen') AS status
         FROM bestellung b
         LEFT JOIN kunde k ON b.kunden_id = k.id
         LEFT JOIN bestellposition bp ON bp.bestellung_id = b.id
         LEFT JOIN produkt p ON bp.produkt_id = p.id
-        GROUP BY b.id, k.vorname, k.nachname, b.datum, b.gesamtpreis
+        GROUP BY b.id, k.vorname, k.nachname, b.datum, b.gesamtpreis, b.status
         ORDER BY b.datum DESC
     `;
     
@@ -461,6 +537,822 @@ app.get('/api/rechnung/pdf/:bestellungId', (req, res) => {
     });
 });
 
+// ======================================================
+// KUNDEN UND STAMMKUNDEN LADEN
+// ======================================================
+
+app.get('/api/kunden', (req, res) => {
+    const sql = `
+        SELECT
+            k.id,
+            k.vorname,
+            k.nachname,
+            k.email,
+            COUNT(b.id) AS anzahlBestellungen,
+            CASE
+                WHEN COUNT(b.id) >= 3 THEN 1
+                ELSE 0
+            END AS stammkunde
+        FROM kunde k
+        LEFT JOIN bestellung b ON b.kunden_id = k.id
+        GROUP BY
+            k.id,
+            k.vorname,
+            k.nachname,
+            k.email
+        ORDER BY k.nachname, k.vorname
+    `;
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Fehler beim Laden der Kunden:', err);
+
+            return res.status(500).json({
+                message: 'Kunden konnten nicht geladen werden.'
+            });
+        }
+
+        const kunden = results.map(kunde => ({
+            ...kunde,
+            anzahlBestellungen: Number(kunde.anzahlBestellungen),
+            stammkunde: Number(kunde.stammkunde) === 1
+        }));
+
+        res.json(kunden);
+    });
+});
+
+// ======================================================
+// NEWSLETTER ALS INTERNE KUNDENNACHRICHT
+// ======================================================
+
+app.post('/api/newsletter/senden', (req, res) => {
+    const { titel, nachricht } = req.body;
+
+    if (!titel || !titel.trim() || !nachricht || !nachricht.trim()) {
+        return res.status(400).json({
+            message: 'Titel und Nachricht fehlen.'
+        });
+    }
+
+    // Zuerst alle vorherigen Newsletter löschen
+    const deleteSql = `
+        DELETE FROM kundennachricht
+    `;
+
+    db.query(deleteSql, (deleteErr) => {
+        if (deleteErr) {
+            console.error(
+                'Fehler beim Löschen der alten Nachricht:',
+                deleteErr
+            );
+
+            return res.status(500).json({
+                message: 'Die alte Nachricht konnte nicht gelöscht werden.'
+            });
+        }
+
+        // Danach die neue Nachricht für alle aktuellen Stammkunden speichern
+        const insertSql = `
+            INSERT INTO kundennachricht
+            (
+                kunden_id,
+                titel,
+                nachricht
+            )
+
+            SELECT
+                k.id,
+                ?,
+                ?
+
+            FROM kunde k
+
+            JOIN bestellung b
+                ON b.kunden_id = k.id
+
+            GROUP BY k.id
+
+            HAVING COUNT(DISTINCT b.id) >= 3
+        `;
+
+        db.query(
+            insertSql,
+            [
+                titel.trim(),
+                nachricht.trim()
+            ],
+            (insertErr, result) => {
+                if (insertErr) {
+                    console.error(
+                        'Fehler beim Speichern des Newsletters:',
+                        insertErr
+                    );
+
+                    return res.status(500).json({
+                        message:
+                            'Die neue Nachricht konnte nicht gespeichert werden.'
+                    });
+                }
+
+                res.status(201).json({
+                    message:
+                        'Die vorherige Nachricht wurde ersetzt.',
+                    anzahlEmpfaenger:
+                        result.affectedRows
+                });
+            }
+        );
+    });
+});
+
+// ======================================================
+// NEUESTE NACHRICHT EINES KUNDEN LADEN
+// ======================================================
+
+app.get('/api/kunden/:kundeId/nachrichten', (req, res) => {
+    const kundeId = Number(req.params.kundeId);
+
+    if (!Number.isInteger(kundeId) || kundeId <= 0) {
+        return res.status(400).json({
+            message: 'Ungültige Kunden-ID.'
+        });
+    }
+
+    const sql = `
+        SELECT
+            id,
+            titel,
+            nachricht,
+            DATE_FORMAT(
+                erstellt_am,
+                '%d.%m.%Y um %H:%i Uhr'
+            ) AS erstellt_am
+        FROM kundennachricht
+        WHERE kunden_id = ?
+        ORDER BY id DESC
+        LIMIT 1
+    `;
+
+    db.query(sql, [kundeId], (err, results) => {
+        if (err) {
+            console.error(
+                'Fehler beim Laden der Nachricht:',
+                err
+            );
+
+            return res.status(500).json({
+                message:
+                    'Die Nachricht konnte nicht geladen werden.'
+            });
+        }
+
+        res.json(results);
+    });
+});
+
+// ======================================================
+// MITARBEITERVERWALTUNG
+// ======================================================
+
+
+// ------------------------------------------------------
+// ALLE MITARBEITER LADEN
+// ------------------------------------------------------
+
+app.get('/api/mitarbeiter', (req, res) => {
+    const sql = `
+        SELECT
+            id,
+            vorname,
+            nachname,
+            email,
+            rolle,
+            aktiv,
+            DATE_FORMAT(
+                erstellt_am,
+                '%d.%m.%Y'
+            ) AS erstellt_am
+        FROM mitarbeiter_verwaltung
+        ORDER BY nachname, vorname
+    `;
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error(
+                'Fehler beim Laden der Mitarbeiter:',
+                err
+            );
+
+            return res.status(500).json({
+                message:
+                    'Die Mitarbeiter konnten nicht geladen werden.',
+                    fehler: err.sqlMessage,
+                    code: err.code
+            });
+        }
+
+        const mitarbeiter = results.map(eintrag => ({
+            ...eintrag,
+            aktiv: Number(eintrag.aktiv) === 1
+        }));
+
+        res.json(mitarbeiter);
+    });
+});
+
+
+// ------------------------------------------------------
+// NEUEN MITARBEITER ANLEGEN
+// ------------------------------------------------------
+
+app.post('/api/mitarbeiter', (req, res) => {
+    const {
+        vorname,
+        nachname,
+        email,
+        passwort,
+        rolle,
+        aktiv
+    } = req.body;
+
+    if (
+        !vorname?.trim() ||
+        !nachname?.trim() ||
+        !email?.trim() ||
+        !passwort?.trim()
+    ) {
+        return res.status(400).json({
+            message:
+                'Bitte Vorname, Nachname, E-Mail und Passwort angeben.'
+        });
+    }
+
+    bcrypt.hash(passwort.trim(), 10, (hashErr, passwortHash) => {
+        if (hashErr) {
+            console.error(
+                'Fehler beim Verschlüsseln des Passworts:',
+                hashErr
+            );
+
+            return res.status(500).json({
+                message:
+                    'Das Passwort konnte nicht verarbeitet werden.'
+            });
+        }
+
+        const sql = `
+            INSERT INTO mitarbeiter_verwaltung
+            (
+                vorname,
+                nachname,
+                email,
+                passwort,
+                rolle,
+                aktiv
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+        `;
+
+        db.query(
+            sql,
+            [
+                vorname.trim(),
+                nachname.trim(),
+                email.trim().toLowerCase(),
+                passwortHash,
+                rolle?.trim() || 'Mitarbeiter',
+                aktiv === false ? 0 : 1
+            ],
+            (dbErr, result) => {
+                if (dbErr) {
+                    console.error(
+                        'Fehler beim Anlegen des Mitarbeiters:',
+                        dbErr
+                    );
+
+                    if (dbErr.errno === 1062) {
+                        return res.status(400).json({
+                            message:
+                                'Diese E-Mail-Adresse wird bereits verwendet.'
+                        });
+                    }
+
+                    return res.status(500).json({
+                        message:
+                            'Der Mitarbeiter konnte nicht angelegt werden.'
+                    });
+                }
+
+                res.status(201).json({
+                    message:
+                        'Mitarbeiter wurde erfolgreich angelegt.',
+                    id: result.insertId
+                });
+            }
+        );
+    });
+});
+
+
+// ------------------------------------------------------
+// MITARBEITER BEARBEITEN
+// ------------------------------------------------------
+
+app.put('/api/mitarbeiter/:id', (req, res) => {
+    const id = Number(req.params.id);
+
+    const {
+        vorname,
+        nachname,
+        email,
+        passwort,
+        rolle,
+        aktiv
+    } = req.body;
+
+    if (!Number.isInteger(id) || id <= 0) {
+        return res.status(400).json({
+            message: 'Ungültige Mitarbeiter-ID.'
+        });
+    }
+
+    if (
+        !vorname?.trim() ||
+        !nachname?.trim() ||
+        !email?.trim()
+    ) {
+        return res.status(400).json({
+            message:
+                'Bitte Vorname, Nachname und E-Mail angeben.'
+        });
+    }
+
+    const mitarbeiterSpeichern = (passwortHash = null) => {
+        let sql;
+        let werte;
+
+        if (passwortHash) {
+            sql = `
+                UPDATE mitarbeiter_verwaltung
+                SET
+                    vorname = ?,
+                    nachname = ?,
+                    email = ?,
+                    passwort = ?,
+                    rolle = ?,
+                    aktiv = ?
+                WHERE id = ?
+            `;
+
+            werte = [
+                vorname.trim(),
+                nachname.trim(),
+                email.trim().toLowerCase(),
+                passwortHash,
+                rolle?.trim() || 'Mitarbeiter',
+                aktiv === false ? 0 : 1,
+                id
+            ];
+        } else {
+            sql = `
+                UPDATE mitarbeiter
+                SET
+                    vorname = ?,
+                    nachname = ?,
+                    email = ?,
+                    rolle = ?,
+                    aktiv = ?
+                WHERE id = ?
+            `;
+
+            werte = [
+                vorname.trim(),
+                nachname.trim(),
+                email.trim().toLowerCase(),
+                rolle?.trim() || 'Mitarbeiter',
+                aktiv === false ? 0 : 1,
+                id
+            ];
+        }
+
+        db.query(sql, werte, (dbErr, result) => {
+            if (dbErr) {
+                console.error(
+                    'Fehler beim Bearbeiten des Mitarbeiters:',
+                    dbErr
+                );
+
+                if (dbErr.errno === 1062) {
+                    return res.status(400).json({
+                        message:
+                            'Diese E-Mail-Adresse wird bereits verwendet.'
+                    });
+                }
+
+                return res.status(500).json({
+                    message:
+                        'Der Mitarbeiter konnte nicht bearbeitet werden.'
+                });
+            }
+
+            if (result.affectedRows === 0) {
+                return res.status(404).json({
+                    message:
+                        'Der Mitarbeiter wurde nicht gefunden.'
+                });
+            }
+
+            res.json({
+                message:
+                    'Mitarbeiter wurde erfolgreich bearbeitet.'
+            });
+        });
+    };
+
+    if (passwort?.trim()) {
+        bcrypt.hash(
+            passwort.trim(),
+            10,
+            (hashErr, passwortHash) => {
+                if (hashErr) {
+                    console.error(
+                        'Fehler beim Verschlüsseln des Passworts:',
+                        hashErr
+                    );
+
+                    return res.status(500).json({
+                        message:
+                            'Das Passwort konnte nicht verarbeitet werden.'
+                    });
+                }
+
+                mitarbeiterSpeichern(passwortHash);
+            }
+        );
+    } else {
+        mitarbeiterSpeichern();
+    }
+});
+
+
+// ------------------------------------------------------
+// MITARBEITER LÖSCHEN
+// ------------------------------------------------------
+
+app.delete('/api/mitarbeiter/:id', (req, res) => {
+    const id = Number(req.params.id);
+
+    if (!Number.isInteger(id) || id <= 0) {
+        return res.status(400).json({
+            message: 'Ungültige Mitarbeiter-ID.'
+        });
+    }
+
+    const sql = `
+        DELETE FROM mitarbeiter_verwaltung
+        WHERE id = ?
+    `;
+
+    db.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error(
+                'Fehler beim Löschen des Mitarbeiters:',
+                err
+            );
+
+            return res.status(500).json({
+                message:
+                    'Der Mitarbeiter konnte nicht gelöscht werden.'
+            });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                message:
+                    'Der Mitarbeiter wurde nicht gefunden.'
+            });
+        }
+
+        res.json({
+            message:
+                'Mitarbeiter wurde erfolgreich gelöscht.'
+        });
+    });
+});
+
+// ======================================================
+// BESTELLUNGEN EINES EINGELOGGTEN KUNDEN LADEN
+// ======================================================
+
+app.get('/api/kunden/:kundeId/bestellungen', (req, res) => {
+    const kundeId = Number(req.params.kundeId);
+
+    if (!Number.isInteger(kundeId) || kundeId <= 0) {
+        return res.status(400).json({
+            message: 'Ungültige Kunden-ID.'
+        });
+    }
+
+    const sql = `
+        SELECT
+            b.id,
+            DATE_FORMAT(
+                b.datum,
+                '%d.%m.%Y'
+            ) AS datum,
+
+            GROUP_CONCAT(
+                CONCAT(
+                    p.name,
+                    ' (',
+                    bp.menge,
+                    'x)'
+                )
+                ORDER BY p.name
+                SEPARATOR ', '
+            ) AS artikel,
+
+            COALESCE(
+                SUM(bp.menge),
+                0
+            ) AS menge,
+
+            b.gesamtpreis,
+
+            COALESCE(
+                NULLIF(b.status, ''),
+                'Eingegangen'
+            ) AS status,
+
+            r.rechnungs_nummer
+
+        FROM bestellung b
+
+        LEFT JOIN bestellposition bp
+            ON bp.bestellung_id = b.id
+
+        LEFT JOIN produkt p
+            ON p.id = bp.produkt_id
+
+        LEFT JOIN rechnung r
+            ON r.bestellung_id = b.id
+
+        WHERE b.kunden_id = ?
+
+        GROUP BY
+            b.id,
+            b.datum,
+            b.gesamtpreis,
+            b.status,
+            r.rechnungs_nummer
+
+        ORDER BY
+            b.datum DESC,
+            b.id DESC
+    `;
+
+    db.query(sql, [kundeId], (err, results) => {
+        if (err) {
+            console.error(
+                'Fehler beim Laden der Kundenbestellungen:',
+                err
+            );
+
+            return res.status(500).json({
+                message:
+                    'Die Bestellungen konnten nicht geladen werden.'
+            });
+        }
+
+        const bestellungen = results.map(bestellung => ({
+            ...bestellung,
+            menge: Number(bestellung.menge),
+            gesamtpreis: Number(bestellung.gesamtpreis)
+        }));
+
+        res.json(bestellungen);
+    });
+});
+
+// ======================================================
+// LIEFERSTATUS EINER BESTELLUNG ÄNDERN
+// ======================================================
+
+app.put('/api/bestellungen/:id/status', (req, res) => {
+    const bestellungId = Number(req.params.id);
+    const { status } = req.body;
+
+    const erlaubteStatuswerte = [
+        'Eingegangen',
+        'In Bearbeitung',
+        'Versendet',
+        'Zugestellt'
+    ];
+
+    if (
+        !Number.isInteger(bestellungId) ||
+        bestellungId <= 0
+    ) {
+        return res.status(400).json({
+            message: 'Ungültige Bestellnummer.'
+        });
+    }
+
+    if (!erlaubteStatuswerte.includes(status)) {
+        return res.status(400).json({
+            message: 'Ungültiger Lieferstatus.'
+        });
+    }
+
+    const sql = `
+        UPDATE bestellung
+        SET status = ?
+        WHERE id = ?
+    `;
+
+    db.query(
+        sql,
+        [status, bestellungId],
+        (err, result) => {
+            if (err) {
+                console.error(
+                    'Fehler beim Ändern des Lieferstatus:',
+                    err
+                );
+
+                return res.status(500).json({
+                    message:
+                        'Der Lieferstatus konnte nicht gespeichert werden.'
+                });
+            }
+
+            if (result.affectedRows === 0) {
+                return res.status(404).json({
+                    message:
+                        'Die Bestellung wurde nicht gefunden.'
+                });
+            }
+
+            res.json({
+                message:
+                    'Der Lieferstatus wurde erfolgreich gespeichert.',
+                status: status
+            });
+        }
+    );
+});
+
+// ======================================================
+// KUNDENPROFIL LADEN UND BEARBEITEN
+// ======================================================
+
+// Profil eines Kunden laden
+app.get('/api/kunden/:kundeId/profil', (req, res) => {
+    const kundeId = Number(req.params.kundeId);
+
+    if (!Number.isInteger(kundeId) || kundeId <= 0) {
+        return res.status(400).json({
+            message: 'Ungültige Kunden-ID.'
+        });
+    }
+
+    const sql = `
+        SELECT
+            id,
+            vorname,
+            nachname,
+            email,
+            adresse,
+            plz,
+            wohnort,
+            telefon
+        FROM kunde
+        WHERE id = ?
+    `;
+
+    db.query(sql, [kundeId], (err, results) => {
+        if (err) {
+            console.error(
+                'Fehler beim Laden des Kundenprofils:',
+                err
+            );
+
+            return res.status(500).json({
+                message:
+                    'Das Kundenprofil konnte nicht geladen werden.'
+            });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({
+                message: 'Der Kunde wurde nicht gefunden.'
+            });
+        }
+
+        res.json(results[0]);
+    });
+});
+
+
+// Profil eines Kunden bearbeiten
+app.put('/api/kunden/:kundeId/profil', (req, res) => {
+    const kundeId = Number(req.params.kundeId);
+
+    const {
+        vorname,
+        nachname,
+        email,
+        adresse,
+        plz,
+        wohnort,
+        telefon
+    } = req.body;
+
+    if (!Number.isInteger(kundeId) || kundeId <= 0) {
+        return res.status(400).json({
+            message: 'Ungültige Kunden-ID.'
+        });
+    }
+
+    if (
+        !vorname?.trim() ||
+        !nachname?.trim() ||
+        !email?.trim()
+    ) {
+        return res.status(400).json({
+            message:
+                'Bitte Vorname, Nachname und E-Mail-Adresse angeben.'
+        });
+    }
+
+    const sql = `
+        UPDATE kunde
+        SET
+            vorname = ?,
+            nachname = ?,
+            email = ?,
+            adresse = ?,
+            plz = ?,
+            wohnort = ?,
+            telefon = ?
+        WHERE id = ?
+    `;
+
+    const werte = [
+        vorname.trim(),
+        nachname.trim(),
+        email.trim().toLowerCase(),
+        adresse?.trim() || '',
+        plz?.trim() || '',
+        wohnort?.trim() || '',
+        telefon?.trim() || '',
+        kundeId
+    ];
+
+    db.query(sql, werte, (err, result) => {
+        if (err) {
+            console.error(
+                'Fehler beim Bearbeiten des Kundenprofils:',
+                err
+            );
+
+            if (err.errno === 1062) {
+                return res.status(400).json({
+                    message:
+                        'Diese E-Mail-Adresse wird bereits verwendet.'
+                });
+            }
+
+            return res.status(500).json({
+                message:
+                    'Das Kundenprofil konnte nicht gespeichert werden.'
+            });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                message: 'Der Kunde wurde nicht gefunden.'
+            });
+        }
+
+        res.json({
+            message:
+                'Das Profil wurde erfolgreich gespeichert.',
+
+            kunde: {
+                id: kundeId,
+                vorname: vorname.trim(),
+                nachname: nachname.trim(),
+                email: email.trim().toLowerCase(),
+                adresse: adresse?.trim() || '',
+                plz: plz?.trim() || '',
+                wohnort: wohnort?.trim() || '',
+                telefon: telefon?.trim() || ''
+            }
+        });
+    });
+});
 
 // ======================================================
 // SERVER STARTEN

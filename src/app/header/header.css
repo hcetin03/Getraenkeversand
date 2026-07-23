@@ -73,6 +73,78 @@
   outline: none;
 }
 
+.such-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 100;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.such-ergebnis {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.such-ergebnis:hover {
+  background: #f5f5f5;
+}
+
+.such-ergebnis-bild {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.such-ergebnis-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+}
+
+.such-ergebnis-name {
+  font-weight: 500;
+}
+
+.such-ergebnis-preis {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.such-ergebnis-plus {
+  background: #319660;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 2px;
+  transition: background 0.15s;
+}
+
+.such-ergebnis-plus:hover {
+  background: #226b3a;
+}
+
 .user-nav {
   display: flex;
   align-items: center;
@@ -193,4 +265,256 @@
   }
 
   
+}
+
+/* =====================================================
+   PROFESSIONELLER ACCOUNT-BEREICH
+===================================================== */
+
+.account-bereich {
+    position: relative;
+    z-index: 1000;
+}
+
+.account-button {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: 210px;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.account-button:hover,
+.account-button-aktiv {
+    border-color: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.21);
+}
+
+.account-button:hover {
+    transform: translateY(-1px);
+}
+
+.account-avatar,
+.account-dropdown-avatar {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #dff3e8
+    );
+    color: #27794e;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.account-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 13px;
+}
+
+.account-informationen {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.account-informationen small {
+    margin-bottom: 2px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 11px;
+}
+
+.account-informationen strong {
+    overflow: hidden;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.account-pfeil {
+    font-size: 10px;
+    transition: transform 0.2s ease;
+}
+
+.account-pfeil-offen {
+    transform: rotate(180deg);
+}
+
+
+/* Dropdown */
+
+.account-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    box-sizing: border-box;
+    width: 315px;
+    padding: 12px;
+    border: 1px solid #dbe6e0;
+    border-radius: 18px;
+    background: white;
+    color: #34423a;
+    box-shadow:
+        0 18px 45px rgba(24, 54, 38, 0.22);
+}
+
+.account-dropdown::before {
+    position: absolute;
+    top: -7px;
+    right: 28px;
+    width: 14px;
+    height: 14px;
+    border-top: 1px solid #dbe6e0;
+    border-left: 1px solid #dbe6e0;
+    background: white;
+    content: "";
+    transform: rotate(45deg);
+}
+
+.account-dropdown-kopf {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 10px 10px 13px;
+}
+
+.account-dropdown-avatar {
+    width: 48px;
+    height: 48px;
+    font-size: 15px;
+    box-shadow:
+        0 5px 14px rgba(49, 150, 96, 0.16);
+}
+
+.account-dropdown-kopf div {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+}
+
+.account-dropdown-kopf strong {
+    margin-bottom: 3px;
+    color: #2d3d34;
+}
+
+.account-dropdown-kopf small {
+    overflow: hidden;
+    color: #748078;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.account-dropdown-trennlinie {
+    height: 1px;
+    margin: 6px 4px;
+    background: #e4ebe7;
+}
+
+.account-dropdown-eintrag {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    align-items: center;
+    gap: 13px;
+    padding: 11px 10px;
+    border: none;
+    border-radius: 11px;
+    background: transparent;
+    color: #35443b;
+    font: inherit;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background 0.18s ease,
+        color 0.18s ease;
+}
+
+.account-dropdown-eintrag:hover {
+    background: #edf8f2;
+    color: #23754a;
+}
+
+.account-dropdown-eintrag > span {
+    display: flex;
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #eef5f1;
+    font-size: 17px;
+}
+
+.account-dropdown-eintrag > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-dropdown-eintrag strong {
+    margin-bottom: 2px;
+    font-size: 14px;
+}
+
+.account-dropdown-eintrag small {
+    color: #7a857f;
+    font-size: 11px;
+}
+
+.account-abmelden {
+    color: #a52938;
+}
+
+.account-abmelden:hover {
+    background: #fff0f2;
+    color: #a52938;
+}
+
+.account-abmelden > span {
+    background: #fff0f2;
+}
+
+
+/* Smartphone */
+
+@media (max-width: 750px) {
+
+    .account-button {
+        min-width: auto;
+    }
+
+    .account-informationen {
+        display: none;
+    }
+
+    .account-dropdown {
+        position: fixed;
+        top: 80px;
+        right: 15px;
+        left: 15px;
+        width: auto;
+    }
+
+    .account-dropdown::before {
+        display: none;
+    }
 }

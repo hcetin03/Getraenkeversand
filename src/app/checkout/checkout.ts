@@ -35,12 +35,18 @@ export class Checkout {
 
   versandkosten = signal(4.50);
 
+  gewaehlteZahlung = signal<string>('');
+
   zwischensumme = computed(() => {
     return this.produkte().reduce((sum, item) => sum + item.preis * item.menge, 0);
   });
 
+  pfandsumme = computed(() => {
+    return this.produkte().reduce((sum, item) => sum + item.pfand * item.menge, 0);
+  });
+
   gesamtsumme = computed(() => {
-    return this.zwischensumme() + this.versandkosten();
+    return this.zwischensumme() + this.pfandsumme() + this.versandkosten();
   });
 
   adresseUmschalten() {
@@ -80,6 +86,11 @@ export class Checkout {
       return;
     }
 
+    if (!this.gewaehlteZahlung()) {
+      alert('Bitte wähle eine Zahlungsmethode aus.');
+    return;
+    }
+
     if (
       !this.lieferDaten.vorname ||
       !this.lieferDaten.nachname ||
@@ -95,7 +106,8 @@ export class Checkout {
     const bestellteProdukte = this.produkte().map(item => ({
       getraenk: {
         id: item.id,
-        preis: item.preis
+        preis: item.preis,
+        pfand: item.pfand
       },
       menge: item.menge
     }));
@@ -105,7 +117,8 @@ export class Checkout {
       gesamtpreis: this.gesamtsumme(),
       datum: new Date().toISOString().slice(0, 10),
       kundenId: Number(kundeId),
-      lieferadresse: this.lieferDaten
+      lieferadresse: this.lieferDaten,
+      zahlungsmethode: this.gewaehlteZahlung()
     };
 
     this.http.post('http://localhost:3000/api/bestellung', bestellDaten)
